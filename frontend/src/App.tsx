@@ -18,13 +18,11 @@ import { DoctorListPage } from './pages/DoctorListPage';
 import { DoctorCasePage } from './pages/DoctorCasePage';
 import { ControlTowerPage } from './pages/ControlTowerPage';
 import { AlertsPage } from './pages/AlertsPage';
-import {
-  AmbulancePage,
-  AmbulanceCasePage,
-  PatientPage,
-  AdminPage,
-  DemoPage,
-} from './pages/Placeholders';
+import { AmbulancePage } from './pages/AmbulancePage';
+import { AmbulanceCasePage } from './pages/AmbulanceCasePage';
+import { PatientPage } from './pages/PatientPage';
+import { AdminPage } from './pages/AdminPage';
+import { DemoPage } from './pages/DemoPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {

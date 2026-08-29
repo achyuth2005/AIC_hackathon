@@ -64,6 +64,9 @@ export interface CaseResponse {
   last_reassessed_at: string | null;
   reassessment_overdue: boolean;
   reassessment_overdue_since: string | null;
+  candidate_mrn?: string | null;
+  candidate_display_name?: string | null;
+  candidate_confidence?: number | null;
 }
 
 export interface CaseCreateRequest {
@@ -193,6 +196,9 @@ export interface QueueEntry {
   wait_time_estimate: WaitTimeEstimate;
   one_line_presentation: string | null;
   primary_attention_flag: PrimaryAttentionFlag;
+  stage?: PatientStage;
+  arrival_mode?: ArrivalMode;
+  identity_link_status?: IdentityLinkStatus;
 }
 
 // Decisions & Overrides
@@ -540,27 +546,25 @@ export interface IntakeRequest {
 }
 
 // Admin & Audit
-export interface SubgroupDistribution {
-  total: number;
-  escalated_count: number;
-  escalated_rate: number;
-  de_escalated_count: number;
-  de_escalated_rate: number;
-  acuity_distribution: Record<string, number>;
+export interface SubgroupStats {
+  subgroup: string;
+  case_count: number;
+  acuity_distribution: Record<number, number>;
+  decision_count: number;
+  escalate_count: number;
+  de_escalate_count: number;
+  override_rate: number | null;
 }
 
 export interface OverrideMonitoringReport {
   total_cases: number;
   total_decisions: number;
   action_counts: Record<string, number>;
+  overall_override_rate: number | null;
+  overall_de_escalation_rate: number | null;
   flagged_for_review_count: number;
-  overall_override_rate: number;
-  escalate_rate: number;
-  de_escalate_rate: number;
-  by_age_band: Record<string, SubgroupDistribution>;
-  by_sex: Record<string, SubgroupDistribution>;
-  window_start: string;
-  window_end: string;
+  by_age_band: SubgroupStats[];
+  by_sex: SubgroupStats[];
   caveat: string;
 }
 
