@@ -1,0 +1,452 @@
+# Default HospitalProfile (Phase 18.1).
+#
+# Sourcing convention carried over from the architecture document: anything
+# citable is marked [Sourced], anything not yet clinically signed off is
+# marked [Assumption] or [Requires clinical validation]. Do not treat any
+# numeric threshold below as production-ready.
+
+acuity_framework: "ESI-5"  # [Sourced] AHRQ/ENA Emergency Severity Index v5, Phase 3.3 Layer 2
+
+# Phase 9.2 abstention path for the Age Router itself: if age is not
+# recorded at all, no framework can be selected, so this is the safe
+# holding level pending a human assessment. [Assumption].
+unknown_age_default_esi_level: 3
+
+# ---------------------------------------------------------------------
+# Phase 9.1/9.2 -- Confidence & Abstention Engine. Point deductions from a
+# 100-point start; final score maps to HIGH/MEDIUM/LOW, or triggers outright
+# abstention below abstention_score_threshold. [Requires clinical
+# validation] for every weight below; illustrative starting point only.
+# ---------------------------------------------------------------------
+# ---------------------------------------------------------------------
+# Phase 3.3 Layer 3 -- ML Risk Challenger. `probability_to_esi` mirrors
+# NEWS2Config.aggregate_to_esi's shape, but over a 0-1 calibrated
+# probability rather than a raw aggregate score. Chosen with reference to
+# the training run's operating_threshold (~0.10 for 85% recall on
+# synthetic data, see app/ml/artifacts/metadata.json) so probabilities
+# near/above that threshold actually move the acuity, not just cross an
+# arbitrary line. Never reaches ESI 1 -- consistent with NEWS2/PEWS's own
+# aggregate_to_esi, which also reserve ESI 1 for hard triggers/bypass
+# (Phase 3.3 Layer 4 / Phase 3.5), not an aggregate/probability score alone.
+# [Requires clinical validation].
+# ---------------------------------------------------------------------
+ml_challenger:
+  enabled: true
+  probability_to_esi:
+    - {min_score: 0.0, max_score: 0.099999, esi_level: 5}
+    - {min_score: 0.1, max_score: 0.249999, esi_level: 4}
+    - {min_score: 0.25, max_score: 0.499999, esi_level: 3}
+    - {min_score: 0.5, esi_level: 2}
+
+# Phase 3.2 (CP17): LLM Intake/Explanation engines. `enabled: false` is
+# this hospital's Phase 9.5 kill switch -- both engines fall back to a
+# fully deterministic path (structured entry / rule-component-breakdown
+# explanation) with no code change needed. api_key_env_var names an
+# environment variable; the key itself is never written here.
+llm:
+  enabled: true
+  provider: groq
+  model: openai/gpt-oss-20b
+  api_key_env_var: GROQ_API_KEY
+  request_timeout_seconds: 20.0
+
+confidence:
+  max_completeness_penalty: 90.0      # scales with fraction missing; only ~7 required params, so full absence must devastate confidence, not a token deduction
+  ml_unavailable_penalty: 15.0       # always applies until CP6 wires in the ML challenger
+  ml_disagreement_penalty_per_level: 10.0
+  boundary_margin: 1.0               # aggregate-score points from a band edge counted as "borderline"
+  boundary_penalty: 15.0
+  reliability_tier_penalties: {1: 0.0, 2: 5.0, 3: 15.0, 4: 20.0}  # keyed by ReliabilityTier value
+  high_confidence_min_score: 75.0
+  medium_confidence_min_score: 50.0
+  abstention_score_threshold: 25.0
+  abstention_minimum_acuity: 3
+
+# ---------------------------------------------------------------------
+# Phase 6.3 -- Stuck Patient Detection (Flow/Operations Engine, CP9). Three
+# of the five named patterns, per Phase 13's own MVP guidance. Candidate
+# actions shown to the charge nurse on a capacity conflict (Phase 6.2).
+# [Requires clinical validation] / [Assumption]; illustrative only.
+# ---------------------------------------------------------------------
+ops:
+  test_ordered_to_sample_window_minutes: 45
+  result_available_to_reviewed_window_minutes: 30
+  resource_assigned_to_occupied_window_minutes: 15
+  capacity_conflict_candidate_actions:
+    - "Expedite a discharge to free a space"
+    - "Use an alternative space or resource type"
+    - "Escalate to the on-call team"
+  # Phase 6.4 waiting-time prediction. [Assumption]/[Requires clinical
+  # validation]: illustrative cold-start figures only, used until this
+  # hospital_profile_id has enough real history to compute its own rolling
+  # median (see app/ops/wait_time.py).
+  default_service_minutes_by_acuity:
+    1: 15.0
+    2: 25.0
+    3: 45.0
+    4: 60.0
+    5: 90.0
+  wait_time_lookback_samples: 50
+  wait_time_min_samples_for_band_specific_median: 3
+  wait_time_range_widen_factor_normal: 0.4
+  wait_time_range_widen_factor_low_confidence: 0.75
+
+# Phase 3.3 Layer 1 (Age Router). The 16-year adult cutoff is [Sourced]
+# directly from NEWS2's own scope ("developed for non-pregnant adults aged
+# 16 and over"). The 65-year geriatric cutoff is [Requires clinical
+# validation] -- it is a common convention, not something NEWS2/ESI mandate.
+age_band_definitions:
+  - name: PAEDIATRIC
+    min_age_years: 0
+    max_age_years: 16
+  - name: ADULT
+    min_age_years: 16
+    max_age_years: 65
+  - name: GERIATRIC
+    min_age_years: 65
+    max_age_years: null
+
+# ---------------------------------------------------------------------
+# NEWS2 (Phase 3.3 Layer 2, adult backbone).
+# [Sourced]: Royal College of Physicians, "National Early Warning Score
+# (NEWS) 2", 2017 -- six physiological parameters + supplemental oxygen.
+# Scale 1 (standard) SpO2 table only; Scale 2 (for patients with a target
+# range of 88-92%, i.e. hypercapnic respiratory failure risk) requires a
+# clinician-flagged patient state this prototype does not model, and is
+# therefore [Out of scope] rather than silently misapplied -- see
+# app/scoring/news2.py docstring.
+# ---------------------------------------------------------------------
+news2:
+  respiratory_rate:  # breaths/min
+    - {max: 8, points: 3}
+    - {min: 9, max: 11, points: 1}
+    - {min: 12, max: 20, points: 0}
+    - {min: 21, max: 24, points: 2}
+    - {min: 25, points: 3}
+  spo2_scale1:  # %
+    - {max: 91, points: 3}
+    - {min: 92, max: 93, points: 2}
+    - {min: 94, max: 95, points: 1}
+    - {min: 96, points: 0}
+  supplemental_oxygen_points: 2
+  systolic_bp:  # mmHg
+    - {max: 90, points: 3}
+    - {min: 91, max: 100, points: 2}
+    - {min: 101, max: 110, points: 1}
+    - {min: 111, max: 219, points: 0}
+    - {min: 220, points: 3}
+  pulse:  # bpm
+    - {max: 40, points: 3}
+    - {min: 41, max: 50, points: 1}
+    - {min: 51, max: 90, points: 0}
+    - {min: 91, max: 110, points: 1}
+    - {min: 111, max: 130, points: 2}
+    - {min: 131, points: 3}
+  consciousness_points:  # AVPU, or new confusion scored as non-alert
+    ALERT: 0
+    NEW_CONFUSION: 3
+    VOICE: 3
+    PAIN: 3
+    UNRESPONSIVE: 3
+  temperature:  # degrees C
+    - {max: 35.0, points: 3}
+    - {min: 35.1, max: 36.0, points: 1}
+    - {min: 36.1, max: 38.0, points: 0}
+    - {min: 38.1, max: 39.0, points: 1}
+    - {min: 39.1, points: 2}
+
+  # [Requires clinical validation] below: NEWS2's own risk bands are
+  # low/medium/high, not ESI 1-5. This mapping is this project's bridge,
+  # deliberately conservative (nothing maps to ESI 1 -- level 1 is reserved
+  # for the Emergency Bypass / hard triggers, CP4, not an aggregate score).
+  single_parameter_red_threshold: 3  # NEWS2's own "any single param = 3" escalation rule [Sourced logic, assumption-mapped target level]
+  single_parameter_escalation_esi_level: 2
+  aggregate_to_esi:
+    - {min_score: 0, max_score: 0, esi_level: 5}
+    - {min_score: 1, max_score: 4, esi_level: 4}
+    - {min_score: 5, max_score: 6, esi_level: 3}
+    - {min_score: 7, esi_level: 2}
+  missing_data_cap_esi_level: 3  # Phase 3.3: "unknown is treated as potentially dangerous, not as fine"
+
+# ---------------------------------------------------------------------
+# Geriatric adjustment (Phase 3.3 Layer 1: geriatric needs "its own
+# reference ranges and its own escalation triggers"). Reuses every NEWS2
+# parameter table verbatim (NEWS2's stated scope has no upper age bound) but
+# escalates earlier, because blunted physiological compensation in elderly
+# patients means small multi-parameter deviations are less reassuring than
+# they look in aggregate. Entirely [Requires clinical validation] -- see
+# the Architecture Concern raised at CP3 for why this section exists at all
+# (the source document names the requirement but not a published framework
+# for it).
+# ---------------------------------------------------------------------
+geriatric_adjustment:
+  single_parameter_red_threshold: 1   # tighter than adult's 3
+  single_parameter_escalation_esi_level: 2
+  aggregate_to_esi:
+    - {min_score: 0, max_score: 0, esi_level: 4}
+    - {min_score: 1, max_score: 3, esi_level: 3}
+    - {min_score: 4, max_score: 5, esi_level: 2}
+    - {min_score: 6, esi_level: 2}
+  missing_data_cap_esi_level: 3
+
+# ---------------------------------------------------------------------
+# PEWS-style paediatric backbone (Phase 3.3 Layer 2). See
+# PEWSConfig docstring in app/config/hospital_profile.py for why RR/HR/SBP
+# are deviation-from-normal-range formulas rather than hand-authored point
+# tables. Age bands follow a common APLS-style four-way split. Normal
+# ranges are illustrative, [Requires clinical validation] against a named
+# PEWS variant before any real use -- Phase 3.3 cites ED-PEWS as validated
+# in LMIC ED settings without reproducing its chart, and this project does
+# not have licensed access to reproduce it here either.
+# ---------------------------------------------------------------------
+pews:
+  age_bands:
+    - name: INFANT
+      min_age_years: 0
+      max_age_years: 1
+      respiratory_rate_normal: [30, 53]
+      heart_rate_normal: [100, 160]
+      systolic_bp_normal: [70, 104]
+    - name: TODDLER
+      min_age_years: 1
+      max_age_years: 5
+      respiratory_rate_normal: [22, 34]
+      heart_rate_normal: [90, 140]
+      systolic_bp_normal: [80, 110]
+    - name: CHILD
+      min_age_years: 5
+      max_age_years: 12
+      respiratory_rate_normal: [18, 26]
+      heart_rate_normal: [70, 120]
+      systolic_bp_normal: [90, 120]
+    - name: ADOLESCENT
+      min_age_years: 12
+      max_age_years: 16
+      respiratory_rate_normal: [12, 20]
+      heart_rate_normal: [60, 100]
+      systolic_bp_normal: [95, 130]
+
+  # deviation beyond the normal-range bound, as a fraction of the bound:
+  # <=15% -> 1 point, <=30% -> 2 points, >30% -> 3 points. [Assumption].
+  deviation_band_thresholds: [0.15, 0.30]
+
+  spo2_scale1:  # reused as age-independent; [Assumption] for paediatrics specifically
+    - {max: 91, points: 3}
+    - {min: 92, max: 93, points: 2}
+    - {min: 94, max: 95, points: 1}
+    - {min: 96, points: 0}
+  supplemental_oxygen_points: 2
+
+  work_of_breathing_points:  # Phase 3.3: qualitative sign, matters more than numbers for paediatrics
+    NORMAL: 0
+    MILD: 1
+    MODERATE: 2
+    SEVERE: 3
+  consciousness_points:  # graded AVPU (paediatric PEWS conventionally grades this, unlike NEWS2's binary)
+    ALERT: 0
+    VOICE: 1
+    PAIN: 2
+    UNRESPONSIVE: 3
+  temperature:  # same shape as NEWS2's; age-independent [Assumption]
+    - {max: 35.0, points: 3}
+    - {min: 35.1, max: 36.0, points: 1}
+    - {min: 36.1, max: 38.0, points: 0}
+    - {min: 38.1, max: 39.0, points: 1}
+    - {min: 39.1, points: 2}
+
+  single_parameter_red_threshold: 2  # tighter than adult's 3 -- paediatric under-triage is a named safety risk
+  single_parameter_escalation_esi_level: 2
+  aggregate_to_esi:
+    - {min_score: 0, max_score: 0, esi_level: 5}
+    - {min_score: 1, max_score: 2, esi_level: 4}
+    - {min_score: 3, max_score: 4, esi_level: 3}
+    - {min_score: 5, esi_level: 2}
+  missing_data_cap_esi_level: 3
+
+# ---------------------------------------------------------------------
+# Phase 3.3 Layer 4 -- hard escalation triggers. Fire WITHIN the normal
+# scoring pipeline: force rule_acuity to target_esi_level regardless of
+# aggregate score, but the case is still queued (at the top). Distinct from
+# emergency_bypass_physiological_triggers below, which skip the queue
+# entirely -- see HardTriggerDefinition docstring in hospital_profile.py.
+# All thresholds [Requires clinical validation]; illustrative only.
+#
+# CP11 fix (self-discovered while building the demo scenario for a subtle
+# infant presentation): the four RR/HR triggers and PROFOUND_HYPOTENSION
+# below were unscoped (`applies_to_age_bands` empty = fires for every age
+# band), using adult-calibrated absolute cutoffs. But those cutoffs sit
+# INSIDE a healthy infant/child's own normal range (e.g. an infant's normal
+# resting heart rate runs up to 160 -- exactly the adult "severe
+# tachycardia" threshold -- and PEWS's own infant systolic-BP floor of 70
+# is literally the adult "profound hypotension" cutoff). A perfectly
+# healthy infant could therefore have tripped an adult-calibrated hard
+# trigger. Fixed the same way CRITICAL_HYPOXIA_PAEDIATRIC already
+# demonstrates: restrict the general trigger to non-paediatric bands and
+# add paediatric-specific variants with thresholds derived from PEWS's own
+# age-band normal ranges (app/config/hospital_profile.py's PEWSAgeBand),
+# not invented independently. [Assumption]/[Requires clinical validation]
+# for every specific number, same as everywhere else in this file.
+# ---------------------------------------------------------------------
+hard_trigger_definitions:
+  - trigger_id: CRITICAL_HYPOXIA
+    label: "Critical hypoxia (SpO2 <= 85%)"
+    condition: {concept_code: SPO2, comparison: lte, numeric_threshold: 85}
+    target_esi_level: 1
+  - trigger_id: CRITICAL_HYPOXIA_PAEDIATRIC
+    label: "Critical hypoxia, paediatric (SpO2 <= 90%)"
+    condition: {concept_code: SPO2, comparison: lte, numeric_threshold: 90}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+  - trigger_id: PROFOUND_HYPOTENSION
+    label: "Profound hypotension (systolic BP <= 70 mmHg)"
+    condition: {concept_code: SYSTOLIC_BP, comparison: lte, numeric_threshold: 70}
+    applies_to_age_bands: [ADULT, GERIATRIC]  # CP11: 70 is literally an infant's own normal-BP floor (PEWS INFANT band); see paediatric variant below
+    target_esi_level: 1
+  - trigger_id: PROFOUND_HYPOTENSION_PAEDIATRIC
+    label: "Profound hypotension, paediatric (systolic BP <= 50 mmHg)"
+    condition: {concept_code: SYSTOLIC_BP, comparison: lte, numeric_threshold: 50}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+  - trigger_id: SEVERE_BRADYPNOEA
+    label: "Severe bradypnoea (respiratory rate <= 5)"
+    condition: {concept_code: RESP_RATE, comparison: lte, numeric_threshold: 5}
+    applies_to_age_bands: [ADULT, GERIATRIC]  # CP11: see paediatric variant below
+    target_esi_level: 1
+  - trigger_id: SEVERE_BRADYPNOEA_PAEDIATRIC
+    label: "Severe bradypnoea, paediatric (respiratory rate <= 8)"
+    condition: {concept_code: RESP_RATE, comparison: lte, numeric_threshold: 8}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+  - trigger_id: SEVERE_TACHYPNOEA
+    label: "Severe tachypnoea (respiratory rate >= 40)"
+    condition: {concept_code: RESP_RATE, comparison: gte, numeric_threshold: 40}
+    applies_to_age_bands: [ADULT, GERIATRIC]  # CP11: 40 is within a normal infant's resting range (PEWS INFANT band 30-53); see paediatric variant below
+    target_esi_level: 1
+  - trigger_id: SEVERE_TACHYPNOEA_PAEDIATRIC
+    label: "Severe tachypnoea, paediatric (respiratory rate >= 70)"
+    condition: {concept_code: RESP_RATE, comparison: gte, numeric_threshold: 70}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+  - trigger_id: SEVERE_BRADYCARDIA
+    label: "Severe bradycardia (heart rate <= 30)"
+    condition: {concept_code: HEART_RATE, comparison: lte, numeric_threshold: 30}
+    applies_to_age_bands: [ADULT, GERIATRIC]  # CP11: see paediatric variant below
+    target_esi_level: 1
+  - trigger_id: SEVERE_BRADYCARDIA_PAEDIATRIC
+    label: "Severe bradycardia, paediatric (heart rate <= 40)"
+    condition: {concept_code: HEART_RATE, comparison: lte, numeric_threshold: 40}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+  - trigger_id: SEVERE_TACHYCARDIA
+    label: "Severe tachycardia (heart rate >= 160)"
+    condition: {concept_code: HEART_RATE, comparison: gte, numeric_threshold: 160}
+    applies_to_age_bands: [ADULT, GERIATRIC]  # CP11: 160 is literally an infant's own normal-HR ceiling (PEWS INFANT band); see paediatric variant below
+    target_esi_level: 1
+  - trigger_id: SEVERE_TACHYCARDIA_PAEDIATRIC
+    label: "Severe tachycardia, paediatric (heart rate >= 210)"
+    condition: {concept_code: HEART_RATE, comparison: gte, numeric_threshold: 210}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+  - trigger_id: UNRESPONSIVE
+    label: "Unresponsive (AVPU = U)"
+    condition: {concept_code: CONSCIOUSNESS_LEVEL, comparison: eq, coded_value: UNRESPONSIVE}
+    target_esi_level: 1
+  - trigger_id: SEVERE_WORK_OF_BREATHING_PAEDIATRIC
+    label: "Severe work of breathing (paediatric)"
+    condition: {concept_code: WORK_OF_BREATHING, comparison: eq, coded_value: SEVERE}
+    applies_to_age_bands: [PAEDIATRIC]
+    target_esi_level: 1
+
+# ---------------------------------------------------------------------
+# Phase 3.5 detector #2 -- Emergency Bypass physiological triggers. These
+# SKIP THE QUEUE ENTIRELY (not "top of queue" like hard triggers above), so
+# thresholds here are deliberately more extreme / closer to peri-arrest.
+# The same physiological state firing both this list and a hard trigger
+# above is expected, not a bug (Phase 3.5: redundant detectors by design).
+# [Requires clinical validation]; illustrative only.
+# ---------------------------------------------------------------------
+emergency_bypass_physiological_triggers:
+  - trigger_id: APNOEA_OR_NEAR_APNOEA
+    label: "Respiratory rate <= 2 (peri-arrest)"
+    condition: {concept_code: RESP_RATE, comparison: lte, numeric_threshold: 2}
+  - trigger_id: PROFOUND_HYPOXIA
+    label: "SpO2 <= 75%"
+    condition: {concept_code: SPO2, comparison: lte, numeric_threshold: 75}
+  - trigger_id: PROFOUND_BRADYCARDIA
+    label: "Heart rate <= 20 (peri-arrest)"
+    condition: {concept_code: HEART_RATE, comparison: lte, numeric_threshold: 20}
+  - trigger_id: UNRESPONSIVE_BYPASS
+    label: "Unresponsive (AVPU = U)"
+    condition: {concept_code: CONSCIOUSNESS_LEVEL, comparison: eq, coded_value: UNRESPONSIVE}
+
+# Phase 3.5 detector #3 -- curated critical-phrase list, matched against
+# free-text patient/caregiver/nurse-entered symptom text (concept_code
+# SYMPTOM_TEXT). Case-insensitive substring match; no LLM classifier in
+# this prototype (Phase 3.5 describes that as optional, additive). This
+# list is operational/keyword-based, not a clinical scoring table, but
+# still needs sign-off from the hospital before real use -- [Assumption].
+emergency_bypass_critical_phrases:
+  - "not breathing"
+  - "no pulse"
+  - "cardiac arrest"
+  - "choking"
+  - "unresponsive"
+  - "severe chest pain"
+  - "seizing"
+  - "seizure"
+  - "actively bleeding"
+  - "gunshot"
+  - "stabbed"
+  - "hanging"
+  - "overdose"
+
+# Phase 5.3: reassessment interval per acuity level (1 = most urgent).
+# [Assumption] pending clinical validation -- illustrative only, chosen to
+# be inversely proportional to urgency as the architecture requires, not
+# sourced from a specific framework.
+reassessment_intervals:
+  - acuity_level: 1
+    max_wait_minutes: 0     # continuous / resus-level, no waiting is expected
+  - acuity_level: 2
+    max_wait_minutes: 15
+  - acuity_level: 3
+    max_wait_minutes: 30
+  - acuity_level: 4
+    max_wait_minutes: 60
+  - acuity_level: 5
+    max_wait_minutes: 120
+
+# Phase 9.4 "every displayed value carries its age". [Assumption] pending
+# clinical validation; keyed by concept_code (app/scoring/concepts.py).
+staleness_windows_minutes:
+  HEART_RATE: 30
+  RESP_RATE: 30
+  SPO2: 30
+  SYSTOLIC_BP: 30
+  TEMPERATURE: 60
+  CONSCIOUSNESS_LEVEL: 30
+  WORK_OF_BREATHING: 30
+  SUPPLEMENTAL_OXYGEN: 60
+
+# Phase 18.3 tier-2 default: no connected devices/EMR assumed until a
+# hospital's profile says otherwise.
+available_integrations: []
+
+# Phase 6.1 MVP scope decision -- exactly the three "Essential (MVP)" rows.
+resource_types_enabled:
+  - CLINICIAN
+  - TREATMENT_SPACE
+  - RESUSCITATION_BAY
+
+# Phase 8.5: "a target for interruptive alerts per nurse per hour ... the
+# point is that the number is a design parameter you own". [Assumption].
+alert_budget_targets:
+  interruptive_alerts_per_nurse_per_hour: 4
+
+# Phase 10.1 assumed jurisdiction: India. English + Hindi as an illustrative
+# starting set; not a claim about any real deployment's actual languages.
+language_set:
+  - en
+  - hi
+
+clinical_governance_contact: null

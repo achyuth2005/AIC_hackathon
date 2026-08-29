@@ -1,0 +1,82 @@
+{
+  "model_version": "ml-challenger-v1",
+  "trained_at": "2026-08-27T13:09:03Z",
+  "target_label_definition": "Composite 'critical outcome within this ED visit': required immediate life-saving intervention, required resuscitation-bay-level care, or required critical-care admission. In this SYNTHETIC generator, operationalised as membership in the top ~8% of a latent severity variable (z) that has no clinical meaning outside the generator -- not a simulation of any of the three real outcomes individually. A production model requires retrospective, clinician-adjudicated labels for the real composite outcome (Phase 16.4).",
+  "feature_names": [
+    "age_years",
+    "resp_rate",
+    "resp_rate_missing",
+    "spo2",
+    "spo2_missing",
+    "heart_rate",
+    "heart_rate_missing",
+    "systolic_bp",
+    "systolic_bp_missing",
+    "temperature",
+    "temperature_missing",
+    "resp_rate_delta",
+    "resp_rate_delta_missing",
+    "heart_rate_delta",
+    "heart_rate_delta_missing",
+    "spo2_delta",
+    "spo2_delta_missing",
+    "onset_band",
+    "onset_missing",
+    "arrival_mode_ambulance",
+    "history_cardiac",
+    "history_cardiac_missing",
+    "history_respiratory",
+    "history_respiratory_missing",
+    "history_diabetes",
+    "history_diabetes_missing",
+    "symptom_chest_pain",
+    "symptom_chest_pain_missing",
+    "symptom_breathlessness",
+    "symptom_breathlessness_missing",
+    "symptom_altered_consciousness",
+    "symptom_altered_consciousness_missing"
+  ],
+  "n_samples_generated": 8000,
+  "seed": 42,
+  "metrics": {
+    "n_train": 6000,
+    "n_test": 2000,
+    "positive_rate_test": 0.1125,
+    "operating_threshold": 0.10393393809351267,
+    "target_recall": 0.85,
+    "recall_sensitivity": 0.8533333333333334,
+    "false_negative_count": 33,
+    "brier_score": 0.0585854315118864,
+    "auprc": 0.6688472981574427,
+    "per_age_band": {
+      "PAEDIATRIC": {
+        "n": 342,
+        "n_positive": 34,
+        "recall": 0.7941176470588235
+      },
+      "ADULT": {
+        "n": 1042,
+        "n_positive": 94,
+        "recall": 0.8404255319148937
+      },
+      "GERIATRIC": {
+        "n": 616,
+        "n_positive": 97,
+        "recall": 0.8865979381443299
+      }
+    },
+    "precision": 0.38095238095238093,
+    "specificity": 0.824225352112676,
+    "confusion_matrix": {
+      "tn": 1463,
+      "fp": 312,
+      "fn": 33,
+      "tp": 192
+    },
+    "cost_weighted": {
+      "fn_to_fp_ratio": 10.0,
+      "total_cost": 642.0
+    }
+  },
+  "notes": "Trained entirely on synthetic data from app/ml/synthetic_data.py (documented generative process, not a clinical dataset). This demonstrates the escalation-only mechanism (Phase 3.3 Layer 3) and is NOT clinically validated. Production use requires the Phase 16.4 path: retrospective data, clinician-adjudicated labels, subgroup evaluation, silent shadow mode, then escalation-only deployment."
+}
