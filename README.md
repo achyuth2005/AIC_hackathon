@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🏥 PatientTriage.ai
 
@@ -482,4 +482,3 @@ PatientTriage.ai/
 *PatientTriage.ai — Because the sickest patient should always be seen first.*
 
 </div>
-]]>
