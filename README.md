@@ -15,6 +15,18 @@
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-39_Suites_Passing-brightgreen)](#test-suite)
 
+<br/>
+
+###  🏆 Accenture Innovation Challenge 2026
+
+**Team Whooper Buddies** · IIT Guwahati
+
+| Team Member | Stream | Graduation |
+|:---:|:---:|:---:|
+| **Keerthana Mahesh** | Biosciences & Bioengineering | 2028 |
+| **Dhyan Shah** | Biosciences & Bioengineering | 2028 |
+| **Achyuth A** | Electronics & Communications Eng. | 2028 |
+
 </div>
 
 ---
