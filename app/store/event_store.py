@@ -13,6 +13,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
+from sqlalchemy import update as sa_update
 from sqlalchemy.orm import Session
 
 from app.models.case import Case
@@ -45,6 +46,7 @@ from app.models.enums import (
     SourceType,
     ValueType,
 )
+from app.scoring import concepts
 from app.timeutil import utcnow as _utcnow, to_naive_utc
 
 
@@ -66,6 +68,14 @@ class InvalidArrivalError(ValueError):
     """Raised when record_arrival is called on a case that isn't awaiting
     arrival (Phase 7.1: PATIENT_ARRIVED is specifically the ambulance-to-ED
     transition, not a generic re-check-in)."""
+    pass
+
+
+class InvalidDispositionError(ValueError):
+    """Raised when dispose_case is called on a case that isn't currently
+    ACTIVE -- disposition (discharge/admit/transfer) is specifically the
+    ACTIVE -> DISPOSED transition, never applicable to a case still
+    PRE_ARRIVAL, and not re-appliable to one already DISPOSED."""
     pass
 
 
@@ -98,6 +108,7 @@ class EventStore:
         date_of_birth=None,
         age_years: Optional[int] = None,
         sex: Optional[str] = None,
+        medical_history: Optional[str] = None,
         arrival_mode: ArrivalMode = ArrivalMode.WALK_IN,
         identity_link_status: Optional[IdentityLinkStatus] = None,
     ) -> Case:
@@ -120,6 +131,7 @@ class EventStore:
             date_of_birth=date_of_birth,
             age_years=age_years,
             sex=sex,
+            medical_history=medical_history,
             arrival_mode=arrival_mode,
             status=status,
             identity_link_status=identity_link_status,
@@ -140,13 +152,37 @@ class EventStore:
     def get_case(self, case_id: str) -> Optional[Case]:
         return self.db.get(Case, case_id)
 
-    def list_cases(self, status: Optional[CaseStatus] = None) -> List[Case]:
+    def list_cases(
+        self,
+        status: Optional[CaseStatus] = None,
+        hospital_profile_id: Optional[str] = None,
+        arrival_mode: Optional[ArrivalMode] = None,
+    ) -> List[Case]:
         """Raw listing, ordered by creation time. NOT the Guardian Queue --
         acuity-based lexicographic ordering (Phase 5.2) is CP7; this exists
-        so CP2 has something the frontend can call while that's built."""
+        so CP2 has something the frontend can call while that's built.
+
+        Audit fix (Critical, dimension 1/IDOR): this had NO hospital-scope
+        filter at all -- GET /cases with no query param returned every
+        case across every hospital_profile_id in the database to any
+        caller. `hospital_profile_id` is optional (existing internal
+        callers that intentionally iterate every hospital's cases in
+        Python, e.g. app/alerts/engine.py, app/audit/monitoring.py, still
+        work unchanged), but app/api/cases.py's list_cases endpoint now
+        always passes the authenticated caller's own scope.
+
+        `arrival_mode` (bug fix): the Guardian Queue (GET /queue,
+        status=ACTIVE only by construction) can never surface a
+        PRE_ARRIVAL ambulance case, so the frontend's ambulance
+        pre-arrival board needs a way to ask for "every ambulance-origin
+        case regardless of stage" directly -- this is that filter."""
         q = self.db.query(Case)
         if status is not None:
             q = q.filter(Case.status == status)
+        if hospital_profile_id is not None:
+            q = q.filter(Case.hospital_profile_id == hospital_profile_id)
+        if arrival_mode is not None:
+            q = q.filter(Case.arrival_mode == arrival_mode)
         return q.order_by(Case.created_at.asc()).all()
 
     def record_arrival(self, case_id: str, *, occurred_at: Optional[datetime] = None) -> Case:
@@ -165,6 +201,53 @@ class EventStore:
         case.status = CaseStatus.ACTIVE
         case.arrived_at = arrived_at
         self.append_event(case_id=case_id, event_type="PATIENT_ARRIVED", occurred_at=arrived_at)
+        self.db.commit()
+        self.db.refresh(case)
+        return case
+
+    def dispose_case(
+        self,
+        case_id: str,
+        *,
+        disposition: str = "DISCHARGED",
+        occurred_at: Optional[datetime] = None,
+    ) -> Case:
+        """The ACTIVE -> DISPOSED transition (Case's own docstring: 'a
+        patient's ED journey ... continues to disposition'). Previously
+        declared throughout the type system -- CaseStatus.DISPOSED,
+        KNOWN_EVENT_TYPES' PATIENT_DISPOSED -- but never actually
+        reachable: no method anywhere ever set a case to DISPOSED. Added so
+        historical cases (discharged/admitted/transferred, no longer in the
+        active department) can leave GET /queue's ACTIVE-only population
+        while remaining fully readable via GET /cases, GET /cases/{id}, and
+        the timeline -- exactly the same "never deleted, always still
+        there" discipline every other write in this store follows.
+
+        `disposition` is a free-text-ish label (DISCHARGED / ADMITTED /
+        TRANSFERRED / DECEASED are this codebase's own vocabulary, not a
+        DB-enforced enum -- CaseStatus itself stays a single terminal
+        DISPOSED value, same as the rest of this Case's lifecycle modelling)
+        carried on the PATIENT_DISPOSED event payload so *why* a case left
+        the active department stays searchable via its timeline, without a
+        schema change to Case.status (which app/queue/guardian_queue.py and
+        the rest of the ACTIVE-population machinery key off directly)."""
+        case = self.db.get(Case, case_id)
+        if case is None:
+            raise NotFoundError(f"No case {case_id}")
+        if case.status != CaseStatus.ACTIVE:
+            raise InvalidDispositionError(
+                f"Case {case_id} is not ACTIVE (status={case.status.value}); only an ACTIVE case "
+                f"can be disposed."
+            )
+
+        disposed_at = to_naive_utc(occurred_at) if occurred_at is not None else _utcnow()
+        case.status = CaseStatus.DISPOSED
+        self.append_event(
+            case_id=case_id,
+            event_type="PATIENT_DISPOSED",
+            payload={"disposition": disposition},
+            occurred_at=disposed_at,
+        )
         self.db.commit()
         self.db.refresh(case)
         return case
@@ -253,6 +336,7 @@ class EventStore:
         reason: str,
         trigger_id: Optional[str] = None,
         occurred_at: Optional[datetime] = None,
+        commit: bool = True,
     ) -> Case:
         """Phase 3.5: 'an alert plus a state flag'. Any of the three
         detectors may call this; none can cancel another, and re-firing an
@@ -281,7 +365,9 @@ class EventStore:
             payload={"source": source.value, "reason": reason, "trigger_id": trigger_id},
             occurred_at=now,
         )
-        self.db.commit()
+        self.db.flush()
+        if commit:
+            self.db.commit()
         self.db.refresh(case)
         return case
 
@@ -302,16 +388,68 @@ class EventStore:
         unit: Optional[str] = None,
         source_id: Optional[str] = None,
         extraction_confidence: Optional[float] = None,
+        commit: bool = True,
     ) -> Observation:
         """Always creates a new row. To correct a value, call
         supersede_observation instead -- there is no update path here by
-        design (Phase 4.2 "never mutate, always supersede")."""
+        design (Phase 4.2 "never mutate, always supersede").
+
+        `commit=False` (same nested-unit-of-work escape hatch as
+        save_risk_assessment): lets a caller that composes this write with
+        further writes in the same request -- POST /cases/{id}/observations
+        composes this with evaluate_and_activate() and assess_case() -- land
+        all of them in exactly one transaction, so a failure in a later step
+        (e.g. the scoring engine choking on a value it can't band) rolls
+        back this write too instead of leaving an orphaned, unscored
+        observation permanently in the store. flush() still runs
+        unconditionally so the caller's own subsequent commit sees this row.
+        """
         if self.db.get(Case, case_id) is None:
             raise NotFoundError(f"No case {case_id}")
         if source_type == SourceType.AI_INFERRED and extraction_confidence is None:
             raise ValueError(
                 "extraction_confidence is required for AI_INFERRED observations (Phase 4.2)."
             )
+
+        # Audit fix (Critical, data integrity, defence in depth): the
+        # Pydantic schema (app/schemas/observation.py) rejects this at the
+        # HTTP door, but this method is also called directly -- by demo
+        # seeding, the surge simulator, the LLM intake engine, and
+        # scripts/generate_patients.py -- none of which go through that
+        # schema. Enforced again here so no entry path can ever create a
+        # MEASURED observation with no value: the scoring engine has no
+        # band for "no value" (evaluate_range_bands/evaluate_coded_points
+        # raise) and this is what actually corrupted 863 rows in the
+        # pre-existing demo dataset.
+        if measurement_status == MeasurementStatus.MEASURED and value is None:
+            raise ValueError(
+                "value is required when measurement_status is MEASURED -- use "
+                "NOT_MEASURED or UNOBTAINABLE instead if no reading was taken."
+            )
+
+        # Audit fix (High, dimension 3): enforced here, not only at the
+        # ObservationCreateRequest schema layer, so EVERY entry path --
+        # direct API creation, supersede_observation (which reaches this
+        # method with concept_code carried forward from the original row,
+        # never exposed on its own request schema), the LLM Intake Engine,
+        # and demo seeding -- gets the identical plausibility check. Same
+        # "the store re-validates independently, defence in depth, not a
+        # substitute" convention already used for the AI_INFERRED check
+        # immediately above, and the same controlled-vocabulary discipline
+        # KNOWN_EVENT_TYPES already applies to event_type.
+        if concept_code not in concepts.KNOWN_CONCEPT_CODES:
+            raise ValueError(
+                f"concept_code {concept_code!r} is not in the controlled vocabulary "
+                f"(app/scoring/concepts.py)."
+            )
+        vital_range = concepts.VITAL_PLAUSIBLE_RANGES.get(concept_code)
+        if vital_range is not None and value_type == ValueType.NUMERIC and value is not None:
+            low, high = vital_range
+            numeric_value = float(value)
+            if not (low <= numeric_value <= high):
+                raise ValueError(
+                    f"value {numeric_value} is outside the plausible range [{low}, {high}] for {concept_code}."
+                )
 
         observed_at = to_naive_utc(observed_at)
 
@@ -345,7 +483,9 @@ class EventStore:
             },
             occurred_at=observed_at,
         )
-        self.db.commit()
+        self.db.flush()
+        if commit:
+            self.db.commit()
         self.db.refresh(obs)
         return obs
 
@@ -398,6 +538,15 @@ class EventStore:
         self.db.commit()
         self.db.refresh(new_obs)
         return new_obs
+
+    def get_observation(self, observation_id: str) -> Optional[Observation]:
+        """Audit fix support (dimension 1, tenancy): a plain by-ID getter,
+        same shape as get_case/get_resource/get_alert/get_data_conflict --
+        added so API-layer tenancy checks (require_hospital_scope) can
+        resolve an observation's owning case *before* mutating it (e.g.
+        POST /observations/{id}/supersede), without duplicating a raw
+        db.get() call in the router."""
+        return self.db.get(Observation, observation_id)
 
     def get_latest_current_observation(self, case_id: str, concept_code: str) -> Optional[Observation]:
         """The single most recent non-superseded observation for one
@@ -524,6 +673,7 @@ class EventStore:
         input_snapshot_hash: str,
         input_observation_ids: List[str],
         computed_at: Optional[datetime] = None,
+        commit: bool = True,
     ) -> RiskAssessment:
         case = self.db.get(Case, case_id)
         if case is None:
@@ -592,14 +742,22 @@ class EventStore:
         case.reassessment_overdue = False
         case.reassessment_overdue_since = None
 
-        self.db.commit()
+        # `commit=False` (audit finding, dimension 2: nested unit-of-work
+        # fragility): record_human_override composes this method with its
+        # own HumanDecision write and needs both to land in exactly one
+        # transaction. flush() still makes every attribute above visible to
+        # the caller's own subsequent commit; only the commit/refresh is
+        # skipped so the caller controls the transaction boundary.
+        self.db.flush()
+        if commit:
+            self.db.commit()
         self.db.refresh(assessment)
         return assessment
 
     # ------------------------------------------------------------------
     # Reassessment timer (Phase 5.3, CP7)
     # ------------------------------------------------------------------
-    def mark_reassessed(self, case_id: str, *, occurred_at: Optional[datetime] = None) -> Case:
+    def mark_reassessed(self, case_id: str, *, occurred_at: Optional[datetime] = None, commit: bool = True) -> Case:
         """Phase 8.2's nurse one-tap 'mark reassessed' action: an explicit
         human acknowledgment that this patient has been looked at again,
         distinct from (and not requiring) a new numeric observation. Always
@@ -621,7 +779,9 @@ class EventStore:
         case.last_reassessed_at = now
         case.reassessment_overdue = False
         case.reassessment_overdue_since = None
-        self.db.commit()
+        self.db.flush()  # see save_risk_assessment's commit=False note above
+        if commit:
+            self.db.commit()
         self.db.refresh(case)
         return case
 
@@ -631,19 +791,34 @@ class EventStore:
         """Called by the Guardian Queue (CP7) when it notices a case has
         crossed its reassessment interval and isn't already flagged, and by
         report_patient_worsening (CP8) when a patient's self-report forces
-        the same state immediately regardless of elapsed time. Idempotent
-        by construction: the caller is expected to check
-        `case.reassessment_overdue` first (this method doesn't re-check,
-        so calling it twice would log REASSESSMENT_DUE twice -- the
-        caller's responsibility, not this method's, exactly like
-        activate_emergency_bypass leaves 'should I fire' to its callers)."""
+        the same state immediately regardless of elapsed time.
+
+        Audit finding (High, dimension 2): this used to document "idempotent
+        by construction" while actually relying on the *caller* checking
+        `case.reassessment_overdue` first -- a check-then-act race, since
+        the side-effecting reads that call this (GET /queue, GET
+        /ops/stuck-patients) are routinely hit concurrently by several
+        nurse-station clients. Two concurrent callers could both observe
+        `reassessment_overdue=False` and both flag it, double-logging
+        REASSESSMENT_DUE. This method is now idempotent for real: the flip
+        from False->True happens in one atomic conditional UPDATE, so only
+        whichever caller's UPDATE actually flips the row logs the event."""
         case = self.db.get(Case, case_id)
         if case is None:
             raise NotFoundError(f"No case {case_id}")
 
         now = to_naive_utc(occurred_at) if occurred_at is not None else _utcnow()
-        case.reassessment_overdue = True
-        case.reassessment_overdue_since = now
+        result = self.db.execute(
+            sa_update(Case)
+            .where(Case.case_id == case_id, Case.reassessment_overdue == False)  # noqa: E712
+            .values(reassessment_overdue=True, reassessment_overdue_since=now)
+        )
+        if result.rowcount == 0:
+            # Already flagged -- by this same caller's earlier pass, or by a
+            # concurrent one that won the race. Idempotent no-op.
+            self.db.refresh(case)
+            return case
+
         self.append_event(case_id=case_id, event_type="REASSESSMENT_DUE", payload={"reason": reason}, occurred_at=now)
         self.db.commit()
         self.db.refresh(case)
@@ -816,6 +991,14 @@ class EventStore:
             occurred_at=now,
         )
 
+        # Audit finding (High, dimension 2): both branches below used to
+        # commit internally, and this method committed *again* afterwards --
+        # two commits standing in for what is really one atomic operation
+        # ("persist the HumanDecision audit row AND, if the acuity changed,
+        # the RiskAssessment that reflects it" -- one must never land
+        # without the other). `commit=False` here means the HumanDecision
+        # add/flush above and whichever branch runs below share exactly one
+        # transaction, committed once, at the very end of this method.
         if resulting_acuity != system_recommendation:
             self.save_risk_assessment(
                 case_id=case_id,
@@ -836,13 +1019,14 @@ class EventStore:
                 input_snapshot_hash=latest.input_snapshot_hash,
                 input_observation_ids=latest.input_observation_ids,
                 computed_at=now,
+                commit=False,
             )
         else:
             # ACCEPT: no acuity change to reflect, but a human did just
             # look at this patient -- count it as a reassessment via the
             # existing Phase 8.2 mechanics rather than inventing a second
             # "this counts as attention paid" pathway.
-            self.mark_reassessed(case_id, occurred_at=now)
+            self.mark_reassessed(case_id, occurred_at=now, commit=False)
 
         self.db.commit()
         self.db.refresh(decision)
@@ -1253,51 +1437,87 @@ class EventStore:
         CAPACITY_CONFLICT_RAISED) if none is free -- never silently
         downgrades a patient's acuity or reorders around the constraint;
         that decision is left entirely to the human the conflict is
-        raised to."""
+        raised to.
+
+        Audit finding (Critical, dimension 2): the previous implementation
+        SELECTed one AVAILABLE candidate, then UPDATEd it as a separate
+        step -- a textbook TOCTOU race. Two concurrent callers (two nurses
+        assigning a bed during a surge) could both read the same AVAILABLE
+        row before either commit, and both would then "succeed" in
+        assigning it, double-booking one physical bed to two different
+        patients with two RESOURCE_ASSIGNED events that both claim to be
+        true. This is dormant on SQLite's single-writer file lock but live
+        the moment DATABASE_URL points at Postgres (see app/db.py's own
+        module docstring on that exact migration path).
+
+        Fixed by claiming each candidate with a single atomic conditional
+        UPDATE (`WHERE status = AVAILABLE`): the database's own row-level
+        atomicity decides who wins a race, never a read-then-write gap in
+        this process. A rowcount of 0 means another concurrent caller won
+        that specific resource first; this method simply falls through to
+        the next candidate in the same label-ordered list rather than
+        failing outright, so a genuine race does not produce a false
+        capacity conflict when another same-type resource is actually free.
+        """
         if self.db.get(Case, case_id) is None:
             raise NotFoundError(f"No case {case_id}")
         now = to_naive_utc(occurred_at) if occurred_at is not None else _utcnow()
 
-        candidate = (
-            self.db.query(Resource)
+        candidate_ids = [
+            resource_id
+            for (resource_id,) in self.db.query(Resource.resource_id)
             .filter(
                 Resource.hospital_profile_id == profile.profile_id,
                 Resource.resource_type == resource_type,
                 Resource.status == ResourceStatus.AVAILABLE,
             )
             .order_by(Resource.label.asc())
-            .first()
-        )
-        if candidate is None:
+            .all()
+        ]
+
+        for resource_id in candidate_ids:
+            result = self.db.execute(
+                sa_update(Resource)
+                .where(Resource.resource_id == resource_id, Resource.status == ResourceStatus.AVAILABLE)
+                .values(
+                    status=ResourceStatus.OCCUPIED,
+                    assigned_case_id=case_id,
+                    assigned_at=now,
+                    occupancy_stuck_flagged=False,
+                )
+            )
+            if result.rowcount == 0:
+                # Lost the race for this specific resource to a concurrent
+                # caller between the SELECT above and this UPDATE -- try
+                # the next candidate instead of failing outright.
+                continue
+
+            candidate = self.db.get(Resource, resource_id)
             self.append_event(
                 case_id=case_id,
-                event_type="CAPACITY_CONFLICT_RAISED",
+                event_type="RESOURCE_ASSIGNED",
                 payload={
+                    "resource_id": candidate.resource_id,
                     "resource_type": resource_type.value,
-                    "candidate_actions": profile.ops.capacity_conflict_candidate_actions,
+                    "label": candidate.label,
                 },
                 occurred_at=now,
             )
             self.db.commit()
-            raise CapacityConflictError(resource_type, profile.ops.capacity_conflict_candidate_actions)
+            self.db.refresh(candidate)
+            return candidate
 
-        candidate.status = ResourceStatus.OCCUPIED
-        candidate.assigned_case_id = case_id
-        candidate.assigned_at = now
-        candidate.occupancy_stuck_flagged = False
         self.append_event(
             case_id=case_id,
-            event_type="RESOURCE_ASSIGNED",
+            event_type="CAPACITY_CONFLICT_RAISED",
             payload={
-                "resource_id": candidate.resource_id,
                 "resource_type": resource_type.value,
-                "label": candidate.label,
+                "candidate_actions": profile.ops.capacity_conflict_candidate_actions,
             },
             occurred_at=now,
         )
         self.db.commit()
-        self.db.refresh(candidate)
-        return candidate
+        raise CapacityConflictError(resource_type, profile.ops.capacity_conflict_candidate_actions)
 
     def confirm_occupancy(self, resource_id: str, *, occurred_at: Optional[datetime] = None) -> Resource:
         """Phase 6.3 'assigned space never occupied' pattern's resolving
@@ -1340,15 +1560,27 @@ class EventStore:
 
     def flag_resource_occupancy_stuck(self, resource_id: str, *, occurred_at: Optional[datetime] = None) -> Resource:
         """Called by the Flow Engine sweep (CP9) when an assigned resource
-        has sat unoccupied past its configured window. Idempotent by
-        construction -- same contract as flag_reassessment_overdue: the
-        caller checks `occupancy_stuck_flagged` first."""
+        has sat unoccupied past its configured window.
+
+        Audit finding (High, dimension 2): made genuinely idempotent via an
+        atomic conditional UPDATE, same reasoning as
+        flag_reassessment_overdue -- concurrent GET /ops/stuck-patients
+        callers must not be able to double-log STUCK_PATIENT_DETECTED for
+        the same resource."""
         resource = self.db.get(Resource, resource_id)
         if resource is None:
             raise NotFoundError(f"No resource {resource_id}")
 
         now = to_naive_utc(occurred_at) if occurred_at is not None else _utcnow()
-        resource.occupancy_stuck_flagged = True
+        result = self.db.execute(
+            sa_update(Resource)
+            .where(Resource.resource_id == resource_id, Resource.occupancy_stuck_flagged == False)  # noqa: E712
+            .values(occupancy_stuck_flagged=True)
+        )
+        if result.rowcount == 0:
+            self.db.refresh(resource)
+            return resource
+
         self.append_event(
             case_id=resource.assigned_case_id,
             event_type="STUCK_PATIENT_DETECTED",
@@ -1362,6 +1594,14 @@ class EventStore:
     # ------------------------------------------------------------------
     # Diagnostic tests (Phase 6.3, CP9)
     # ------------------------------------------------------------------
+    def get_diagnostic_test(self, test_id: str) -> Optional[DiagnosticTest]:
+        """Audit fix support (dimension 1, tenancy): plain by-ID getter, so
+        the API layer can resolve a test's owning case for a
+        require_hospital_scope check before mutating it (mark-sample-
+        collected/result-available/result-reviewed), same reasoning as
+        get_observation above."""
+        return self.db.get(DiagnosticTest, test_id)
+
     def order_test(self, case_id: str, test_type: str, *, occurred_at: Optional[datetime] = None) -> DiagnosticTest:
         if self.db.get(Case, case_id) is None:
             raise NotFoundError(f"No case {case_id}")
@@ -1430,12 +1670,22 @@ class EventStore:
         return test
 
     def flag_test_stuck(self, test_id: str, *, pattern_id: str, occurred_at: Optional[datetime] = None) -> DiagnosticTest:
+        """Audit finding (High, dimension 2): same atomic-idempotency fix as
+        flag_reassessment_overdue/flag_resource_occupancy_stuck."""
         test = self.db.get(DiagnosticTest, test_id)
         if test is None:
             raise NotFoundError(f"No diagnostic test {test_id}")
 
         now = to_naive_utc(occurred_at) if occurred_at is not None else _utcnow()
-        test.stuck_flagged = True
+        result = self.db.execute(
+            sa_update(DiagnosticTest)
+            .where(DiagnosticTest.test_id == test_id, DiagnosticTest.stuck_flagged == False)  # noqa: E712
+            .values(stuck_flagged=True)
+        )
+        if result.rowcount == 0:
+            self.db.refresh(test)
+            return test
+
         route_to = "NURSE_OPS" if pattern_id == "TEST_ORDERED_NOT_COLLECTED" else "DOCTOR_QUEUE"
         self.append_event(
             case_id=test.case_id,

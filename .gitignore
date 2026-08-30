@@ -5,9 +5,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.db
+*.db.bak-*
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Environment / Secrets
+.env
+.env.local
+.env.production
+.env.*.local
 
 # Node / Frontend
 node_modules/
@@ -22,3 +29,7 @@ dist/
 .idea/
 *.swp
 *.swo
+
+# Agent / AI tooling
+.claude/
+.agents/

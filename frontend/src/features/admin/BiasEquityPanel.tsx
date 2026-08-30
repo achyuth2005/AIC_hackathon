@@ -1,6 +1,6 @@
 import React from 'react';
 import { OverrideMonitoringReport } from '../../types/api';
-import { Card, CardContent } from '../../components/ui/Card';
+import { MetricCard } from '../../components/ui/MetricCard';
 import { DisparateImpactChart } from './DisparateImpactChart';
 import { ShieldCheck, Scale, AlertTriangle, Users, GitCommit } from 'lucide-react';
 
@@ -28,13 +28,13 @@ export const BiasEquityPanel: React.FC<BiasEquityPanelProps> = ({ report }) => {
   return (
     <div className="space-y-6 text-left">
       {/* 1. Standing Evaluation Philosophy Alert (Phase 9.7 requirement) */}
-      <div className="p-4 rounded-2xl bg-indigo-950/40 border border-indigo-600/60 flex items-start gap-3 shadow-lg">
-        <Scale className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
+      <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-start gap-3 shadow-card">
+        <Scale className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <div className="text-xs font-bold text-indigo-200 uppercase tracking-wider">
+          <div className="text-xs font-bold text-indigo-800 uppercase tracking-wider">
             Standing Evaluation Mandate (Phase 9.7)
           </div>
-          <p className="text-xs text-slate-300 leading-relaxed font-sans">
+          <p className="text-xs text-slate-600 leading-relaxed font-sans">
             {caveat ||
               'A standing measurement, not a fairness audit: a skewed distribution here is a prompt for clinical/statistical review, not evidence of bias by itself.'}
           </p>
@@ -43,61 +43,39 @@ export const BiasEquityPanel: React.FC<BiasEquityPanelProps> = ({ report }) => {
 
       {/* 2. Key Metrics Summary Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {/* Total Cases & Decisions */}
-        <Card className="bg-slate-900 border-slate-800">
-          <CardContent className="p-4 space-y-1">
-            <div className="flex items-center justify-between text-slate-400">
-              <span className="text-[10px] font-bold uppercase tracking-wider">Monitored Cases</span>
-              <Users className="w-4 h-4 text-cyan-400" />
-            </div>
-            <div className="text-2xl font-black font-mono text-slate-100">{total_cases}</div>
-            <div className="text-[11px] text-slate-400 font-mono">
-              {total_decisions} Clinician Decisions
-            </div>
-          </CardContent>
-        </Card>
+        <MetricCard
+          label="Monitored Cases"
+          value={total_cases}
+          sublabel={`${total_decisions} Clinician Decisions`}
+          icon={<Users className="w-4 h-4" />}
+        />
 
-        {/* Overall Override Rate */}
-        <Card className="bg-slate-900 border-slate-800">
-          <CardContent className="p-4 space-y-1">
-            <div className="flex items-center justify-between text-slate-400">
-              <span className="text-[10px] font-bold uppercase tracking-wider">Override Rate</span>
-              <GitCommit className="w-4 h-4 text-amber-400" />
-            </div>
-            <div className="text-2xl font-black font-mono text-amber-300">{overridePercent}%</div>
-            <div className="text-[11px] text-slate-400 font-mono">
-              Total Escalate + De-escalate
-            </div>
-          </CardContent>
-        </Card>
+        <MetricCard
+          label="Override Rate"
+          value={`${overridePercent}%`}
+          sublabel="Total Escalate + De-escalate"
+          icon={<GitCommit className="w-4 h-4" />}
+          tone="amber"
+          active
+        />
 
-        {/* De-escalation Rate */}
-        <Card className="bg-slate-900 border-slate-800">
-          <CardContent className="p-4 space-y-1">
-            <div className="flex items-center justify-between text-slate-400">
-              <span className="text-[10px] font-bold uppercase tracking-wider">De-escalation Rate</span>
-              <ShieldCheck className="w-4 h-4 text-orange-400" />
-            </div>
-            <div className="text-2xl font-black font-mono text-orange-300">{deEscalatePercent}%</div>
-            <div className="text-[11px] text-slate-400 font-mono">
-              Asymmetric Friction Gated
-            </div>
-          </CardContent>
-        </Card>
+        <MetricCard
+          label="De-escalation Rate"
+          value={`${deEscalatePercent}%`}
+          sublabel="Asymmetric Friction Gated"
+          icon={<ShieldCheck className="w-4 h-4" />}
+          tone="orange"
+          active
+        />
 
-        {/* Flagged for Retrospective Review */}
-        <Card className={`border ${flagged_for_review_count > 0 ? 'bg-rose-950/20 border-rose-600/80' : 'bg-slate-900 border-slate-800'}`}>
-          <CardContent className="p-4 space-y-1">
-            <div className="flex items-center justify-between text-slate-400">
-              <span className="text-[10px] font-bold uppercase tracking-wider">Flagged Reviews</span>
-              <AlertTriangle className="w-4 h-4 text-rose-400" />
-            </div>
-            <div className="text-2xl font-black font-mono text-rose-200">{flagged_for_review_count}</div>
-            <div className="text-[11px] text-slate-400 font-mono">
-              De-escalations Pending Audit
-            </div>
-          </CardContent>
-        </Card>
+        <MetricCard
+          label="Flagged Reviews"
+          value={flagged_for_review_count}
+          sublabel="De-escalations Pending Audit"
+          icon={<AlertTriangle className="w-4 h-4" />}
+          tone="rose"
+          active={flagged_for_review_count > 0}
+        />
       </div>
 
       {/* 3. Demographic Subgroup Breakdowns (Age Band & Sex) */}

@@ -244,6 +244,19 @@ pews:
     SEVERE: 3
   consciousness_points:  # graded AVPU (paediatric PEWS conventionally grades this, unlike NEWS2's binary)
     ALERT: 0
+    # NEW_CONFUSION (bug fix): CONSCIOUSNESS_LEVEL is a shared concept
+    # (app/scoring/concepts.py's CONSCIOUSNESS_CODES) that can be recorded
+    # against any case regardless of which table ultimately scores it --
+    # this table was missing an entry for it entirely, so a paediatric case
+    # with NEW_CONFUSION crashed UnbandedValueError the instant anything
+    # tried to score it (evaluate_coded_points), which in turn crashed
+    # GET /queue for the *entire* hospital (guardian_queue.py scores every
+    # active case in one batch). Scored at the same points as VOICE, per
+    # concepts.py's own docstring: "a confused-but-talking patient is
+    # technically 'Voice' on a literal AVPU reading" -- this is that
+    # reading, graded consistently with the rest of this table rather than
+    # NEWS2's separate binary (alert vs not) treatment. [Assumption]
+    NEW_CONFUSION: 1
     VOICE: 1
     PAIN: 2
     UNRESPONSIVE: 3

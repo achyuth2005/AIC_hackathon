@@ -33,7 +33,7 @@ export const AmbulanceCasePage: React.FC = () => {
           error={caseError || preAlertError}
         />
         <div className="mt-4 text-center">
-          <Link to="/ambulance" className="text-cyan-400 text-xs font-mono hover:underline">
+          <Link to="/ambulance" className="text-indigo-600 text-xs font-mono hover:underline">
             ← Return to Inbound Ambulance Board
           </Link>
         </div>
@@ -46,26 +46,26 @@ export const AmbulanceCasePage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-16 animate-fade-in text-left">
       {/* Top Breadcrumb & Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div className="flex items-center gap-3">
           <Link
             to="/ambulance"
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
+            className="p-2 rounded-xl bg-white border border-slate-200 text-slate-500 hover:text-slate-900 shadow-sm"
             title="Back to Inbound Board"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-extrabold text-slate-100 flex items-center gap-2">
-                <Truck className="w-5 h-5 text-cyan-400" />
+              <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <Truck className="w-5 h-5 text-indigo-600" />
                 <span>Pre-Alert: {caseItem.display_name || 'Inbound EMS Patient'}</span>
               </h1>
               <span
                 className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${
                   isPreArrival
-                    ? 'bg-cyan-950 text-cyan-300 border-cyan-700 animate-pulse'
-                    : 'bg-emerald-950 text-emerald-300 border-emerald-700'
+                    ? 'bg-indigo-50 text-indigo-700 border-indigo-200 animate-pulse'
+                    : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                 }`}
               >
                 {caseItem.status}
@@ -81,7 +81,7 @@ export const AmbulanceCasePage: React.FC = () => {
           <ArrivedButton caseId={caseItem.case_id} isPreArrival={isPreArrival} />
           <Link
             to={`/cases/${caseItem.case_id}`}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono font-bold text-cyan-300 hover:text-cyan-200"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-xs font-mono font-bold text-slate-700 hover:text-indigo-700 hover:border-slate-400 shadow-sm"
           >
             <span>Full Workspace</span>
             <ArrowRight className="w-3.5 h-3.5" />

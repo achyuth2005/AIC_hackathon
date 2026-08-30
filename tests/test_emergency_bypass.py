@@ -120,12 +120,13 @@ def _nurse_auth_header(client):
 
 
 def test_human_affordance_endpoint_activates_bypass(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+    headers = _nurse_auth_header(client)
+    case_id = client.post("/cases", json={"age_years": 40}, headers=headers).json()["case_id"]
 
     resp = client.post(
         f"/cases/{case_id}/emergency-bypass",
         json={"reason": "Patient collapsed at reception"},
-        headers=_nurse_auth_header(client),
+        headers=headers,
     )
     assert resp.status_code == 200
     body = resp.json()
@@ -135,7 +136,8 @@ def test_human_affordance_endpoint_activates_bypass(client):
 
 
 def test_human_affordance_endpoint_requires_authentication(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+    headers = _nurse_auth_header(client)
+    case_id = client.post("/cases", json={"age_years": 40}, headers=headers).json()["case_id"]
     resp = client.post(f"/cases/{case_id}/emergency-bypass", json={"reason": "no token supplied"})
     assert resp.status_code == 401
 
@@ -148,7 +150,8 @@ def test_human_affordance_on_missing_case_is_404(client):
 
 
 def test_adding_a_critical_vital_via_api_auto_activates_bypass(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+    headers = _nurse_auth_header(client)
+    case_id = client.post("/cases", json={"age_years": 40}, headers=headers).json()["case_id"]
 
     resp = client.post(
         f"/cases/{case_id}/observations",
@@ -161,16 +164,18 @@ def test_adding_a_critical_vital_via_api_auto_activates_bypass(client):
             "measurement_status": "MEASURED",
             "observed_at": _now().isoformat(),
         },
+        headers=headers,
     )
     assert resp.status_code == 201  # the observation write itself is unaffected by the bypass check
 
-    case_detail = client.get(f"/cases/{case_id}").json()
+    case_detail = client.get(f"/cases/{case_id}", headers=headers).json()
     assert case_detail["emergency_bypass_active"] is True
     assert case_detail["emergency_bypass_last_source"] == "PHYSIOLOGICAL"
 
 
 def test_adding_normal_vitals_via_api_does_not_activate_bypass(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+    headers = _nurse_auth_header(client)
+    case_id = client.post("/cases", json={"age_years": 40}, headers=headers).json()["case_id"]
 
     client.post(
         f"/cases/{case_id}/observations",
@@ -183,7 +188,8 @@ def test_adding_normal_vitals_via_api_does_not_activate_bypass(client):
             "measurement_status": "MEASURED",
             "observed_at": _now().isoformat(),
         },
+        headers=headers,
     )
 
-    case_detail = client.get(f"/cases/{case_id}").json()
+    case_detail = client.get(f"/cases/{case_id}", headers=headers).json()
     assert case_detail["emergency_bypass_active"] is False

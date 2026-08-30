@@ -9,9 +9,11 @@ import { QueueEntry } from '../types/api';
 
 export const doctorApi = {
   getDoctorQueue: async (hospitalProfileId = 'default'): Promise<DoctorQueueItemResponse[]> => {
-    // Fetch queue entries and enrich with doctor view metrics
+    // Fetch queue entries and enrich with doctor view metrics.
+    // Bug fix: GET /queue now requires an authenticated staff token.
     const queue = await http.get<QueueEntry[]>('/queue', {
       params: { hospital_profile_id: hospitalProfileId },
+      auth: true,
     });
 
     return queue.map((entry) => ({
@@ -58,6 +60,7 @@ export const doctorApi = {
         sex: null,
         waiting_minutes: 15,
         assigned_resource_label: null,
+        medical_history: docView.medical_history,
       },
       acuity_summary: {
         final_acuity: acuity,

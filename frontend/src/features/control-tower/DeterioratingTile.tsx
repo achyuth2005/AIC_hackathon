@@ -11,17 +11,17 @@ export interface DeterioratingTileProps {
 
 export const DeterioratingTile: React.FC<DeterioratingTileProps> = ({ data = [] }) => {
   return (
-    <Card className="bg-slate-900 border-orange-900/60 text-left shadow-lg">
+    <Card className="text-left border-orange-200/80">
       <CardHeader className="pb-3 flex flex-row items-center justify-between">
-        <CardTitle className="text-sm flex items-center gap-2 text-orange-300">
-          <TrendingUp className="w-4 h-4 text-orange-400" />
-          <span>Tile 2: Deteriorating Trajectories</span>
+        <CardTitle className="text-sm flex items-center gap-2 text-orange-800">
+          <TrendingUp className="w-4 h-4 text-orange-600" />
+          <span>Deteriorating Trajectories</span>
         </CardTitle>
         <span
-          className={`text-xs font-mono font-bold px-2 py-0.5 rounded border ${
+          className={`text-xs font-mono font-bold tabular-nums px-2 py-0.5 rounded border ${
             data.length > 0
-              ? 'bg-orange-950 text-orange-300 border-orange-700/80'
-              : 'bg-slate-800 text-slate-400 border-slate-700'
+              ? 'bg-orange-50 text-orange-700 border-orange-200'
+              : 'bg-slate-100 text-slate-500 border-slate-200'
           }`}
         >
           {data.length} Cases
@@ -30,8 +30,8 @@ export const DeterioratingTile: React.FC<DeterioratingTileProps> = ({ data = [] 
 
       <CardContent className="space-y-3">
         {data.length === 0 ? (
-          <div className="py-8 text-center text-xs text-slate-500 font-mono space-y-1.5">
-            <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto" />
+          <div className="py-8 text-center text-xs text-slate-400 font-mono space-y-1.5">
+            <CheckCircle2 className="w-6 h-6 text-emerald-500 mx-auto" />
             <div>No active physiological deterioration detected.</div>
           </div>
         ) : (
@@ -40,10 +40,10 @@ export const DeterioratingTile: React.FC<DeterioratingTileProps> = ({ data = [] 
               <Link
                 key={p.case_id}
                 to={`/cases/${p.case_id}`}
-                className="p-3 rounded-xl bg-slate-950/80 border border-orange-800/60 hover:border-orange-500 flex items-center justify-between transition-colors block group"
+                className="p-3 rounded-xl bg-orange-50/60 border border-orange-200 hover:border-orange-400 hover:bg-orange-50 flex items-center justify-between transition-colors block group"
               >
                 <div className="space-y-0.5">
-                  <div className="font-bold text-xs text-slate-100 group-hover:text-cyan-300">
+                  <div className="font-bold text-xs text-slate-900 group-hover:text-orange-800">
                     {p.display_name || `Case ${p.case_id.substring(0, 8)}`}
                   </div>
                   <div className="text-[10px] font-mono text-slate-500">
@@ -53,7 +53,7 @@ export const DeterioratingTile: React.FC<DeterioratingTileProps> = ({ data = [] 
 
                 <div className="flex items-center gap-1.5">
                   <AcuityBadge acuity={p.from_acuity} size="xs" showLabel={false} />
-                  <ArrowRight className="w-3 h-3 text-orange-400" />
+                  <ArrowRight className="w-3 h-3 text-orange-500" />
                   <AcuityBadge acuity={p.to_acuity} size="xs" showLabel={false} />
                 </div>
               </Link>

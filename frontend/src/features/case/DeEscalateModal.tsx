@@ -73,15 +73,15 @@ export const DeEscalateModal: React.FC<DeEscalateModalProps> = ({
       onClose={onClose}
       size="md"
       title={
-        <div className="flex items-center gap-2 text-rose-300">
-          <ShieldAlert className="w-5 h-5 text-rose-400" />
+        <div className="flex items-center gap-2 text-rose-700">
+          <ShieldAlert className="w-5 h-5 text-rose-600" />
           <span>Structured Clinical De-escalation</span>
         </div>
       }
       description={
         <span>
-          De-escalating <strong className="text-slate-200">{patientName || caseId}</strong> from{' '}
-          <strong className="text-orange-300">ESI {currentAcuity}</strong>.
+          De-escalating <strong className="text-slate-700">{patientName || caseId}</strong> from{' '}
+          <strong className="text-amber-700">ESI {currentAcuity}</strong>.
         </span>
       }
       footer={
@@ -102,22 +102,22 @@ export const DeEscalateModal: React.FC<DeEscalateModalProps> = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Asymmetric Friction Banner */}
-        <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-800/60 text-xs text-amber-200 flex items-start gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-start gap-2.5">
+          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-amber-300">Permanent Governance Audit:</span>{' '}
+            <span className="font-semibold text-amber-800">Permanent Governance Audit:</span>{' '}
             Per Phase 9.6, de-escalating acuity creates an immutable audit record and is flagged for retrospective administrative review.
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/60 border border-slate-800">
+        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/80">
           <div className="space-y-1">
-            <span className="text-xs text-slate-400 block font-semibold">Current Acuity:</span>
+            <span className="text-xs text-slate-500 block font-semibold">Current Acuity:</span>
             <AcuityBadge acuity={currentAcuity} size="sm" />
           </div>
-          <div className="text-slate-500 font-mono text-xl">→</div>
+          <div className="text-slate-400 font-mono text-xl">→</div>
           <div className="space-y-1">
-            <span className="text-xs text-slate-400 block font-semibold">New Target:</span>
+            <span className="text-xs text-slate-500 block font-semibold">New Target:</span>
             <AcuityBadge acuity={targetAcuity} size="sm" />
           </div>
         </div>

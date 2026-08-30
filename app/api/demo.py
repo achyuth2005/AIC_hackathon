@@ -3,6 +3,13 @@ Phase 14.1 demo-data endpoint: seeds the twenty scripted synthetic
 patients against a hospital profile. See app/demo/scenarios.py for what
 each one is and its fidelity (a couple are PARTIAL, pending checkpoints
 not yet built -- documented per-scenario, not hidden).
+
+Audit fix (Critical, dimension 1): both endpoints below were previously
+unauthenticated and could be called against a live database by anyone --
+bulk-creating dozens of synthetic patients (data pollution / storage-
+exhaustion risk) or running a surge simulation with no gate at all.
+Restricted to ADMIN: seeding/surge-testing a hospital's live data is an
+operational action, never a point-of-care one.
 """
 from __future__ import annotations
 
@@ -11,6 +18,9 @@ from typing import List
 from fastapi import APIRouter, Depends, Query
 
 from app.api.deps import get_store
+from app.auth.deps import require_role
+from app.auth.models import AuthenticatedUser
+from app.auth.roles import Role
 from app.config.hospital_profile import load_hospital_profile
 from app.demo.scenarios import DemoScenario, seed_demo_patients
 from app.demo.surge import SurgeSimulationResult, run_surge_simulation
@@ -23,6 +33,7 @@ router = APIRouter(prefix="/demo", tags=["demo"])
 def seed_demo(
     hospital_profile_id: str = Query(default="default"),
     store: EventStore = Depends(get_store),
+    current_user: AuthenticatedUser = Depends(require_role(Role.ADMIN)),
 ) -> List[DemoScenario]:
     """Creates all twenty Phase 14.1 demo patients against a fresh
     database. Calling this more than once creates additional batches
@@ -37,6 +48,7 @@ def trigger_surge(
     baseline_count: int = Query(default=10, ge=2),
     multiplier: int = Query(default=3, gt=1),
     store: EventStore = Depends(get_store),
+    current_user: AuthenticatedUser = Depends(require_role(Role.ADMIN)),
 ) -> SurgeSimulationResult:
     """Phase 14.2's surge demo: creates a baseline population, then a
     `multiplier`x burst of additional arrivals, and returns concrete,

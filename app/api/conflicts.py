@@ -9,7 +9,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends
 
 from app.api.deps import get_store
-from app.auth.deps import require_role
+from app.auth.deps import require_hospital_scope, require_role
 from app.auth.models import AuthenticatedUser
 from app.auth.roles import Role
 from app.schemas.data_conflict import DataConflictResolveRequest, DataConflictResponse
@@ -32,6 +32,12 @@ def resolve_conflict(
     conflict = store.get_data_conflict(conflict_id)
     if conflict is None:
         raise NotFoundError(f"No data conflict {conflict_id}")
+    # Audit fix (High, dimension 1/IDOR): DataConflict doesn't carry
+    # hospital_profile_id directly, so its owning case is resolved to
+    # check tenancy before allowing resolution.
+    owning_case = store.get_case(conflict.case_id)
+    require_hospital_scope(current_user, owning_case.hospital_profile_id if owning_case else None)
+
     resolved = store.resolve_data_conflict(
         conflict_id,
         resolved_by=current_user.user_id,

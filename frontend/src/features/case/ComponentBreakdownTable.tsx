@@ -14,7 +14,7 @@ export const ComponentBreakdownTable: React.FC<ComponentBreakdownTableProps> = (
 }) => {
   if (!components || components.length === 0) {
     return (
-      <div className="p-4 text-center text-xs text-slate-500 font-mono italic">
+      <div className="p-4 text-center text-xs text-slate-400 font-mono italic">
         No rule component breakdown available.
       </div>
     );
@@ -28,7 +28,7 @@ export const ComponentBreakdownTable: React.FC<ComponentBreakdownTableProps> = (
 
   return (
     <div className="space-y-2">
-      <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-1">
+      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-1">
         Deterministic Scoring Framework Breakdown
       </div>
 
@@ -51,22 +51,22 @@ export const ComponentBreakdownTable: React.FC<ComponentBreakdownTableProps> = (
                 key={comp.concept_code}
                 className={
                   comp.is_missing
-                    ? 'bg-slate-950/40 opacity-70'
+                    ? 'bg-slate-50 opacity-80'
                     : hasPoints
-                    ? 'bg-orange-950/20'
+                    ? 'bg-orange-50/40'
                     : ''
                 }
               >
-                <TableCell className="font-medium text-slate-200">
+                <TableCell className="font-medium text-slate-900">
                   <div className="flex items-center gap-2">
                     {hasPoints ? (
-                      <AlertCircle className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                      <AlertCircle className="w-3.5 h-3.5 text-orange-500 shrink-0" />
                     ) : (
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-300 shrink-0" />
                     )}
                     <div>
                       <div className="text-xs font-semibold">{comp.label}</div>
-                      <div className="text-[10px] font-mono text-slate-500">
+                      <div className="text-[10px] font-mono text-slate-400">
                         {comp.concept_code}
                       </div>
                     </div>
@@ -75,41 +75,41 @@ export const ComponentBreakdownTable: React.FC<ComponentBreakdownTableProps> = (
 
                 <TableCell className="font-mono text-xs">
                   {comp.is_missing ? (
-                    <span className="text-amber-400 text-xs italic">
+                    <span className="text-amber-700 text-xs italic">
                       Missing: {comp.missing_reason || 'NOT_RECORDED'}
                     </span>
                   ) : (
-                    <span className="font-bold text-slate-100">{formatRawValue(comp)}</span>
+                    <span className="font-bold text-slate-900">{formatRawValue(comp)}</span>
                   )}
                 </TableCell>
 
-                <TableCell className="text-xs font-mono text-slate-400">
+                <TableCell className="text-xs font-mono text-slate-500">
                   {comp.observed_at ? (
                     <div className="flex items-center gap-1.5">
                       <StalenessDot observedAt={comp.observed_at} />
                       <span>{formatRelative(comp.observed_at)}</span>
                       {comp.reliability_tier && (
-                        <span className="text-[10px] text-slate-500 font-bold px-1 rounded bg-slate-800">
+                        <span className="text-[10px] text-slate-500 font-bold px-1 rounded bg-slate-100">
                           T{comp.reliability_tier}
                         </span>
                       )}
                     </div>
                   ) : (
-                    <span className="text-slate-600">--</span>
+                    <span className="text-slate-300">--</span>
                   )}
                 </TableCell>
 
                 <TableCell className="text-right font-mono">
                   {isExcluded ? (
-                    <span className="text-xs text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700 font-medium">
+                    <span className="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 font-medium">
                       Not scored (excluded)
                     </span>
                   ) : (
                     <span
                       className={`text-xs font-bold px-2 py-0.5 rounded ${
                         hasPoints
-                          ? 'bg-orange-950 text-orange-300 border border-orange-700/80'
-                          : 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/40'
+                          ? 'bg-orange-50 text-orange-700 border border-orange-200'
+                          : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       }`}
                     >
                       {comp.points} {comp.points === 1 ? 'pt' : 'pts'}

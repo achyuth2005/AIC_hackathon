@@ -85,23 +85,23 @@ def test_band_history_used_once_enough_samples_exist(store: EventStore):
     assert estimate.sample_size >= 3
 
 
-def test_queue_entries_carry_a_wait_time_estimate(client):
-    resp = client.post("/cases", json={"age_years": 40})
+def test_queue_entries_carry_a_wait_time_estimate(client, nurse_headers):
+    resp = client.post("/cases", json={"age_years": 40}, headers=nurse_headers)
     case_id = resp.json()["case_id"]
 
-    queue = client.get("/queue").json()
+    queue = client.get("/queue", headers=nurse_headers).json()
     entry = next(e for e in queue if e["case_id"] == case_id)
     assert entry["wait_time_estimate"]["lower_minutes"] <= entry["wait_time_estimate"]["upper_minutes"]
     assert entry["wait_time_estimate"]["caveat"]
 
 
-def test_case_detail_carries_a_wait_time_estimate_once_active_with_an_assessment(client):
-    resp = client.post("/cases", json={"age_years": 40})
+def test_case_detail_carries_a_wait_time_estimate_once_active_with_an_assessment(client, nurse_headers):
+    resp = client.post("/cases", json={"age_years": 40}, headers=nurse_headers)
     case_id = resp.json()["case_id"]
 
     # Force an initial assessment via the queue's self-healing backfill.
-    client.get("/queue")
+    client.get("/queue", headers=nurse_headers)
 
-    detail = client.get(f"/cases/{case_id}").json()
+    detail = client.get(f"/cases/{case_id}", headers=nurse_headers).json()
     assert detail["wait_time_estimate"] is not None
     assert detail["wait_time_estimate"]["lower_minutes"] <= detail["wait_time_estimate"]["upper_minutes"]

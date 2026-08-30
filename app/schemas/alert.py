@@ -6,7 +6,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.enums import AlertDismissalReasonCode, AlertType
 
@@ -28,4 +28,4 @@ class AlertResponse(BaseModel):
 
 class AlertDismissRequest(BaseModel):
     reason_code: AlertDismissalReasonCode
-    free_text_reason: Optional[str] = None
+    free_text_reason: Optional[str] = Field(default=None, max_length=2000)

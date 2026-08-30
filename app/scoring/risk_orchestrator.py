@@ -53,8 +53,19 @@ def _collect_ml_observation_ids(store: EventStore, case_id: str) -> List[str]:
 
 
 def assess_case(
-    case: Case, store: EventStore, profile: HospitalProfile, as_of: Optional[datetime] = None
+    case: Case,
+    store: EventStore,
+    profile: HospitalProfile,
+    as_of: Optional[datetime] = None,
+    commit: bool = True,
 ) -> RiskAssessment:
+    """`commit=False`: threaded straight through to
+    EventStore.save_risk_assessment so a caller composing this with other
+    writes in the same request (POST /cases/{id}/observations composes
+    this with the observation write and evaluate_and_activate()) can keep
+    the whole thing in one transaction -- a scoring failure here then rolls
+    back the observation too, rather than leaving it permanently persisted
+    with no assessment ever computed against it."""
     result = score_case(case, store, profile, as_of)
 
     # ML does not run at all on an age-unknown case -- same scope boundary
@@ -111,4 +122,5 @@ def assess_case(
         input_snapshot_hash=_snapshot_hash(all_observation_ids),
         input_observation_ids=all_observation_ids,
         computed_at=as_of,
+        commit=commit,
     )

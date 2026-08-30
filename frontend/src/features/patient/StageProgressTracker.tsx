@@ -37,19 +37,19 @@ export const StageProgressTracker: React.FC<StageProgressTrackerProps> = ({ curr
   const currentIndex = STAGES.findIndex((s) => s.stage === currentStage);
 
   return (
-    <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-left space-y-6 shadow-xl">
+    <div className="p-6 rounded-2xl bg-white border border-slate-200/80 text-left space-y-6 shadow-card">
       <div className="space-y-1">
-        <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider">
+        <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">
           Care Pathway Progress
         </h3>
-        <p className="text-base font-extrabold text-slate-100">
+        <p className="text-base font-extrabold text-slate-900">
           Where You Are in Your Emergency Care Visit
         </p>
       </div>
 
       <div className="relative">
         {/* Progress Bar Line */}
-        <div className="hidden sm:block absolute top-1/2 left-6 right-6 -translate-y-1/2 h-0.5 bg-slate-800" />
+        <div className="hidden sm:block absolute top-1/2 left-6 right-6 -translate-y-1/2 h-0.5 bg-slate-200" />
 
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 relative z-10">
           {STAGES.map((s, index) => {
@@ -62,37 +62,37 @@ export const StageProgressTracker: React.FC<StageProgressTrackerProps> = ({ curr
                 key={s.stage}
                 className={`p-4 rounded-xl border transition-all text-left space-y-2 ${
                   isCurrent
-                    ? 'bg-cyan-950/60 border-cyan-500 shadow-lg shadow-cyan-950/60 ring-2 ring-cyan-500/20'
+                    ? 'bg-emerald-50 border-emerald-300 shadow-card ring-2 ring-emerald-200'
                     : isCompleted
-                    ? 'bg-slate-950/80 border-emerald-800/60'
-                    : 'bg-slate-950/30 border-slate-800/80 opacity-50'
+                    ? 'bg-slate-50 border-emerald-200/70'
+                    : 'bg-slate-50/60 border-slate-200 opacity-60'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div
                     className={`w-8 h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs ${
                       isCurrent
-                        ? 'bg-cyan-500 text-slate-950'
+                        ? 'bg-emerald-600 text-white'
                         : isCompleted
                         ? 'bg-emerald-600 text-white'
-                        : 'bg-slate-800 text-slate-400'
+                        : 'bg-slate-200 text-slate-500'
                     }`}
                   >
                     {isCompleted ? <CheckCircle2 className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
                   </div>
 
                   {isCurrent && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-900 text-cyan-200 border border-cyan-700 animate-pulse">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 border border-emerald-200 animate-pulse-subtle">
                       Current Step
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <div className={`font-bold text-sm ${isCurrent ? 'text-cyan-300' : 'text-slate-200'}`}>
+                  <div className={`font-bold text-sm ${isCurrent ? 'text-emerald-800' : 'text-slate-800'}`}>
                     {s.label}
                   </div>
-                  <div className="text-xs text-slate-400 mt-0.5">{s.description}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">{s.description}</div>
                 </div>
               </div>
             );

@@ -14,17 +14,17 @@ export const DisparateImpactChart: React.FC<DisparateImpactChartProps> = ({
   subgroups = [],
 }) => {
   return (
-    <Card className="bg-slate-900 border-slate-800 text-left shadow-lg">
+    <Card className="text-left">
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm flex items-center gap-2 text-slate-200">
-          <BarChart3 className="w-4 h-4 text-cyan-400" />
+        <CardTitle className="text-sm flex items-center gap-2">
+          <BarChart3 className="w-4 h-4 text-indigo-600" />
           <span>{title}</span>
         </CardTitle>
       </CardHeader>
 
       <CardContent>
         {subgroups.length === 0 ? (
-          <div className="text-xs text-slate-500 font-mono py-6 text-center">
+          <div className="text-xs text-slate-400 font-mono py-6 text-center">
             No demographic records evaluated in active window.
           </div>
         ) : (
@@ -36,26 +36,26 @@ export const DisparateImpactChart: React.FC<DisparateImpactChartProps> = ({
               return (
                 <div
                   key={group.subgroup}
-                  className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-3"
+                  className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-sm text-slate-100 uppercase tracking-wide">
+                      <span className="font-bold text-sm text-slate-900 uppercase tracking-wide">
                         {group.subgroup}
                       </span>
-                      <span className="text-xs font-mono text-slate-400">
+                      <span className="text-xs font-mono text-slate-500">
                         ({group.case_count} Case{group.case_count === 1 ? '' : 's'})
                       </span>
                     </div>
 
                     <div className="flex items-center gap-3 text-xs font-mono">
-                      <span className="text-slate-400">
+                      <span className="text-slate-500">
                         Override Rate:{' '}
-                        <strong className="text-cyan-300">
+                        <strong className="text-indigo-600">
                           {overridePercent != null ? `${overridePercent}%` : 'N/A'}
                         </strong>
                       </span>
-                      <span className="text-slate-500">
+                      <span className="text-slate-400">
                         ({group.escalate_count} Esc / {group.de_escalate_count} De-esc)
                       </span>
                     </div>
@@ -63,7 +63,7 @@ export const DisparateImpactChart: React.FC<DisparateImpactChartProps> = ({
 
                   {/* Acuity Distribution Mini-Bar */}
                   <div className="space-y-1">
-                    <div className="text-[10px] font-mono text-slate-500 uppercase">
+                    <div className="text-[10px] font-mono text-slate-400 uppercase">
                       Current Acuity Distribution
                     </div>
                     <div className="flex flex-wrap gap-2 items-center">
@@ -72,10 +72,10 @@ export const DisparateImpactChart: React.FC<DisparateImpactChartProps> = ({
                         return (
                           <div
                             key={lvl}
-                            className="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800"
+                            className="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-white border border-slate-200"
                           >
                             <AcuityBadge acuity={lvl} size="xs" showLabel={false} />
-                            <span className="text-slate-300 font-bold">{count}</span>
+                            <span className="text-slate-700 font-bold">{count}</span>
                           </div>
                         );
                       })}

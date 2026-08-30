@@ -52,17 +52,17 @@ export const VitalValue: React.FC<VitalValueProps> = ({
   return (
     <div
       className={cn(
-        'p-3 rounded-xl border transition-all flex flex-col justify-between text-left',
+        'p-3.5 rounded-2xl border transition-all flex flex-col justify-between text-left',
         isMissing
-          ? 'bg-slate-900/40 border-slate-800/80 opacity-70'
+          ? 'bg-slate-500/5 border-slate-300/20 opacity-70 text-slate-400 backdrop-blur-sm shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]'
           : isAbnormal || (points != null && points > 0)
-          ? 'bg-orange-950/20 border-orange-700/60 text-orange-100'
-          : 'bg-slate-900/80 border-slate-800 text-slate-100',
+          ? 'bg-orange-500/15 border-orange-300/40 text-orange-950 backdrop-blur-sm shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7),0_4px_16px_rgba(249,115,22,0.06)]'
+          : 'bg-white/60 border-white/80 text-slate-900 backdrop-blur-xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.85),0_8px_32px_rgba(31,38,135,0.04)]',
         className
       )}
     >
       <div className="flex items-center justify-between gap-2 text-xs">
-        <span className="font-semibold text-slate-300 truncate">{label}</span>
+        <span className="font-semibold text-slate-500 truncate">{label}</span>
         {observedAt && (
           <div className="flex items-center gap-1 text-[10px] text-slate-400 font-mono">
             <StalenessDot observedAt={observedAt} />
@@ -72,22 +72,22 @@ export const VitalValue: React.FC<VitalValueProps> = ({
       </div>
 
       <div className="my-1 flex items-baseline gap-1.5">
-        <span className="text-xl font-bold font-mono tracking-tight text-slate-100">
+        <span className="text-xl font-bold font-mono tabular-nums tracking-tight text-slate-900">
           {displayVal}
         </span>
         {unit && <span className="text-xs text-slate-400 font-mono">{unit}</span>}
       </div>
 
-      <div className="flex items-center justify-between text-[10px] pt-1 border-t border-slate-800/60 mt-1">
+      <div className="flex items-center justify-between text-[10px] pt-1.5 border-t border-slate-100/60 mt-1">
         {points !== undefined && (
           <span
             className={cn(
-              'font-mono font-bold px-1.5 py-0.2 rounded',
+              'font-mono font-bold px-2 py-0.5 rounded-full text-[10px]',
               points == null
-                ? 'text-slate-500 bg-slate-800'
+                ? 'text-slate-400 bg-slate-500/10'
                 : points > 0
-                ? 'text-orange-300 bg-orange-950/80 border border-orange-700/60'
-                : 'text-emerald-400 bg-emerald-950/40'
+                ? 'text-orange-800 bg-orange-500/20 border border-orange-300/40'
+                : 'text-emerald-800 bg-emerald-500/20 border border-emerald-300/40'
             )}
           >
             {points == null ? 'Not scored' : `${points} pts`}
@@ -95,7 +95,7 @@ export const VitalValue: React.FC<VitalValueProps> = ({
         )}
 
         {isMissing && missingReason ? (
-          <span className="text-amber-400 font-mono text-[9px] truncate">
+          <span className="text-amber-900 font-mono text-[9px] truncate">
             {missingReason}
           </span>
         ) : reliabilityTier ? (

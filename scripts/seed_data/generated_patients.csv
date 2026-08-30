@@ -1,0 +1,751 @@
+mrn,display_name,date_of_birth,age_years,sex,arrival_mode,medical_history,chief_complaint,severity_tier,estimated_transport_minutes,RESP_RATE,SPO2,HEART_RATE,SYSTOLIC_BP,TEMPERATURE,CONSCIOUSNESS_LEVEL,SUPPLEMENTAL_OXYGEN
+MRN-100000,Allison Hill,1981-02-03,45,OTHER,WALK_IN,,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,28.0,83.0,142.0,78.0,36.7,PAIN,True
+MRN-100001,Noah Rhodes,1935-02-12,91,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,16.0,100.0,89.0,116.0,37.1,ALERT,False
+MRN-100002,Angie Henderson,1950-04-06,76,FEMALE,AMBULANCE,,Sprained ankle after stepping off a curb,MINOR,15.1,14.0,98.0,89.0,119.0,37.0,ALERT,False
+MRN-100003,Daniel Wagner,1962-06-14,64,FEMALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,22.0,95.0,117.0,99.0,37.6,ALERT,False
+MRN-100004,Cristian Santos,2015-02-06,11,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,98.0,90.0,107.0,36.5,ALERT,False
+MRN-100005,Connie Lawrence,1937-04-18,89,MALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,24.0,93.0,118.0,100.0,38.5,ALERT,False
+MRN-100006,Abigail Shaffer,1993-07-08,33,MALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,27.0,94.0,105.0,106.0,38.0,ALERT,False
+MRN-100007,Gina Moore,1958-04-25,68,OTHER,AMBULANCE,,Requesting refill of routine blood pressure medication,MINOR,34.2,14.0,97.0,61.0,118.0,36.6,ALERT,False
+MRN-100008,Gabrielle Davis,1954-09-25,71,FEMALE,AMBULANCE,Seasonal Allergies,"Mild lower back stiffness, chronic, no new injury",MINOR,33.2,13.0,96.0,71.0,116.0,36.6,ALERT,False
+MRN-100009,Ryan Munoz,1964-08-12,62,MALE,WALK_IN,Anxiety,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,30.0,87.0,158.0,72.0,36.2,ALERT,True
+MRN-100010,Monica Herrera,1949-05-26,77,OTHER,WALK_IN,"CAD, Type 2 Diabetes","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,22.0,94.0,110.0,104.0,37.7,ALERT,False
+MRN-100011,Jamie Arnold,1945-05-07,81,MALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,24.0,92.0,110.0,105.0,38.2,ALERT,True
+MRN-100012,Lisa Hensley,1989-04-17,37,OTHER,WALK_IN,"COPD, Coronary Artery Disease",Mild allergic rash after new laundry detergent,MINOR,,18.0,99.0,84.0,121.0,37.2,ALERT,False
+MRN-100013,Michele Williams,1997-06-22,29,OTHER,AMBULANCE,"Immunocompromised, on long-term chemotherapy",Sprained ankle after stepping off a curb,MINOR,25.7,12.0,99.0,83.0,125.0,37.2,ALERT,False
+MRN-100014,Dylan Miller,1936-05-05,90,FEMALE,WALK_IN,COPD,Sprained ankle after stepping off a curb,MINOR,,16.0,100.0,88.0,119.0,36.3,ALERT,False
+MRN-100015,Brian Ramirez,1938-11-30,87,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,16.0,98.0,71.0,129.0,36.7,ALERT,False
+MRN-100016,Holly Wood,1963-01-18,63,MALE,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,26.0,93.0,117.0,99.0,38.8,ALERT,False
+MRN-100017,Derek Zuniga,1955-01-28,71,MALE,WALK_IN,"CAD, Type 2 Diabetes","Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,27.0,93.0,112.0,110.0,38.5,ALERT,False
+MRN-100018,Lisa Jackson,1958-11-02,67,FEMALE,WALK_IN,"CAD, Type 2 Diabetes",Minor laceration to finger while chopping vegetables,MINOR,,13.0,98.0,95.0,116.0,37.0,ALERT,False
+MRN-100019,Carla Gray,1935-04-16,91,MALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,14.0,99.0,64.0,128.0,36.9,ALERT,False
+MRN-100020,Margaret Hawkins DDS,2006-04-08,20,FEMALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,27.0,93.0,113.0,101.0,38.8,ALERT,False
+MRN-100021,Patty Perez,2008-04-15,18,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,19.0,98.0,91.0,112.0,36.6,ALERT,False
+MRN-100022,Ethan Adams,1949-10-16,76,OTHER,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,23.0,93.0,118.0,101.0,38.8,ALERT,False
+MRN-100023,Tommy Walter,1935-12-04,90,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Ear pain for two days, no fever",MINOR,,12.0,99.0,87.0,124.0,36.7,ALERT,False
+MRN-100024,Matthew Foster,1962-07-13,64,MALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,18.0,98.0,80.0,116.0,37.0,ALERT,False
+MRN-100025,Judy Baker,1973-06-25,53,OTHER,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,14.0,99.0,85.0,125.0,37.2,ALERT,False
+MRN-100026,Justin Baker,1957-04-07,69,FEMALE,WALK_IN,Type 2 Diabetes,"Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,96.0,63.0,120.0,37.2,ALERT,False
+MRN-100027,Stephanie Ross,1969-10-24,56,MALE,WALK_IN,"COPD, Coronary Artery Disease",Suspected fracture of the wrist after a fall,MODERATE,,25.0,95.0,101.0,107.0,38.0,ALERT,False
+MRN-100028,Zachary Hicks,1972-09-28,53,OTHER,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,24.0,93.0,116.0,102.0,38.4,ALERT,False
+MRN-100029,Anthony Rodriguez,1944-01-28,82,FEMALE,WALK_IN,,Severe abdominal pain with rigidity and hypotension,CRITICAL,,39.0,85.0,131.0,78.0,36.7,ALERT,True
+MRN-100030,Rebecca Henderson,1987-02-04,39,OTHER,WALK_IN,Seasonal Allergies,Requesting refill of routine blood pressure medication,MINOR,,13.0,98.0,78.0,111.0,36.9,ALERT,False
+MRN-100031,James Ferrell,2023-02-10,3,OTHER,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,18.0,99.0,92.0,127.0,37.1,ALERT,False
+MRN-100032,Tricia Valencia,1996-03-10,30,OTHER,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,25.0,94.0,116.0,108.0,38.4,ALERT,False
+MRN-100033,Nathan Maldonado,1943-04-15,83,MALE,WALK_IN,Osteoarthritis,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,37.0,79.0,135.0,83.0,35.8,VOICE,True
+MRN-100034,Debra Davidson,1958-04-30,68,OTHER,AMBULANCE,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,27.6,27.0,93.0,121.0,107.0,38.2,ALERT,True
+MRN-100035,Jeffrey Chavez,1996-09-26,29,OTHER,AMBULANCE,Seasonal Allergies,"Small splinter in palm, unable to remove at home",MINOR,22.5,15.0,99.0,61.0,118.0,36.8,ALERT,False
+MRN-100036,Sherri Baker,1944-07-26,82,FEMALE,WALK_IN,Seasonal Allergies,"Mild dehydration after a long hike, feeling better with water",MINOR,,18.0,98.0,95.0,110.0,36.4,ALERT,False
+MRN-100037,Cassandra Gaines,1942-07-23,84,FEMALE,WALK_IN,"COPD, Coronary Artery Disease",Requesting refill of routine blood pressure medication,MINOR,,19.0,96.0,69.0,118.0,36.7,ALERT,False
+MRN-100038,Elizabeth Fowler,1972-06-25,54,OTHER,AMBULANCE,"CAD, Type 2 Diabetes","Mild lower back stiffness, chronic, no new injury",MINOR,30.7,16.0,100.0,71.0,122.0,36.5,ALERT,False
+MRN-100039,Brittany Farmer,2013-02-26,13,OTHER,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,12.0,97.0,97.0,128.0,37.1,ALERT,False
+MRN-100040,Paula Moreno,2014-05-17,12,OTHER,WALK_IN,Hyperlipidemia,Minor laceration to finger while chopping vegetables,MINOR,,12.0,97.0,98.0,124.0,36.5,ALERT,False
+MRN-100041,Fred Smith,1999-05-19,27,OTHER,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,26.0,94.0,107.0,110.0,38.9,ALERT,False
+MRN-100042,Sherry Decker,2002-10-02,23,MALE,AMBULANCE,Type 2 Diabetes,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,19.3,26.0,93.0,108.0,98.0,37.7,ALERT,False
+MRN-100043,Anthony Humphrey,1978-11-12,47,OTHER,WALK_IN,Hypertension,"Mild dehydration after a long hike, feeling better with water",MINOR,,12.0,99.0,93.0,118.0,36.8,ALERT,False
+MRN-100044,Angelica Tucker,1964-02-09,62,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,13.0,96.0,83.0,107.0,36.6,ALERT,False
+MRN-100045,Philip Cannon,1943-12-14,82,OTHER,WALK_IN,Hyperlipidemia,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,24.0,93.0,115.0,96.0,38.5,ALERT,False
+MRN-100046,John Pierce,1933-02-14,93,MALE,WALK_IN,Migraine,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,26.0,93.0,118.0,100.0,38.0,ALERT,False
+MRN-100047,Shane Henderson,2017-07-20,9,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,26.0,94.0,114.0,103.0,38.0,ALERT,True
+MRN-100048,Joshua Blair,1980-02-07,46,OTHER,AMBULANCE,"COPD, Hypertension",Requesting refill of routine blood pressure medication,MINOR,15.5,16.0,97.0,82.0,110.0,37.0,ALERT,False
+MRN-100049,Eric Carney,1954-07-21,72,FEMALE,WALK_IN,Congestive Heart Failure,"Ear pain for two days, no fever",MINOR,,18.0,100.0,91.0,120.0,36.9,ALERT,False
+MRN-100050,Jessica Holmes,2022-04-14,4,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,22.0,93.0,103.0,105.0,37.7,ALERT,False
+MRN-100051,Danny Morgan,2021-12-03,4,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,97.0,72.0,128.0,36.9,ALERT,False
+MRN-100052,Crystal Robinson,2005-08-10,21,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy",Moderate burn to hand from cooking oil,MODERATE,,23.0,93.0,107.0,106.0,37.7,ALERT,False
+MRN-100053,Mark Perez,1958-04-12,68,OTHER,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,20.0,93.0,123.0,107.0,38.6,ALERT,False
+MRN-100054,Shannon Jones,2009-12-23,16,MALE,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,24.0,93.0,113.0,105.0,38.1,ALERT,False
+MRN-100055,Michael Lewis,2020-08-22,6,FEMALE,WALK_IN,"Hypertension, Type 2 Diabetes","Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,35.0,84.0,150.0,78.0,35.6,VOICE,True
+MRN-100056,Timothy Duncan,1945-10-01,80,FEMALE,AMBULANCE,Coronary Artery Disease (CAD),"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,7.3,22.0,94.0,113.0,101.0,38.0,ALERT,False
+MRN-100057,Richard Aguirre,1943-12-23,82,MALE,WALK_IN,Coronary Artery Disease (CAD),"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,14.0,100.0,85.0,109.0,36.4,ALERT,False
+MRN-100058,Brent Jordan,1947-10-19,78,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,98.0,82.0,121.0,37.2,ALERT,False
+MRN-100059,John Daniel,1942-11-05,83,OTHER,WALK_IN,"COPD, Coronary Artery Disease","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,96.0,77.0,112.0,36.6,ALERT,False
+MRN-100060,Victoria Garcia,2016-01-09,10,FEMALE,WALK_IN,,"Sudden facial droop and slurred speech, stroke alert",CRITICAL,,29.0,88.0,155.0,81.0,37.4,PAIN,True
+MRN-100061,Gerald Hensley,1951-08-28,75,OTHER,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,14.0,98.0,66.0,106.0,36.4,ALERT,False
+MRN-100062,Connor West,1982-07-29,44,OTHER,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,25.0,95.0,113.0,104.0,38.1,ALERT,False
+MRN-100063,Donald Wright,1976-03-22,50,FEMALE,WALK_IN,,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,29.0,79.0,149.0,75.0,38.5,ALERT,True
+MRN-100064,Jessica Callahan,1948-04-01,78,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,14.0,99.0,85.0,108.0,37.0,ALERT,False
+MRN-100065,Amber Kidd,2014-11-20,11,FEMALE,WALK_IN,GERD,"Sore throat and mild fever, cold-like symptoms",MINOR,,17.0,99.0,88.0,121.0,36.8,ALERT,False
+MRN-100066,Tracy House,1960-09-06,66,FEMALE,WALK_IN,Hyperlipidemia,Persistent fever with vomiting for two days,MODERATE,,22.0,94.0,105.0,110.0,37.8,ALERT,False
+MRN-100067,Carol Tucker,1955-12-22,70,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy","Back pain after lifting, unable to bear weight comfortably",MODERATE,,21.0,93.0,104.0,107.0,38.6,ALERT,False
+MRN-100068,James Brown,2020-02-27,6,FEMALE,WALK_IN,Hypothyroidism,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,24.0,94.0,119.0,99.0,37.9,ALERT,False
+MRN-100069,William Baker,1977-11-23,48,OTHER,AMBULANCE,Seasonal Allergies,Requesting refill of routine blood pressure medication,MINOR,6.6,17.0,98.0,76.0,109.0,36.5,ALERT,False
+MRN-100070,Jordan Henderson,1963-12-06,62,FEMALE,AMBULANCE,"Immunosuppressed (post-transplant, on tacrolimus)","Small splinter in palm, unable to remove at home",MINOR,7.8,18.0,97.0,89.0,112.0,37.2,ALERT,False
+MRN-100071,Whitney Peters,1997-03-12,29,FEMALE,AMBULANCE,,"Ear pain for two days, no fever",MINOR,32.9,16.0,97.0,98.0,114.0,36.3,ALERT,False
+MRN-100072,Brittney Phillips,1934-04-04,92,OTHER,WALK_IN,Hypertension,"Migraine with photophobia, not resolving with home medication",MODERATE,,26.0,93.0,120.0,106.0,38.2,ALERT,False
+MRN-100073,Lauren Daniels,1993-06-23,33,MALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,15.0,99.0,69.0,108.0,36.5,ALERT,False
+MRN-100074,Amy Silva,1944-01-29,82,OTHER,WALK_IN,"Heart Failure, Chronic Kidney Disease","Mild lower back stiffness, chronic, no new injury",MINOR,,16.0,96.0,80.0,111.0,36.4,ALERT,False
+MRN-100075,Sarah Moore,1995-02-06,31,OTHER,WALK_IN,GERD,"Small splinter in palm, unable to remove at home",MINOR,,19.0,96.0,80.0,117.0,37.3,ALERT,False
+MRN-100076,Angela Lopez,1964-10-24,61,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Moderate abdominal pain, worsening over 6 hours",MODERATE,,22.0,92.0,106.0,105.0,37.7,ALERT,False
+MRN-100077,Megan Young,2019-11-26,6,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,19.0,98.0,67.0,108.0,37.0,ALERT,False
+MRN-100078,Steve Sanchez,1967-04-17,59,MALE,WALK_IN,"CAD, Type 2 Diabetes",Minor laceration to finger while chopping vegetables,MINOR,,14.0,97.0,75.0,125.0,36.8,ALERT,False
+MRN-100079,Lisa Barnes,1989-08-15,37,FEMALE,AMBULANCE,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,10.6,26.0,93.0,110.0,102.0,38.8,ALERT,False
+MRN-100080,Kelly Donovan,1937-03-17,89,FEMALE,AMBULANCE,,Sprained ankle after stepping off a curb,MINOR,14.6,17.0,96.0,83.0,125.0,36.8,ALERT,False
+MRN-100081,Mike Allen,2014-09-29,11,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,13.0,98.0,77.0,122.0,37.2,ALERT,False
+MRN-100082,Michael Evans,1947-05-02,79,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,13.0,99.0,74.0,124.0,37.0,ALERT,False
+MRN-100083,Paul Jones,2021-10-24,4,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,12.0,99.0,74.0,114.0,36.9,ALERT,False
+MRN-100084,Zachary Ferrell,1947-10-07,78,MALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,25.0,94.0,113.0,101.0,38.4,ALERT,False
+MRN-100085,Daniel Baker,2011-05-31,15,MALE,WALK_IN,Hypothyroidism,"Palpitations and lightheadedness, no chest pain",MODERATE,,21.0,94.0,117.0,98.0,38.4,ALERT,False
+MRN-100086,Shirley Suarez,2010-07-28,16,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,19.0,99.0,97.0,129.0,37.0,ALERT,False
+MRN-100087,Christopher Bass,1934-12-15,91,MALE,WALK_IN,"CAD, Type 2 Diabetes","Sore throat and mild fever, cold-like symptoms",MINOR,,17.0,100.0,84.0,124.0,36.8,ALERT,False
+MRN-100088,Lisa Archer,2007-12-26,18,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,100.0,65.0,126.0,36.4,ALERT,False
+MRN-100089,Aimee Montoya,1975-01-10,51,OTHER,WALK_IN,"COPD, Coronary Artery Disease","Mild dehydration after a long hike, feeling better with water",MINOR,,13.0,100.0,84.0,116.0,37.0,ALERT,False
+MRN-100090,Matthew Mcmillan,1944-06-18,82,OTHER,WALK_IN,Osteoarthritis,"Palpitations and lightheadedness, no chest pain",MODERATE,,26.0,92.0,103.0,97.0,37.8,ALERT,False
+MRN-100091,Brian Rodriguez,1959-08-07,67,FEMALE,WALK_IN,Anxiety,"Small splinter in palm, unable to remove at home",MINOR,,14.0,99.0,83.0,107.0,36.9,ALERT,False
+MRN-100092,Denise Jacobs,2005-10-02,20,MALE,WALK_IN,Anxiety,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,98.0,91.0,106.0,36.3,ALERT,False
+MRN-100093,Christina Walters,1992-05-23,34,OTHER,WALK_IN,GERD,Minor laceration to finger while chopping vegetables,MINOR,,15.0,99.0,71.0,128.0,36.8,ALERT,False
+MRN-100094,John Whitehead,1987-08-03,39,FEMALE,WALK_IN,GERD,Moderate burn to hand from cooking oil,MODERATE,,23.0,93.0,115.0,100.0,38.5,ALERT,False
+MRN-100095,Anna Henderson,2008-12-14,17,FEMALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,21.0,93.0,103.0,96.0,38.8,ALERT,False
+MRN-100096,Aaron Wise,1972-06-23,54,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,97.0,98.0,116.0,37.2,ALERT,False
+MRN-100097,Deborah Figueroa,1962-07-31,64,MALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,24.6,14.0,97.0,62.0,117.0,37.2,ALERT,False
+MRN-100098,Jessica Smith,1964-12-14,61,FEMALE,WALK_IN,"COPD, Coronary Artery Disease",Suspected fracture of the wrist after a fall,MODERATE,,26.0,94.0,118.0,100.0,38.1,ALERT,False
+MRN-100099,Stephen Mckee,1989-02-23,37,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,18.0,98.0,83.0,108.0,36.4,ALERT,False
+MRN-100100,Sandra Aguilar,1977-11-30,48,FEMALE,AMBULANCE,Hyperlipidemia,Mild allergic rash after new laundry detergent,MINOR,18.7,16.0,98.0,62.0,106.0,37.0,ALERT,False
+MRN-100101,Cameron Parker,1948-07-09,78,OTHER,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,15.0,98.0,92.0,119.0,36.8,ALERT,False
+MRN-100102,Rebecca Valencia,1960-01-09,66,OTHER,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,23.0,94.0,124.0,104.0,38.6,ALERT,False
+MRN-100103,Christine Wright,1937-09-08,89,OTHER,WALK_IN,"Hypertension, Type 2 Diabetes","Back pain after lifting, unable to bear weight comfortably",MODERATE,,24.0,94.0,114.0,98.0,38.4,ALERT,False
+MRN-100104,Richard Henson,1938-09-05,88,MALE,WALK_IN,Migraine,Mild allergic rash after new laundry detergent,MINOR,,12.0,97.0,66.0,122.0,36.7,ALERT,False
+MRN-100105,Marc Moore,1931-09-27,94,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,27.0,93.0,109.0,109.0,38.2,ALERT,False
+MRN-100106,Sharon Cherry,1955-10-06,70,FEMALE,WALK_IN,Seasonal Allergies,Requesting refill of routine blood pressure medication,MINOR,,16.0,97.0,69.0,118.0,36.5,ALERT,False
+MRN-100107,Sierra Johnson,1989-05-25,37,OTHER,WALK_IN,GERD,"Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,100.0,90.0,112.0,36.4,ALERT,False
+MRN-100108,Evelyn Galvan,1975-06-30,51,FEMALE,WALK_IN,Seasonal Allergies,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,22.0,93.0,106.0,102.0,37.9,ALERT,False
+MRN-100109,Sharon Cochran,2007-10-24,18,MALE,WALK_IN,Coronary Artery Disease (CAD),"Moderate abdominal pain, worsening over 6 hours",MODERATE,,25.0,94.0,115.0,96.0,38.1,ALERT,False
+MRN-100110,Richard Rodriguez,2025-06-11,1,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,97.0,97.0,113.0,36.9,ALERT,False
+MRN-100111,Shannon Walker,2013-11-13,12,OTHER,WALK_IN,GERD,Minor laceration to finger while chopping vegetables,MINOR,,18.0,97.0,94.0,109.0,37.2,ALERT,False
+MRN-100112,Julia Torres,1962-04-20,64,MALE,AMBULANCE,,"Unresponsive, found down, unknown downtime",CRITICAL,19.8,35.0,88.0,137.0,78.0,38.1,ALERT,True
+MRN-100113,Crystal Johnson,2008-01-08,18,OTHER,WALK_IN,Anxiety,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,98.0,70.0,109.0,37.0,ALERT,False
+MRN-100114,Garrett Lin,1939-06-24,87,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Ear pain for two days, no fever",MINOR,,18.0,98.0,63.0,121.0,36.5,ALERT,False
+MRN-100115,Diana May,1994-04-27,32,MALE,WALK_IN,Hypertension,Requesting refill of routine blood pressure medication,MINOR,,19.0,97.0,87.0,105.0,37.0,ALERT,False
+MRN-100116,William Herrera,1940-01-26,86,MALE,WALK_IN,Osteoarthritis,"Small splinter in palm, unable to remove at home",MINOR,,18.0,100.0,89.0,122.0,36.9,ALERT,False
+MRN-100117,Ashley Waller,1947-05-30,79,MALE,AMBULANCE,Hypothyroidism,"Mild lower back stiffness, chronic, no new injury",MINOR,27.9,17.0,98.0,76.0,118.0,36.8,ALERT,False
+MRN-100118,Victor Baker,1938-08-11,88,OTHER,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,98.0,62.0,118.0,36.8,ALERT,False
+MRN-100119,Jeffrey Chandler,1952-07-03,74,OTHER,WALK_IN,Migraine,"Mild lower back stiffness, chronic, no new injury",MINOR,,13.0,97.0,82.0,107.0,36.8,ALERT,False
+MRN-100120,Larry Dixon,2009-02-03,17,OTHER,WALK_IN,,Severe abdominal pain with rigidity and hypotension,CRITICAL,,36.0,81.0,126.0,75.0,35.0,VOICE,True
+MRN-100121,Kenneth Scott,1951-08-26,75,MALE,WALK_IN,Coronary Artery Disease (CAD),"Small splinter in palm, unable to remove at home",MINOR,,19.0,100.0,63.0,127.0,36.3,ALERT,False
+MRN-100122,April Frost,1942-10-25,83,OTHER,AMBULANCE,,Moderate burn to hand from cooking oil,MODERATE,9.0,23.0,95.0,109.0,96.0,38.9,ALERT,False
+MRN-100123,Michelle Harmon,1981-06-11,45,MALE,AMBULANCE,Hyperlipidemia,Suspected fracture of the wrist after a fall,MODERATE,16.4,25.0,93.0,100.0,95.0,38.0,ALERT,False
+MRN-100124,Helen Jones,1996-01-15,30,MALE,WALK_IN,COPD,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,20.0,94.0,115.0,109.0,38.8,ALERT,False
+MRN-100125,Erin Edwards,1967-10-05,58,OTHER,WALK_IN,,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,33.0,81.0,133.0,86.0,35.3,ALERT,True
+MRN-100126,Michelle Evans,1987-11-19,38,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,14.0,100.0,97.0,118.0,36.7,ALERT,False
+MRN-100127,Jason Powell,1989-11-27,36,MALE,AMBULANCE,Hyperlipidemia,"Sore throat and mild fever, cold-like symptoms",MINOR,14.6,16.0,98.0,79.0,128.0,37.2,ALERT,False
+MRN-100128,Cameron Fisher,1972-06-28,54,FEMALE,WALK_IN,GERD,"Palpitations and lightheadedness, no chest pain",MODERATE,,23.0,95.0,107.0,106.0,38.6,ALERT,False
+MRN-100129,Megan Orr,1954-07-11,72,OTHER,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,25.0,95.0,120.0,96.0,38.5,ALERT,False
+MRN-100130,Elizabeth Kelley,1990-09-29,35,FEMALE,WALK_IN,COPD,"Sudden severe shortness of breath, unable to speak in full sentences",CRITICAL,,30.0,86.0,150.0,80.0,37.3,PAIN,True
+MRN-100131,Dustin Jordan,1998-07-08,28,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,17.0,99.0,75.0,111.0,36.6,ALERT,False
+MRN-100132,Mary Marshall,1989-01-13,37,FEMALE,WALK_IN,"CAD, Type 2 Diabetes","Migraine with photophobia, not resolving with home medication",MODERATE,,23.0,95.0,111.0,107.0,38.5,ALERT,False
+MRN-100133,Daniel Kennedy,1978-02-12,48,FEMALE,WALK_IN,"CAD, Type 2 Diabetes","Sore throat and mild fever, cold-like symptoms",MINOR,,12.0,98.0,82.0,122.0,36.6,ALERT,False
+MRN-100134,Rebecca Jackson,1977-05-09,49,OTHER,WALK_IN,"Heart Failure, Chronic Kidney Disease","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,14.0,99.0,97.0,120.0,36.8,ALERT,False
+MRN-100135,Jose Schultz,2003-11-30,22,MALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,19.0,100.0,80.0,125.0,36.4,ALERT,False
+MRN-100136,Robert Potter,1940-09-17,86,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,12.0,97.0,68.0,116.0,36.4,ALERT,False
+MRN-100137,Courtney Gonzalez,1943-11-09,82,OTHER,AMBULANCE,,Minor laceration to finger while chopping vegetables,MINOR,34.3,12.0,98.0,60.0,118.0,36.6,ALERT,False
+MRN-100138,David Alvarez,2022-09-08,3,OTHER,WALK_IN,Seasonal Allergies,"Sore throat and mild fever, cold-like symptoms",MINOR,,13.0,96.0,66.0,110.0,36.8,ALERT,False
+MRN-100139,Angel Perry,1975-03-05,51,MALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,30.7,19.0,97.0,86.0,125.0,37.0,ALERT,False
+MRN-100140,Cheyenne Horton,2021-02-05,5,MALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,16.0,99.0,63.0,125.0,36.9,ALERT,False
+MRN-100141,David Douglas Jr.,1983-07-24,43,OTHER,AMBULANCE,Congestive Heart Failure,Mild allergic rash after new laundry detergent,MINOR,32.0,13.0,99.0,94.0,116.0,36.3,ALERT,False
+MRN-100142,Patricia Rodriguez,1953-09-01,73,OTHER,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,19.0,98.0,89.0,122.0,36.7,ALERT,False
+MRN-100143,Christopher Rubio,2016-06-10,10,FEMALE,WALK_IN,Type 2 Diabetes,"Ear pain for two days, no fever",MINOR,,17.0,98.0,75.0,123.0,37.1,ALERT,False
+MRN-100144,Amber Wright,1961-03-22,65,OTHER,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,14.0,99.0,96.0,115.0,37.1,ALERT,False
+MRN-100145,Joyce Solis,2022-04-14,4,OTHER,WALK_IN,Congestive Heart Failure,Mild allergic rash after new laundry detergent,MINOR,,14.0,100.0,76.0,121.0,37.0,ALERT,False
+MRN-100146,Victoria Larson,1994-08-01,32,OTHER,WALK_IN,Coronary Artery Disease (CAD),Suspected fracture of the wrist after a fall,MODERATE,,25.0,93.0,103.0,95.0,38.0,ALERT,False
+MRN-100147,Stephanie Salazar,2014-01-25,12,MALE,WALK_IN,Hypertension,"Ear pain for two days, no fever",MINOR,,13.0,96.0,81.0,119.0,37.1,ALERT,False
+MRN-100148,Kathy Rivas,1988-02-23,38,FEMALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,18.0,100.0,82.0,109.0,36.7,ALERT,False
+MRN-100149,Stephanie Manning,2008-04-02,18,FEMALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,23.0,93.0,112.0,96.0,37.9,ALERT,False
+MRN-100150,David Wright,1944-11-19,81,FEMALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,100.0,73.0,120.0,37.1,ALERT,False
+MRN-100151,Pamela Boyd,1969-11-13,56,OTHER,WALK_IN,Hypothyroidism,Persistent fever with vomiting for two days,MODERATE,,23.0,93.0,110.0,100.0,38.6,ALERT,False
+MRN-100152,Denise Jones,1984-04-19,42,FEMALE,WALK_IN,Hypothyroidism,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,27.0,93.0,124.0,98.0,38.6,ALERT,True
+MRN-100153,Devon Flores,1968-09-24,57,FEMALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Ear pain for two days, no fever",MINOR,,17.0,97.0,72.0,111.0,36.5,ALERT,False
+MRN-100154,Brenda Hall,2015-10-31,10,FEMALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,18.0,99.0,76.0,106.0,37.3,ALERT,False
+MRN-100155,Michelle Brown,1935-11-22,90,OTHER,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,25.0,93.0,116.0,96.0,38.9,ALERT,False
+MRN-100156,Joshua Perry,1974-02-04,52,FEMALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,24.0,94.0,114.0,104.0,38.2,ALERT,False
+MRN-100157,Jason Stein,1938-10-03,87,OTHER,WALK_IN,"Heart Failure, Chronic Kidney Disease","Moderate abdominal pain, worsening over 6 hours",MODERATE,,23.0,93.0,122.0,96.0,38.7,ALERT,False
+MRN-100158,Melissa Gates,1966-12-22,59,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,98.0,63.0,106.0,37.0,ALERT,False
+MRN-100159,Jamie Smith,2022-10-04,3,FEMALE,WALK_IN,"Hypertension, Type 2 Diabetes",Mild allergic rash after new laundry detergent,MINOR,,16.0,98.0,73.0,115.0,36.8,ALERT,False
+MRN-100160,Paul Castaneda,2001-10-04,24,OTHER,WALK_IN,Type 2 Diabetes,"Unresponsive, found down, unknown downtime",CRITICAL,,39.0,83.0,140.0,70.0,36.0,PAIN,True
+MRN-100161,Jennifer Adkins,1951-12-18,74,MALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,21.0,94.0,112.0,109.0,38.0,ALERT,False
+MRN-100162,Lindsey Walker,1975-07-16,51,OTHER,WALK_IN,Osteoarthritis,"Mild dehydration after a long hike, feeling better with water",MINOR,,13.0,99.0,90.0,127.0,36.9,ALERT,False
+MRN-100163,Jeffrey Johnson,2010-03-31,16,MALE,WALK_IN,"Hypertension, Type 2 Diabetes",Suspected fracture of the wrist after a fall,MODERATE,,24.0,93.0,103.0,101.0,37.8,ALERT,False
+MRN-100164,Michael Powell,1954-01-10,72,MALE,WALK_IN,Migraine,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,24.0,95.0,123.0,102.0,37.9,ALERT,False
+MRN-100165,John Anderson,1973-01-04,53,OTHER,WALK_IN,Congestive Heart Failure,"Mild lower back stiffness, chronic, no new injury",MINOR,,13.0,98.0,90.0,110.0,36.3,ALERT,False
+MRN-100166,Alyssa Long,2003-11-20,22,FEMALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,16.0,98.0,70.0,118.0,37.3,ALERT,False
+MRN-100167,Alyssa Day,1956-02-04,70,MALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,17.0,99.0,69.0,126.0,36.3,ALERT,False
+MRN-100168,Joel Williams,1992-07-25,34,FEMALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,13.0,99.0,86.0,126.0,36.9,ALERT,False
+MRN-100169,Daniel Murphy,1970-11-02,55,MALE,WALK_IN,Congestive Heart Failure,Persistent fever with vomiting for two days,MODERATE,,26.0,94.0,113.0,104.0,37.8,ALERT,False
+MRN-100170,Jamie Walton,1960-07-29,66,OTHER,WALK_IN,,"Ear pain for two days, no fever",MINOR,,18.0,100.0,93.0,108.0,37.2,ALERT,False
+MRN-100171,Darlene Miller,1993-09-08,32,MALE,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,23.0,94.0,106.0,101.0,38.2,ALERT,False
+MRN-100172,Joshua Cooke,2013-12-13,12,FEMALE,WALK_IN,"Immunocompromised, on long-term chemotherapy","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,98.0,82.0,126.0,37.1,ALERT,False
+MRN-100173,Matthew Harrington,1943-09-28,82,OTHER,WALK_IN,,Penetrating stab wound to the abdomen,CRITICAL,,33.0,89.0,154.0,79.0,36.5,PAIN,True
+MRN-100174,Nicole Herring,1981-11-19,44,OTHER,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,99.0,62.0,120.0,37.1,ALERT,False
+MRN-100175,Alex Hernandez,2023-06-12,3,MALE,WALK_IN,,"Witnessed generalised seizure, post-ictal and confused",CRITICAL,,30.0,86.0,130.0,82.0,35.8,PAIN,True
+MRN-100176,Michael Elliott,2014-03-02,12,OTHER,WALK_IN,"CAD, Type 2 Diabetes",Suspected fracture of the wrist after a fall,MODERATE,,20.0,94.0,117.0,106.0,38.2,ALERT,True
+MRN-100177,Michael Wang,1964-07-09,62,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,12.0,99.0,91.0,129.0,36.7,ALERT,False
+MRN-100178,Lawrence Adkins,2009-07-29,17,FEMALE,WALK_IN,"Hypertension, Type 2 Diabetes","Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,21.0,93.0,107.0,101.0,38.7,ALERT,False
+MRN-100179,Robert Oconnell,2016-11-17,9,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,97.0,88.0,127.0,36.9,ALERT,False
+MRN-100180,Alexander Collins,1969-07-31,57,MALE,AMBULANCE,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,7.5,24.0,93.0,123.0,100.0,37.8,ALERT,False
+MRN-100181,Tina Sanders,1954-11-14,71,OTHER,WALK_IN,COPD,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,26.0,94.0,107.0,103.0,38.3,ALERT,False
+MRN-100182,Angela Vaughn,1995-02-22,31,FEMALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,12.0,100.0,60.0,114.0,36.6,ALERT,False
+MRN-100183,Ashley Barton,1976-02-09,50,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,19.0,99.0,61.0,107.0,36.6,ALERT,False
+MRN-100184,Lindsay Martinez,2020-02-10,6,MALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,17.0,98.0,75.0,120.0,36.8,ALERT,False
+MRN-100185,Dr. Hannah Patterson,2006-07-24,20,FEMALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,19.0,97.0,72.0,119.0,37.1,ALERT,False
+MRN-100186,Jonathan Peterson,1941-10-26,84,OTHER,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,12.0,96.0,77.0,116.0,36.9,ALERT,False
+MRN-100187,Samantha Garcia,1985-10-08,40,OTHER,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,25.0,92.0,123.0,103.0,38.6,ALERT,False
+MRN-100188,Madison Poole,2004-07-02,22,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,17.0,96.0,91.0,112.0,36.4,ALERT,False
+MRN-100189,Jessica Gross,1933-11-05,92,OTHER,WALK_IN,Type 2 Diabetes,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,12.0,99.0,66.0,109.0,37.1,ALERT,False
+MRN-100190,Debra Morton,1995-12-21,30,OTHER,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,14.0,98.0,75.0,109.0,37.2,ALERT,False
+MRN-100191,Karen Graham,2020-09-30,5,OTHER,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,26.0,93.0,120.0,104.0,37.8,ALERT,False
+MRN-100192,Debra Christian,2019-05-10,7,MALE,WALK_IN,Hypertension,"Ear pain for two days, no fever",MINOR,,12.0,98.0,71.0,125.0,36.6,ALERT,False
+MRN-100193,Angelica Keith,1978-04-15,48,MALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,22.0,93.0,123.0,110.0,38.6,ALERT,False
+MRN-100194,John Bishop,1956-07-01,70,MALE,WALK_IN,GERD,Mild allergic rash after new laundry detergent,MINOR,,16.0,99.0,86.0,105.0,36.6,ALERT,False
+MRN-100195,Allen Rosales,1932-07-31,94,FEMALE,WALK_IN,Hyperlipidemia,"Ear pain for two days, no fever",MINOR,,15.0,96.0,98.0,122.0,36.4,ALERT,False
+MRN-100196,Daniel Salinas,1973-03-06,53,OTHER,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,13.0,97.0,91.0,107.0,36.9,ALERT,False
+MRN-100197,Spencer Haynes,1970-07-09,56,OTHER,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,26.0,93.0,120.0,100.0,38.2,ALERT,False
+MRN-100198,Adam Vaughan,1999-11-11,26,MALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,23.0,93.0,113.0,109.0,37.9,ALERT,False
+MRN-100199,Nathan Freeman,1992-07-23,34,MALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,12.0,99.0,72.0,107.0,36.5,ALERT,False
+MRN-100200,Melissa Brewer,1979-12-23,46,FEMALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,20.0,93.0,111.0,106.0,37.9,ALERT,False
+MRN-100201,Ricky Davis II,2008-08-28,18,MALE,WALK_IN,Seasonal Allergies,Mild allergic rash after new laundry detergent,MINOR,,13.0,99.0,74.0,120.0,36.9,ALERT,False
+MRN-100202,Elizabeth Perkins,2016-07-30,10,MALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Sore throat and mild fever, cold-like symptoms",MINOR,,13.0,99.0,91.0,108.0,37.2,ALERT,False
+MRN-100203,Joseph Coleman,1933-01-11,93,FEMALE,WALK_IN,Anxiety,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,100.0,70.0,116.0,36.4,ALERT,False
+MRN-100204,Erin Warner,1994-04-09,32,OTHER,WALK_IN,Hyperlipidemia,"Mild lower back stiffness, chronic, no new injury",MINOR,,12.0,97.0,65.0,110.0,37.2,ALERT,False
+MRN-100205,David Martinez,2023-03-01,3,FEMALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,98.0,75.0,109.0,36.6,ALERT,False
+MRN-100206,Bryan Herrera,1997-04-16,29,MALE,WALK_IN,"COPD, Coronary Artery Disease","Small splinter in palm, unable to remove at home",MINOR,,15.0,98.0,69.0,109.0,36.5,ALERT,False
+MRN-100207,Cathy Robinson,2017-11-11,8,MALE,AMBULANCE,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,27.1,19.0,100.0,67.0,111.0,36.6,ALERT,False
+MRN-100208,Dr. William Warren,1980-08-27,46,OTHER,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,24.0,94.0,105.0,110.0,38.7,ALERT,False
+MRN-100209,Brian Lee,1986-01-01,40,MALE,WALK_IN,Coronary Artery Disease (CAD),"Unresponsive, found down, unknown downtime",CRITICAL,,31.0,84.0,125.0,87.0,36.0,VOICE,True
+MRN-100210,Christopher Smith,1984-08-29,42,MALE,WALK_IN,GERD,"Sore throat and mild fever, cold-like symptoms",MINOR,,17.0,99.0,93.0,128.0,36.7,ALERT,False
+MRN-100211,Denise Mccann,1950-03-30,76,MALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,25.0,93.0,115.0,102.0,38.0,ALERT,False
+MRN-100212,Melissa Martinez,1953-11-07,72,OTHER,WALK_IN,Anxiety,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,26.0,93.0,118.0,99.0,37.8,ALERT,True
+MRN-100213,Katherine Salas,1975-08-27,51,OTHER,WALK_IN,"Hypertension, Type 2 Diabetes","Back pain after lifting, unable to bear weight comfortably",MODERATE,,22.0,94.0,122.0,97.0,38.6,ALERT,False
+MRN-100214,Julie Alexander,1943-09-23,82,MALE,WALK_IN,COPD,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,97.0,69.0,107.0,36.6,ALERT,False
+MRN-100215,Anthony Everett,2019-01-20,7,FEMALE,WALK_IN,Hypothyroidism,"Ear pain for two days, no fever",MINOR,,15.0,98.0,81.0,107.0,36.8,ALERT,False
+MRN-100216,Rodney Morales,2005-07-29,21,FEMALE,WALK_IN,,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,32.0,88.0,128.0,73.0,36.8,ALERT,True
+MRN-100217,Mark Brown,2016-07-16,10,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,98.0,85.0,120.0,36.7,ALERT,False
+MRN-100218,Justin Torres,2019-03-16,7,MALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,25.0,94.0,106.0,99.0,37.9,ALERT,True
+MRN-100219,Bailey Duran DDS,1952-01-10,74,OTHER,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,21.0,94.0,115.0,102.0,37.7,ALERT,False
+MRN-100220,Courtney Mills,1944-08-09,82,FEMALE,WALK_IN,Coronary Artery Disease (CAD),Moderate burn to hand from cooking oil,MODERATE,,23.0,95.0,106.0,105.0,38.1,ALERT,False
+MRN-100221,Jeremy Dalton,1968-05-02,58,MALE,WALK_IN,"CAD, Type 2 Diabetes","Migraine with photophobia, not resolving with home medication",MODERATE,,24.0,92.0,117.0,96.0,38.5,ALERT,False
+MRN-100222,Elizabeth Oliver DDS,1955-03-03,71,MALE,WALK_IN,COPD,"Small splinter in palm, unable to remove at home",MINOR,,17.0,100.0,82.0,111.0,36.6,ALERT,False
+MRN-100223,Theresa Clark,1960-12-25,65,OTHER,WALK_IN,"CAD, Type 2 Diabetes","Mild dehydration after a long hike, feeling better with water",MINOR,,13.0,100.0,77.0,128.0,36.5,ALERT,False
+MRN-100224,Matthew Moore,2009-01-30,17,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,19.0,99.0,92.0,111.0,37.2,ALERT,False
+MRN-100225,Benjamin Smith,2017-02-15,9,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,16.0,100.0,60.0,122.0,36.9,ALERT,False
+MRN-100226,Kirk Carter,1972-02-13,54,MALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,17.0,100.0,95.0,119.0,36.4,ALERT,False
+MRN-100227,Michael Warner,1989-03-16,37,OTHER,AMBULANCE,"Immunosuppressed (post-transplant, on tacrolimus)","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,31.7,24.0,93.0,104.0,101.0,38.4,ALERT,False
+MRN-100228,Michael Bradshaw,1983-05-12,43,OTHER,WALK_IN,"COPD, Hypertension",Requesting refill of routine blood pressure medication,MINOR,,18.0,96.0,91.0,112.0,36.6,ALERT,False
+MRN-100229,Lori Guerrero,1996-04-06,30,MALE,AMBULANCE,Migraine,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,27.8,14.0,98.0,85.0,110.0,36.5,ALERT,False
+MRN-100230,Jessica Stephens,1977-12-22,48,MALE,WALK_IN,Hypothyroidism,Penetrating stab wound to the abdomen,CRITICAL,,33.0,87.0,143.0,80.0,35.8,VOICE,True
+MRN-100231,Susan Serrano,2021-08-06,5,FEMALE,AMBULANCE,,Requesting refill of routine blood pressure medication,MINOR,12.3,15.0,98.0,75.0,127.0,37.0,ALERT,False
+MRN-100232,Christopher Parker,1963-01-30,63,OTHER,WALK_IN,COPD,"Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,97.0,92.0,111.0,37.1,ALERT,False
+MRN-100233,Laura Roberts,1976-06-20,50,MALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,5.6,18.0,99.0,86.0,111.0,36.7,ALERT,False
+MRN-100234,Michael Lyons,1938-01-22,88,MALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,26.3,18.0,97.0,83.0,128.0,37.0,ALERT,False
+MRN-100235,Kathryn Snyder,1990-02-28,36,FEMALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,20.3,15.0,99.0,91.0,115.0,36.4,ALERT,False
+MRN-100236,Andrew Reynolds,1940-12-07,85,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,17.0,98.0,73.0,112.0,36.6,ALERT,False
+MRN-100237,David Davis,1989-10-08,36,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,13.0,98.0,69.0,106.0,37.2,ALERT,False
+MRN-100238,Sara Johnston,1948-10-15,77,FEMALE,WALK_IN,Anxiety,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,25.0,95.0,106.0,101.0,38.1,ALERT,True
+MRN-100239,Yvonne Chambers,2001-05-15,25,FEMALE,WALK_IN,"Hypertension, Type 2 Diabetes","Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,99.0,79.0,125.0,37.1,ALERT,False
+MRN-100240,Andrew Avila,1988-01-11,38,MALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,25.0,93.0,116.0,100.0,37.7,ALERT,False
+MRN-100241,Matthew Moon,1986-03-24,40,FEMALE,WALK_IN,"CAD, Type 2 Diabetes","Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,98.0,93.0,119.0,37.2,ALERT,False
+MRN-100242,Kevin Walters,1960-10-02,65,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Moderate abdominal pain, worsening over 6 hours",MODERATE,,26.0,92.0,124.0,100.0,38.9,ALERT,False
+MRN-100243,Brandon Bailey MD,1985-06-09,41,OTHER,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,96.0,77.0,110.0,37.1,ALERT,False
+MRN-100244,Shannon Rivera,1952-01-11,74,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,16.0,99.0,75.0,128.0,36.7,ALERT,False
+MRN-100245,Donna Landry,2021-05-21,5,OTHER,WALK_IN,"Heart Failure, Chronic Kidney Disease","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,17.0,98.0,61.0,105.0,37.0,ALERT,False
+MRN-100246,Krista Gibson,1986-07-19,40,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,12.0,96.0,96.0,116.0,36.8,ALERT,False
+MRN-100247,Frank Cordova,1958-02-06,68,FEMALE,AMBULANCE,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,29.4,19.0,98.0,89.0,109.0,37.2,ALERT,False
+MRN-100248,Jose Travis,2023-05-09,3,MALE,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,24.0,93.0,109.0,105.0,37.6,ALERT,False
+MRN-100249,Kimberly Gutierrez,1992-10-23,33,OTHER,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,17.0,96.0,86.0,115.0,36.7,ALERT,False
+MRN-100250,Isaiah Avila,1955-01-18,71,FEMALE,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,22.0,94.0,116.0,99.0,38.4,ALERT,True
+MRN-100251,Olivia Harris,2011-10-22,14,OTHER,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,23.0,94.0,119.0,107.0,38.9,ALERT,False
+MRN-100252,Tanya Kim,1973-06-22,53,FEMALE,WALK_IN,"Immunocompromised, on long-term chemotherapy",Mild allergic rash after new laundry detergent,MINOR,,17.0,98.0,69.0,105.0,36.4,ALERT,False
+MRN-100253,Barbara Dudley,2005-12-17,20,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,17.0,98.0,97.0,111.0,36.4,ALERT,False
+MRN-100254,Cynthia Moore,2003-04-10,23,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Ear pain for two days, no fever",MINOR,,17.0,96.0,89.0,106.0,37.2,ALERT,False
+MRN-100255,Kristen Davis,1983-01-29,43,FEMALE,AMBULANCE,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,25.7,23.0,93.0,103.0,101.0,38.2,ALERT,False
+MRN-100256,Susan Murray MD,1963-10-18,62,FEMALE,AMBULANCE,Migraine,Suspected fracture of the wrist after a fall,MODERATE,10.4,25.0,92.0,123.0,97.0,38.1,ALERT,False
+MRN-100257,Kathleen Moran,1976-11-02,49,FEMALE,WALK_IN,Hypertension,"Sore throat and mild fever, cold-like symptoms",MINOR,,15.0,98.0,94.0,116.0,36.4,ALERT,False
+MRN-100258,Denise Davenport,1934-12-28,91,OTHER,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,14.0,100.0,93.0,117.0,37.0,ALERT,False
+MRN-100259,Mrs. Kristen Reyes,1946-02-10,80,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,25.0,94.0,104.0,107.0,38.8,ALERT,False
+MRN-100260,Katie Suarez,2024-06-11,2,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,96.0,79.0,111.0,37.3,ALERT,False
+MRN-100261,Desiree Tyler,2019-05-10,7,OTHER,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,21.0,93.0,114.0,96.0,38.2,ALERT,False
+MRN-100262,Timothy Romero,1961-10-16,64,OTHER,WALK_IN,"COPD, Coronary Artery Disease",Minor laceration to finger while chopping vegetables,MINOR,,16.0,96.0,63.0,120.0,36.9,ALERT,False
+MRN-100263,Diane Evans,1953-10-17,72,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,99.0,92.0,113.0,37.1,ALERT,False
+MRN-100264,Yvonne Burns,1948-10-17,77,FEMALE,WALK_IN,"COPD, Coronary Artery Disease",Sprained ankle after stepping off a curb,MINOR,,17.0,97.0,73.0,125.0,37.3,ALERT,False
+MRN-100265,Joshua Reed,1978-07-19,48,OTHER,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,26.0,94.0,110.0,99.0,37.9,ALERT,True
+MRN-100266,Kimberly Gibson,1975-01-21,51,MALE,AMBULANCE,"COPD, Coronary Artery Disease","Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,9.0,21.0,93.0,122.0,108.0,38.4,ALERT,False
+MRN-100267,Colin Terry,1961-12-18,64,MALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,18.0,98.0,79.0,127.0,36.5,ALERT,False
+MRN-100268,Cynthia Rowe,1951-07-15,75,MALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,18.0,98.0,75.0,129.0,37.2,ALERT,False
+MRN-100269,Patrick Thornton,1994-02-16,32,FEMALE,AMBULANCE,Hyperlipidemia,"Mild lower back stiffness, chronic, no new injury",MINOR,30.8,18.0,97.0,83.0,126.0,36.8,ALERT,False
+MRN-100270,Jasmin Alvarado,1933-12-13,92,OTHER,WALK_IN,"COPD, Coronary Artery Disease","Back pain after lifting, unable to bear weight comfortably",MODERATE,,25.0,94.0,122.0,97.0,38.5,ALERT,False
+MRN-100271,Veronica Simpson,1937-04-09,89,OTHER,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,15.0,98.0,85.0,115.0,37.0,ALERT,False
+MRN-100272,Jonathan Lawrence,1957-02-12,69,FEMALE,WALK_IN,Seasonal Allergies,Minor laceration to finger while chopping vegetables,MINOR,,15.0,96.0,62.0,111.0,37.1,ALERT,False
+MRN-100273,Shelly Alexander,2006-09-16,19,MALE,WALK_IN,Hyperlipidemia,"Palpitations and lightheadedness, no chest pain",MODERATE,,20.0,94.0,102.0,108.0,38.6,ALERT,False
+MRN-100274,Joyce Bowen,1975-12-25,50,MALE,WALK_IN,Hyperlipidemia,Requesting refill of routine blood pressure medication,MINOR,,17.0,96.0,75.0,115.0,37.1,ALERT,False
+MRN-100275,Matthew Moore,2019-04-26,7,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,100.0,87.0,121.0,37.1,ALERT,False
+MRN-100276,Wayne Morgan,1955-11-13,70,OTHER,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,14.0,97.0,86.0,109.0,36.5,ALERT,False
+MRN-100277,Marie Christian,1960-03-06,66,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Migraine with photophobia, not resolving with home medication",MODERATE,,21.0,94.0,106.0,100.0,38.5,ALERT,False
+MRN-100278,Shannon James,1948-11-02,77,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,98.0,63.0,122.0,36.8,ALERT,False
+MRN-100279,Nathan Malone,2002-08-02,24,OTHER,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,24.0,92.0,105.0,98.0,38.0,ALERT,False
+MRN-100280,Amanda Jones,1997-12-09,28,OTHER,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,13.0,97.0,69.0,120.0,37.2,ALERT,False
+MRN-100281,Tammie Bright,1993-09-23,32,MALE,AMBULANCE,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,29.1,23.0,94.0,107.0,109.0,38.7,ALERT,False
+MRN-100282,Jessica Garcia,1968-08-22,58,FEMALE,WALK_IN,"COPD, Hypertension","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,16.0,100.0,66.0,128.0,36.8,ALERT,False
+MRN-100283,Shelia Wallace,1998-10-19,27,OTHER,WALK_IN,,"Ear pain for two days, no fever",MINOR,,18.0,97.0,91.0,126.0,37.0,ALERT,False
+MRN-100284,Stephanie Williams,1970-08-08,56,OTHER,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,25.0,92.0,102.0,98.0,37.9,ALERT,True
+MRN-100285,Elaine Brooks,1996-02-11,30,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,14.0,98.0,64.0,105.0,37.0,ALERT,False
+MRN-100286,Joseph Knight,2016-11-06,9,OTHER,WALK_IN,Migraine,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,96.0,90.0,112.0,36.4,ALERT,False
+MRN-100287,Carolyn Miller,1976-10-08,49,FEMALE,WALK_IN,Osteoarthritis,Persistent fever with vomiting for two days,MODERATE,,21.0,93.0,119.0,103.0,38.8,ALERT,True
+MRN-100288,Lisa Allen,2023-11-20,2,OTHER,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Unresponsive, found down, unknown downtime",CRITICAL,,35.0,84.0,158.0,75.0,38.6,ALERT,True
+MRN-100289,Briana Murray,1943-07-10,83,OTHER,WALK_IN,Migraine,"Migraine with photophobia, not resolving with home medication",MODERATE,,21.0,93.0,119.0,108.0,38.7,ALERT,False
+MRN-100290,David Smith,1943-08-14,83,OTHER,WALK_IN,,"Sudden severe shortness of breath, unable to speak in full sentences",CRITICAL,,30.0,84.0,158.0,76.0,38.2,VOICE,True
+MRN-100291,Stephanie Byrd,2012-10-20,13,FEMALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,23.0,94.0,107.0,104.0,38.3,ALERT,False
+MRN-100292,Jeremy Reed,2004-03-28,22,MALE,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,22.0,93.0,116.0,100.0,38.2,ALERT,False
+MRN-100293,Margaret Coleman,1985-12-01,40,FEMALE,WALK_IN,Type 2 Diabetes,Sprained ankle after stepping off a curb,MINOR,,18.0,99.0,65.0,118.0,36.6,ALERT,False
+MRN-100294,Ryan Gonzalez,1932-09-13,94,MALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,31.8,16.0,99.0,68.0,106.0,36.6,ALERT,False
+MRN-100295,John Young,1955-10-18,70,FEMALE,WALK_IN,COPD,Persistent fever with vomiting for two days,MODERATE,,26.0,94.0,121.0,97.0,38.3,ALERT,True
+MRN-100296,Laura Haney,1940-11-10,85,MALE,WALK_IN,Migraine,"Sore throat and mild fever, cold-like symptoms",MINOR,,15.0,97.0,96.0,121.0,37.3,ALERT,False
+MRN-100297,William Barrett,1980-05-21,46,MALE,WALK_IN,COPD,"Migraine with photophobia, not resolving with home medication",MODERATE,,23.0,92.0,105.0,109.0,38.1,ALERT,False
+MRN-100298,Keith Jennings,2020-03-19,6,OTHER,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,18.0,97.0,81.0,109.0,37.0,ALERT,False
+MRN-100299,Amber Obrien,1978-10-12,47,OTHER,AMBULANCE,Anxiety,"Sudden facial droop and slurred speech, stroke alert",CRITICAL,5.2,33.0,88.0,143.0,76.0,39.2,PAIN,True
+MRN-100300,Tanner Mitchell DDS,2008-06-11,18,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,13.0,97.0,74.0,122.0,36.4,ALERT,False
+MRN-100301,Heather Fields,1996-03-21,30,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,98.0,85.0,115.0,36.5,ALERT,False
+MRN-100302,Megan Le,2008-11-04,17,OTHER,WALK_IN,COPD,Minor laceration to finger while chopping vegetables,MINOR,,18.0,97.0,66.0,127.0,36.8,ALERT,False
+MRN-100303,Sara Fuller,1932-10-19,93,OTHER,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,23.0,15.0,100.0,93.0,109.0,37.1,ALERT,False
+MRN-100304,Maria Parker,1950-11-03,75,MALE,WALK_IN,Hyperlipidemia,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,26.0,94.0,102.0,101.0,37.8,ALERT,True
+MRN-100305,Kevin Oconnor,1938-07-07,88,FEMALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,24.0,95.0,113.0,106.0,37.7,ALERT,False
+MRN-100306,Edward Burgess,1948-09-18,78,OTHER,AMBULANCE,GERD,"Ear pain for two days, no fever",MINOR,15.5,16.0,97.0,62.0,118.0,36.5,ALERT,False
+MRN-100307,Carlos Ryan,1936-08-02,90,OTHER,WALK_IN,Hypertension,Persistent fever with vomiting for two days,MODERATE,,26.0,92.0,114.0,103.0,37.9,ALERT,True
+MRN-100308,Kiara Mcintyre,1952-07-19,74,OTHER,WALK_IN,GERD,Persistent fever with vomiting for two days,MODERATE,,25.0,93.0,109.0,97.0,38.4,ALERT,False
+MRN-100309,Dawn Summers,1952-11-08,73,FEMALE,WALK_IN,Congestive Heart Failure,Mild allergic rash after new laundry detergent,MINOR,,15.0,99.0,78.0,114.0,36.9,ALERT,False
+MRN-100310,Dr. Paul Morgan,1951-09-22,74,FEMALE,WALK_IN,"COPD, Coronary Artery Disease","Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,25.0,93.0,117.0,97.0,37.9,ALERT,False
+MRN-100311,Victor Taylor,1946-10-04,79,OTHER,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,26.0,94.0,111.0,104.0,37.7,ALERT,False
+MRN-100312,Shannon Ramsey,1977-11-04,48,MALE,WALK_IN,Migraine,Moderate burn to hand from cooking oil,MODERATE,,24.0,94.0,117.0,104.0,38.8,ALERT,False
+MRN-100313,Tracy Ballard,2023-09-29,2,MALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,6.1,12.0,98.0,80.0,111.0,36.5,ALERT,False
+MRN-100314,Richard Smith,1995-09-07,31,OTHER,AMBULANCE,"COPD, Hypertension","Migraine with photophobia, not resolving with home medication",MODERATE,21.5,25.0,93.0,109.0,104.0,38.3,ALERT,False
+MRN-100315,Jordan Chambers,1932-11-28,93,OTHER,WALK_IN,"COPD, Coronary Artery Disease",Requesting refill of routine blood pressure medication,MINOR,,14.0,100.0,77.0,115.0,36.3,ALERT,False
+MRN-100316,Lauren Carson,2012-07-27,14,OTHER,WALK_IN,Anxiety,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,26.0,95.0,121.0,107.0,38.3,ALERT,False
+MRN-100317,Ashley Hall,1964-03-25,62,MALE,AMBULANCE,,"Mild lower back stiffness, chronic, no new injury",MINOR,28.7,18.0,99.0,78.0,111.0,36.7,ALERT,False
+MRN-100318,Stephen Hoffman,1996-09-12,29,OTHER,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,24.0,92.0,120.0,99.0,37.7,ALERT,False
+MRN-100319,Connie Brown,1981-12-01,44,MALE,AMBULANCE,"CAD, Type 2 Diabetes","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,12.0,14.0,98.0,67.0,123.0,37.2,ALERT,False
+MRN-100320,Susan Turner,1995-05-25,31,FEMALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,14.0,99.0,65.0,107.0,37.3,ALERT,False
+MRN-100321,Charles Shah,1962-09-12,64,OTHER,WALK_IN,Seasonal Allergies,Minor laceration to finger while chopping vegetables,MINOR,,18.0,97.0,72.0,127.0,37.2,ALERT,False
+MRN-100322,Johnathan Davis,1962-12-28,63,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Back pain after lifting, unable to bear weight comfortably",MODERATE,,21.0,94.0,110.0,109.0,37.6,ALERT,False
+MRN-100323,Brandy Chavez,1966-09-22,59,MALE,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,20.0,93.0,114.0,100.0,38.4,ALERT,False
+MRN-100324,Natalie Bautista,1955-05-19,71,FEMALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,98.0,68.0,122.0,36.7,ALERT,False
+MRN-100325,Patrick Moore,1974-01-25,52,FEMALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,25.0,94.0,117.0,107.0,38.3,ALERT,False
+MRN-100326,Brett Burns,2000-06-21,26,MALE,WALK_IN,"COPD, Coronary Artery Disease","Witnessed generalised seizure, post-ictal and confused",CRITICAL,,34.0,89.0,155.0,79.0,38.5,PAIN,True
+MRN-100327,Trevor Johnson,1953-02-26,73,MALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,26.0,93.0,115.0,102.0,38.0,ALERT,False
+MRN-100328,Jeremy Sampson,1954-05-09,72,OTHER,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,100.0,68.0,119.0,36.9,ALERT,False
+MRN-100329,Ariana Jennings,2003-03-08,23,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,98.0,71.0,120.0,36.4,ALERT,False
+MRN-100330,Vanessa Howard,2004-03-16,22,OTHER,WALK_IN,Congestive Heart Failure,"Ear pain for two days, no fever",MINOR,,18.0,96.0,66.0,110.0,36.6,ALERT,False
+MRN-100331,Colton Martinez,1948-02-29,78,OTHER,WALK_IN,"CAD, Type 2 Diabetes","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,17.0,98.0,77.0,109.0,37.2,ALERT,False
+MRN-100332,Jordan Bates,1940-09-27,85,FEMALE,WALK_IN,Type 2 Diabetes,Moderate burn to hand from cooking oil,MODERATE,,21.0,92.0,121.0,103.0,37.6,ALERT,False
+MRN-100333,Linda Smith,2011-10-22,14,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,14.0,97.0,71.0,120.0,36.4,ALERT,False
+MRN-100334,Dana Martinez,2004-08-18,22,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,98.0,93.0,127.0,36.8,ALERT,False
+MRN-100335,Andrea Hubbard,2007-12-02,18,OTHER,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,15.0,99.0,80.0,127.0,36.8,ALERT,False
+MRN-100336,Daniel Kane,1996-01-24,30,MALE,WALK_IN,COPD,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,96.0,91.0,125.0,36.6,ALERT,False
+MRN-100337,Charles Lester,1937-01-20,89,FEMALE,WALK_IN,"CAD, Type 2 Diabetes",Requesting refill of routine blood pressure medication,MINOR,,16.0,99.0,81.0,110.0,37.2,ALERT,False
+MRN-100338,Scott Thomas,2004-10-09,21,OTHER,WALK_IN,"COPD, Coronary Artery Disease","Migraine with photophobia, not resolving with home medication",MODERATE,,21.0,94.0,112.0,107.0,38.4,ALERT,False
+MRN-100339,David Thompson,1991-06-04,35,FEMALE,AMBULANCE,,"Migraine with photophobia, not resolving with home medication",MODERATE,9.6,21.0,93.0,111.0,106.0,38.2,ALERT,False
+MRN-100340,Allison Smith,1957-06-13,69,MALE,AMBULANCE,"Immunocompromised, on long-term chemotherapy",Suspected fracture of the wrist after a fall,MODERATE,34.9,25.0,94.0,106.0,97.0,38.2,ALERT,False
+MRN-100341,Cynthia Morris,1966-08-29,60,OTHER,WALK_IN,GERD,"Sore throat and mild fever, cold-like symptoms",MINOR,,12.0,99.0,63.0,116.0,36.5,ALERT,False
+MRN-100342,Anthony Harmon,2024-04-25,2,MALE,WALK_IN,Migraine,Mild allergic rash after new laundry detergent,MINOR,,17.0,96.0,78.0,124.0,36.8,ALERT,False
+MRN-100343,Nichole Alvarez,1976-04-05,50,OTHER,AMBULANCE,"CAD, Type 2 Diabetes","Moderate abdominal pain, worsening over 6 hours",MODERATE,34.2,25.0,94.0,103.0,102.0,38.0,ALERT,False
+MRN-100344,Kayla Rodriguez,1995-01-28,31,OTHER,WALK_IN,"Hypertension, Type 2 Diabetes","Migraine with photophobia, not resolving with home medication",MODERATE,,24.0,93.0,106.0,110.0,38.4,ALERT,False
+MRN-100345,Theresa Williams,1978-05-07,48,MALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,22.0,95.0,118.0,96.0,38.1,ALERT,False
+MRN-100346,Sharon Boyd,1957-07-14,69,MALE,WALK_IN,Coronary Artery Disease (CAD),"Palpitations and lightheadedness, no chest pain",MODERATE,,26.0,94.0,119.0,102.0,37.9,ALERT,False
+MRN-100347,Victor Brown,1993-01-02,33,MALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,17.0,97.0,67.0,113.0,37.0,ALERT,False
+MRN-100348,James Parks,1989-11-29,36,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,97.0,74.0,105.0,36.9,ALERT,False
+MRN-100349,Theodore Jones Jr.,1977-06-09,49,OTHER,AMBULANCE,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,16.6,17.0,97.0,87.0,121.0,36.8,ALERT,False
+MRN-100350,Ana Hill,1958-01-05,68,OTHER,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,22.0,94.0,103.0,103.0,37.7,ALERT,False
+MRN-100351,Kimberly Nguyen,2009-08-18,17,MALE,WALK_IN,Hypertension,Sprained ankle after stepping off a curb,MINOR,,12.0,99.0,75.0,117.0,36.9,ALERT,False
+MRN-100352,Kerry Chavez DDS,1978-11-05,47,MALE,WALK_IN,,Fall from height with suspected spinal injury,CRITICAL,,36.0,88.0,154.0,78.0,38.1,PAIN,True
+MRN-100353,Michael Farrell,1954-02-17,72,OTHER,AMBULANCE,,Minor laceration to finger while chopping vegetables,MINOR,33.3,18.0,97.0,62.0,107.0,36.6,ALERT,False
+MRN-100354,Patricia Le,1959-07-27,67,MALE,WALK_IN,Type 2 Diabetes,Mild allergic rash after new laundry detergent,MINOR,,13.0,99.0,82.0,128.0,36.9,ALERT,False
+MRN-100355,Jesse Perez,1944-03-20,82,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy","Ear pain for two days, no fever",MINOR,,18.0,97.0,67.0,115.0,36.6,ALERT,False
+MRN-100356,Jesse Perry,1979-12-04,46,FEMALE,AMBULANCE,"COPD, Coronary Artery Disease","Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,32.8,23.0,94.0,120.0,100.0,37.9,ALERT,False
+MRN-100357,Jeffery Ortega,1993-01-19,33,FEMALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Moderate abdominal pain, worsening over 6 hours",MODERATE,,27.0,94.0,112.0,110.0,38.0,ALERT,False
+MRN-100358,Christian Leblanc,2023-04-12,3,OTHER,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,16.0,18.0,97.0,61.0,114.0,36.4,ALERT,False
+MRN-100359,Ronald Davis,1951-05-22,75,MALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,23.0,95.0,118.0,106.0,38.6,ALERT,False
+MRN-100360,Parker Cain,1936-11-30,89,OTHER,WALK_IN,GERD,"Migraine with photophobia, not resolving with home medication",MODERATE,,20.0,94.0,109.0,107.0,38.8,ALERT,False
+MRN-100361,Laurie Hoffman,1972-05-19,54,MALE,WALK_IN,Osteoarthritis,Minor laceration to finger while chopping vegetables,MINOR,,16.0,99.0,62.0,118.0,36.6,ALERT,False
+MRN-100362,Bryan Gomez,1961-05-25,65,OTHER,WALK_IN,"Hypertension, Type 2 Diabetes","Ear pain for two days, no fever",MINOR,,19.0,99.0,82.0,107.0,36.7,ALERT,False
+MRN-100363,Nicole Parrish,2009-07-23,17,FEMALE,WALK_IN,"COPD, Coronary Artery Disease","Small splinter in palm, unable to remove at home",MINOR,,15.0,96.0,79.0,124.0,36.4,ALERT,False
+MRN-100364,Tracy Burke,2000-02-16,26,FEMALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,27.0,94.0,106.0,99.0,38.2,ALERT,False
+MRN-100365,Kenneth Lewis,1952-07-22,74,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,97.0,85.0,123.0,36.5,ALERT,False
+MRN-100366,Courtney Rodriguez,1981-01-27,45,OTHER,WALK_IN,Coronary Artery Disease (CAD),Mild allergic rash after new laundry detergent,MINOR,,13.0,97.0,89.0,125.0,36.4,ALERT,False
+MRN-100367,Holly Farmer,1989-03-17,37,MALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,23.0,93.0,118.0,98.0,38.3,ALERT,False
+MRN-100368,Renee Bruce,1954-11-03,71,FEMALE,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,23.0,95.0,113.0,99.0,37.7,ALERT,False
+MRN-100369,Sabrina Austin,1936-05-06,90,OTHER,WALK_IN,Congestive Heart Failure,Minor laceration to finger while chopping vegetables,MINOR,,12.0,99.0,85.0,127.0,36.7,ALERT,False
+MRN-100370,Allison Hickman,1942-05-25,84,FEMALE,AMBULANCE,Hyperlipidemia,Sprained ankle after stepping off a curb,MINOR,32.8,18.0,98.0,83.0,107.0,36.5,ALERT,False
+MRN-100371,Debra White,2023-04-27,3,MALE,AMBULANCE,Hyperlipidemia,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,13.3,23.0,92.0,108.0,100.0,38.4,ALERT,False
+MRN-100372,Ellen Morgan,2018-04-23,8,OTHER,AMBULANCE,,Minor laceration to finger while chopping vegetables,MINOR,9.1,19.0,100.0,69.0,113.0,36.7,ALERT,False
+MRN-100373,Sergio Knight,1931-12-31,94,FEMALE,AMBULANCE,Coronary Artery Disease (CAD),Mild allergic rash after new laundry detergent,MINOR,11.2,15.0,98.0,76.0,112.0,36.9,ALERT,False
+MRN-100374,Charles Schultz,2007-12-01,18,OTHER,WALK_IN,Coronary Artery Disease (CAD),Suspected fracture of the wrist after a fall,MODERATE,,22.0,94.0,113.0,97.0,38.9,ALERT,False
+MRN-100375,Paul Lewis,1984-11-28,41,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,100.0,88.0,123.0,37.2,ALERT,False
+MRN-100376,Glen Wood,1973-04-10,53,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,13.0,97.0,65.0,106.0,37.3,ALERT,False
+MRN-100377,Paula Bradley,1946-11-13,79,FEMALE,WALK_IN,"Heart Failure, Chronic Kidney Disease",Persistent fever with vomiting for two days,MODERATE,,22.0,92.0,102.0,107.0,37.8,ALERT,False
+MRN-100378,Anthony Moore,2001-12-28,24,FEMALE,WALK_IN,Hypothyroidism,Persistent fever with vomiting for two days,MODERATE,,20.0,94.0,100.0,99.0,38.1,ALERT,False
+MRN-100379,Megan Nelson,2017-01-20,9,MALE,AMBULANCE,Osteoarthritis,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,16.8,18.0,100.0,76.0,124.0,36.9,ALERT,False
+MRN-100380,Karla Ramos,1951-12-18,74,OTHER,WALK_IN,GERD,Minor laceration to finger while chopping vegetables,MINOR,,16.0,98.0,91.0,106.0,37.3,ALERT,False
+MRN-100381,Paul Wilson,2020-02-15,6,OTHER,WALK_IN,Congestive Heart Failure,Minor laceration to finger while chopping vegetables,MINOR,,13.0,98.0,94.0,124.0,36.6,ALERT,False
+MRN-100382,Douglas Gregory,1946-10-01,79,MALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,21.0,94.0,104.0,104.0,38.8,ALERT,False
+MRN-100383,Mr. Andrew Foster,1975-03-31,51,FEMALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,26.0,95.0,121.0,96.0,38.0,ALERT,False
+MRN-100384,Aimee Turner,1934-07-21,92,MALE,WALK_IN,"COPD, Coronary Artery Disease","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,99.0,88.0,128.0,36.9,ALERT,False
+MRN-100385,Chad Scott,1977-06-16,49,MALE,AMBULANCE,Migraine,"Sore throat and mild fever, cold-like symptoms",MINOR,13.7,13.0,97.0,89.0,106.0,36.6,ALERT,False
+MRN-100386,Adam Burgess,2002-06-30,24,MALE,AMBULANCE,"Immunocompromised, on long-term chemotherapy","Sudden facial droop and slurred speech, stroke alert",CRITICAL,18.6,28.0,83.0,142.0,85.0,37.9,PAIN,True
+MRN-100387,James Padilla,1968-11-10,57,MALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,22.0,94.0,120.0,98.0,37.8,ALERT,True
+MRN-100388,Sandra Drake,1981-06-28,45,MALE,AMBULANCE,Anxiety,"Mild dehydration after a long hike, feeling better with water",MINOR,24.8,14.0,100.0,62.0,115.0,36.5,ALERT,False
+MRN-100389,Scott Williams,1935-12-03,90,OTHER,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,25.0,93.0,101.0,107.0,38.0,ALERT,False
+MRN-100390,Thomas Atkins,2016-11-24,9,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,17.0,97.0,80.0,118.0,37.0,ALERT,False
+MRN-100391,Laura Mckinney,1947-07-26,79,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Small splinter in palm, unable to remove at home",MINOR,,19.0,98.0,86.0,127.0,37.3,ALERT,False
+MRN-100392,Brian Smith,1991-11-18,34,OTHER,AMBULANCE,,Suspected fracture of the wrist after a fall,MODERATE,12.0,24.0,93.0,118.0,102.0,38.7,ALERT,False
+MRN-100393,Robert Montgomery,1988-09-08,38,MALE,WALK_IN,"CAD, Type 2 Diabetes",Sprained ankle after stepping off a curb,MINOR,,17.0,97.0,83.0,115.0,36.3,ALERT,False
+MRN-100394,Tamara Davis,2024-05-19,2,OTHER,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,22.0,94.0,108.0,95.0,38.5,ALERT,False
+MRN-100395,Dana Chapman,1932-11-11,93,OTHER,AMBULANCE,Migraine,Mild allergic rash after new laundry detergent,MINOR,9.7,14.0,97.0,86.0,127.0,37.1,ALERT,False
+MRN-100396,Jennifer Collins,1967-03-27,59,OTHER,WALK_IN,"Heart Failure, Chronic Kidney Disease",Minor laceration to finger while chopping vegetables,MINOR,,18.0,97.0,88.0,113.0,36.8,ALERT,False
+MRN-100397,Gary Jackson,1980-06-26,46,MALE,WALK_IN,Osteoarthritis,"Witnessed generalised seizure, post-ictal and confused",CRITICAL,,36.0,87.0,145.0,77.0,37.9,PAIN,True
+MRN-100398,Ashley Hicks,1935-05-06,91,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,15.0,99.0,71.0,118.0,36.5,ALERT,False
+MRN-100399,Hannah Luna,1978-05-31,48,MALE,AMBULANCE,Seasonal Allergies,Minor laceration to finger while chopping vegetables,MINOR,28.3,18.0,100.0,66.0,113.0,36.8,ALERT,False
+MRN-100400,Robin Young,2006-12-14,19,MALE,WALK_IN,Type 2 Diabetes,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,23.0,94.0,113.0,95.0,38.8,ALERT,False
+MRN-100401,Craig Morrison,1983-08-18,43,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,12.0,99.0,84.0,110.0,36.5,ALERT,False
+MRN-100402,Mary Thompson,1988-12-10,37,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,14.0,97.0,64.0,128.0,36.9,ALERT,False
+MRN-100403,Kathleen Webster,2011-11-30,14,MALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,27.0,94.0,114.0,98.0,38.0,ALERT,False
+MRN-100404,Joann Glass,1956-08-22,70,FEMALE,WALK_IN,Migraine,Minor laceration to finger while chopping vegetables,MINOR,,13.0,96.0,76.0,109.0,36.9,ALERT,False
+MRN-100405,Madison Weber,1947-04-13,79,FEMALE,WALK_IN,Type 2 Diabetes,"Palpitations and lightheadedness, no chest pain",MODERATE,,21.0,95.0,118.0,104.0,37.7,ALERT,False
+MRN-100406,Lori Hernandez,1966-09-29,59,FEMALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,97.0,93.0,120.0,37.2,ALERT,False
+MRN-100407,Jeremy Turner,1984-01-04,42,FEMALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,99.0,71.0,113.0,36.9,ALERT,False
+MRN-100408,Anthony Romero,1960-02-21,66,MALE,WALK_IN,"CAD, Type 2 Diabetes","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,16.0,96.0,71.0,116.0,36.9,ALERT,False
+MRN-100409,Jesse Brown,1955-01-14,71,MALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,23.0,95.0,114.0,100.0,38.5,ALERT,False
+MRN-100410,Angela Lin,1939-09-22,86,MALE,WALK_IN,"COPD, Hypertension","Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,97.0,64.0,116.0,36.6,ALERT,False
+MRN-100411,Lisa Hunter,1938-03-11,88,OTHER,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,13.0,99.0,94.0,127.0,36.9,ALERT,False
+MRN-100412,Julian Conner,2024-09-26,1,MALE,WALK_IN,Seasonal Allergies,"Ear pain for two days, no fever",MINOR,,16.0,98.0,68.0,126.0,36.6,ALERT,False
+MRN-100413,Joanna Pacheco,1970-03-21,56,OTHER,AMBULANCE,Hypertension,"Mild dehydration after a long hike, feeling better with water",MINOR,5.0,19.0,98.0,65.0,112.0,36.7,ALERT,False
+MRN-100414,Erica Alvarez,1954-07-23,72,FEMALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,18.1,15.0,98.0,84.0,122.0,36.7,ALERT,False
+MRN-100415,Antonio Garcia,1998-06-10,28,OTHER,WALK_IN,COPD,Moderate burn to hand from cooking oil,MODERATE,,26.0,93.0,110.0,99.0,38.7,ALERT,True
+MRN-100416,Gwendolyn Klein,2006-12-29,19,OTHER,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,13.0,99.0,76.0,116.0,37.1,ALERT,False
+MRN-100417,Carrie Wright,1947-11-04,78,FEMALE,WALK_IN,"CAD, Type 2 Diabetes","Small splinter in palm, unable to remove at home",MINOR,,18.0,98.0,69.0,115.0,36.3,ALERT,False
+MRN-100418,Jeffrey Mills,1934-05-08,92,OTHER,WALK_IN,Type 2 Diabetes,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,12.0,96.0,78.0,114.0,36.9,ALERT,False
+MRN-100419,Jake Campbell,2006-12-09,19,OTHER,AMBULANCE,Type 2 Diabetes,Requesting refill of routine blood pressure medication,MINOR,25.5,15.0,96.0,94.0,107.0,36.8,ALERT,False
+MRN-100420,George Harper,1956-04-10,70,OTHER,WALK_IN,Congestive Heart Failure,"Small splinter in palm, unable to remove at home",MINOR,,17.0,98.0,79.0,116.0,37.0,ALERT,False
+MRN-100421,Maria Jones,1988-08-21,38,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,17.0,98.0,62.0,116.0,36.5,ALERT,False
+MRN-100422,Michael Mitchell,2019-04-05,7,OTHER,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,15.0,97.0,63.0,124.0,36.6,ALERT,False
+MRN-100423,Mary Escobar,1947-05-02,79,FEMALE,AMBULANCE,"CAD, Type 2 Diabetes","Sudden severe shortness of breath, unable to speak in full sentences",CRITICAL,19.5,35.0,88.0,151.0,82.0,36.8,VOICE,True
+MRN-100424,Felicia Aguilar,1958-03-25,68,MALE,AMBULANCE,"Immunocompromised, on long-term chemotherapy","Mild dehydration after a long hike, feeling better with water",MINOR,26.8,19.0,97.0,79.0,129.0,37.1,ALERT,False
+MRN-100425,Gregory Ponce,2003-11-14,22,MALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,25.0,92.0,104.0,101.0,38.0,ALERT,False
+MRN-100426,Jenna Larson,1957-03-06,69,MALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,21.0,95.0,100.0,109.0,38.2,ALERT,False
+MRN-100427,Emily Bennett,1958-08-26,68,OTHER,WALK_IN,"COPD, Hypertension","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,19.0,98.0,95.0,126.0,36.6,ALERT,False
+MRN-100428,Robin Santiago,1992-11-12,33,OTHER,WALK_IN,"COPD, Coronary Artery Disease",Mild allergic rash after new laundry detergent,MINOR,,17.0,98.0,67.0,113.0,37.0,ALERT,False
+MRN-100429,Nancy Jennings,2024-08-26,2,OTHER,AMBULANCE,"COPD, Hypertension","Sudden severe shortness of breath, unable to speak in full sentences",CRITICAL,6.7,34.0,86.0,137.0,83.0,36.2,VOICE,True
+MRN-100430,Maria Henderson,1949-05-30,77,OTHER,AMBULANCE,"Hypertension, Type 2 Diabetes",Sprained ankle after stepping off a curb,MINOR,31.9,13.0,98.0,74.0,123.0,36.9,ALERT,False
+MRN-100431,Jack White,1936-05-15,90,MALE,WALK_IN,Osteoarthritis,Sprained ankle after stepping off a curb,MINOR,,16.0,100.0,71.0,115.0,37.2,ALERT,False
+MRN-100432,Travis Tucker,1993-08-01,33,MALE,WALK_IN,Hypothyroidism,"Witnessed generalised seizure, post-ictal and confused",CRITICAL,,32.0,79.0,158.0,75.0,37.1,PAIN,True
+MRN-100433,Chad Jones,1947-06-20,79,FEMALE,WALK_IN,Congestive Heart Failure,"Palpitations and lightheadedness, no chest pain",MODERATE,,25.0,93.0,115.0,109.0,38.5,ALERT,True
+MRN-100434,Ashley Wise,1968-01-03,58,MALE,WALK_IN,Migraine,Minor laceration to finger while chopping vegetables,MINOR,,17.0,97.0,87.0,127.0,36.9,ALERT,False
+MRN-100435,Sophia Johnson,1964-02-21,62,FEMALE,AMBULANCE,Osteoarthritis,Sprained ankle after stepping off a curb,MINOR,15.0,16.0,96.0,96.0,125.0,36.8,ALERT,False
+MRN-100436,Ralph Anderson,1987-08-12,39,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,15.0,99.0,73.0,125.0,37.1,ALERT,False
+MRN-100437,Christopher Guerra,1988-05-28,38,OTHER,WALK_IN,,"Witnessed generalised seizure, post-ictal and confused",CRITICAL,,36.0,81.0,139.0,72.0,38.3,PAIN,True
+MRN-100438,Rhonda Martin,2015-01-21,11,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy",Persistent fever with vomiting for two days,MODERATE,,20.0,95.0,106.0,101.0,38.6,ALERT,False
+MRN-100439,Jason Rhodes,2023-03-11,3,MALE,WALK_IN,Hyperlipidemia,Minor laceration to finger while chopping vegetables,MINOR,,15.0,97.0,85.0,118.0,37.2,ALERT,False
+MRN-100440,Jeremy Mitchell,2005-11-12,20,OTHER,WALK_IN,,"Major trauma, high-speed motor vehicle collision",CRITICAL,,34.0,78.0,157.0,81.0,36.2,ALERT,True
+MRN-100441,Joann Ferguson,2009-06-07,17,MALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,15.0,97.0,82.0,125.0,36.4,ALERT,False
+MRN-100442,Robert Harrison,1961-11-04,64,OTHER,WALK_IN,,"Ear pain for two days, no fever",MINOR,,14.0,99.0,88.0,115.0,36.4,ALERT,False
+MRN-100443,Holly Valentine,1937-12-16,88,OTHER,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,17.0,98.0,73.0,108.0,36.4,ALERT,False
+MRN-100444,Mrs. Diane Reyes,1971-09-22,54,MALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,26.0,92.0,102.0,108.0,38.4,ALERT,False
+MRN-100445,Tracy Montoya,2023-07-21,3,FEMALE,WALK_IN,Coronary Artery Disease (CAD),"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,25.0,94.0,107.0,105.0,38.6,ALERT,False
+MRN-100446,Brenda Wright,1943-12-27,82,FEMALE,WALK_IN,Osteoarthritis,Suspected fracture of the wrist after a fall,MODERATE,,24.0,92.0,104.0,102.0,38.8,ALERT,False
+MRN-100447,Shelly Spencer,1971-12-02,54,MALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,27.0,94.0,121.0,110.0,38.3,ALERT,False
+MRN-100448,Ryan Rosales,1945-06-05,81,OTHER,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,25.0,95.0,111.0,98.0,38.5,ALERT,True
+MRN-100449,Phillip Nelson,1943-04-28,83,FEMALE,WALK_IN,Migraine,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,26.0,94.0,101.0,106.0,38.8,ALERT,False
+MRN-100450,Brittany Kim,1960-08-10,66,MALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,8.3,16.0,98.0,88.0,127.0,36.5,ALERT,False
+MRN-100451,Courtney Hayes,1996-05-08,30,MALE,WALK_IN,"Immunocompromised, on long-term chemotherapy","Ear pain for two days, no fever",MINOR,,18.0,96.0,82.0,106.0,36.7,ALERT,False
+MRN-100452,Alexander Brown,2003-02-26,23,FEMALE,WALK_IN,"Immunocompromised, on long-term chemotherapy","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,19.0,97.0,65.0,122.0,36.4,ALERT,False
+MRN-100453,Cynthia Vang,1967-06-19,59,FEMALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,24.0,94.0,115.0,104.0,37.8,ALERT,False
+MRN-100454,Alfred Galvan,1996-02-09,30,MALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,12.4,16.0,99.0,71.0,123.0,37.0,ALERT,False
+MRN-100455,Marie Moody,1983-11-18,42,FEMALE,WALK_IN,Hyperlipidemia,"Sore throat and mild fever, cold-like symptoms",MINOR,,18.0,100.0,76.0,106.0,37.3,ALERT,False
+MRN-100456,Dustin Gallegos,2020-12-03,5,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,15.0,97.0,81.0,105.0,37.0,ALERT,False
+MRN-100457,Brenda Thornton,1998-03-07,28,MALE,WALK_IN,Migraine,Sprained ankle after stepping off a curb,MINOR,,12.0,99.0,66.0,116.0,36.9,ALERT,False
+MRN-100458,Aaron Miller,1965-09-19,60,MALE,WALK_IN,Hyperlipidemia,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,16.0,99.0,60.0,120.0,36.7,ALERT,False
+MRN-100459,Ruben Dunn,2021-01-25,5,FEMALE,WALK_IN,Hypertension,"Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,99.0,90.0,107.0,37.2,ALERT,False
+MRN-100460,Kelsey Rodriguez,1960-03-13,66,OTHER,AMBULANCE,"Hypertension, Type 2 Diabetes","Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,34.4,23.0,92.0,109.0,105.0,38.5,ALERT,False
+MRN-100461,Eric Williams,1995-07-11,31,OTHER,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,18.0,99.0,89.0,123.0,36.6,ALERT,False
+MRN-100462,Riley Bryant,1990-09-25,35,OTHER,WALK_IN,,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,32.0,83.0,143.0,72.0,38.4,ALERT,True
+MRN-100463,Taylor Carlson,1957-01-28,69,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,13.0,100.0,63.0,114.0,36.5,ALERT,False
+MRN-100464,Jose Allen,2016-06-09,10,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,13.0,97.0,96.0,106.0,36.7,ALERT,False
+MRN-100465,Jeffrey Mendez,1938-07-16,88,OTHER,WALK_IN,GERD,Minor laceration to finger while chopping vegetables,MINOR,,14.0,96.0,93.0,111.0,37.2,ALERT,False
+MRN-100466,Jason Beck,1950-10-18,75,FEMALE,WALK_IN,Congestive Heart Failure,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,25.0,94.0,113.0,102.0,38.3,ALERT,False
+MRN-100467,William Jones,1996-02-29,30,FEMALE,AMBULANCE,,Minor laceration to finger while chopping vegetables,MINOR,21.1,13.0,97.0,96.0,120.0,36.5,ALERT,False
+MRN-100468,Katie Mcneil,2001-09-08,24,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,13.0,96.0,98.0,119.0,36.7,ALERT,False
+MRN-100469,Jeanette Harrison,1978-05-29,48,MALE,WALK_IN,GERD,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,40.0,80.0,141.0,88.0,37.6,VOICE,True
+MRN-100470,Veronica King,1962-01-24,64,MALE,AMBULANCE,,"Palpitations and lightheadedness, no chest pain",MODERATE,34.4,27.0,93.0,117.0,102.0,38.0,ALERT,False
+MRN-100471,Richard Cooper,1952-07-04,74,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,96.0,78.0,106.0,37.0,ALERT,False
+MRN-100472,Lori Ingram,2011-08-22,15,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,97.0,83.0,110.0,36.8,ALERT,False
+MRN-100473,Evelyn Williams,1990-08-28,36,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease",Sprained ankle after stepping off a curb,MINOR,,19.0,98.0,79.0,119.0,36.8,ALERT,False
+MRN-100474,Robin Thompson,1975-02-06,51,MALE,WALK_IN,GERD,"Migraine with photophobia, not resolving with home medication",MODERATE,,22.0,93.0,111.0,103.0,37.9,ALERT,False
+MRN-100475,Julie Dominguez,1969-06-22,57,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,17.0,98.0,92.0,119.0,36.4,ALERT,False
+MRN-100476,Robin Brown,1986-12-15,39,FEMALE,AMBULANCE,Coronary Artery Disease (CAD),"Unresponsive, found down, unknown downtime",CRITICAL,11.0,37.0,79.0,139.0,86.0,37.0,ALERT,True
+MRN-100477,Judith Carter,1976-12-02,49,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,18.0,97.0,81.0,116.0,36.3,ALERT,False
+MRN-100478,Curtis Williams,2025-04-18,1,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,13.0,99.0,71.0,109.0,37.2,ALERT,False
+MRN-100479,Kaylee Hays,1943-09-06,83,MALE,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,24.0,93.0,112.0,102.0,37.9,ALERT,False
+MRN-100480,Dawn Mullins,1937-03-14,89,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,13.0,96.0,72.0,126.0,36.4,ALERT,False
+MRN-100481,Howard Norman,2005-04-18,21,MALE,WALK_IN,Type 2 Diabetes,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,12.0,97.0,84.0,107.0,36.5,ALERT,False
+MRN-100482,Evelyn Martinez,1948-12-14,77,MALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,22.0,94.0,109.0,103.0,38.1,ALERT,True
+MRN-100483,Steve Paul,2008-04-12,18,OTHER,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,97.0,68.0,117.0,37.1,ALERT,False
+MRN-100484,Jasmine Beltran,1953-09-29,72,OTHER,AMBULANCE,Coronary Artery Disease (CAD),"Small splinter in palm, unable to remove at home",MINOR,32.7,17.0,99.0,90.0,115.0,37.2,ALERT,False
+MRN-100485,Jonathan Glass MD,1964-04-08,62,FEMALE,WALK_IN,Hypothyroidism,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,26.0,94.0,118.0,100.0,38.5,ALERT,True
+MRN-100486,Monica Miller,2009-06-23,17,OTHER,WALK_IN,Hypertension,Persistent fever with vomiting for two days,MODERATE,,21.0,92.0,117.0,107.0,37.7,ALERT,False
+MRN-100487,Samantha Gardner,2000-08-20,26,MALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,15.0,100.0,62.0,112.0,36.3,ALERT,False
+MRN-100488,Bobby Guerrero,2012-10-29,13,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,17.0,96.0,66.0,123.0,36.6,ALERT,False
+MRN-100489,Lance Simmons,1951-03-22,75,FEMALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,14.0,98.0,64.0,119.0,36.3,ALERT,False
+MRN-100490,Heather Williams,1998-05-31,28,OTHER,AMBULANCE,"Hypertension, Type 2 Diabetes","Palpitations and lightheadedness, no chest pain",MODERATE,18.2,20.0,94.0,122.0,109.0,38.7,ALERT,False
+MRN-100491,Heather Bolton,2012-03-05,14,MALE,AMBULANCE,,"Small splinter in palm, unable to remove at home",MINOR,9.1,14.0,96.0,97.0,108.0,36.4,ALERT,False
+MRN-100492,William Gould,1979-04-17,47,OTHER,WALK_IN,,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,34.0,82.0,141.0,83.0,38.3,PAIN,True
+MRN-100493,Mark Cox,1997-02-10,29,OTHER,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,18.0,100.0,90.0,128.0,36.7,ALERT,False
+MRN-100494,Meghan Cisneros,2023-12-23,2,OTHER,WALK_IN,"Hypertension, Type 2 Diabetes","Palpitations and lightheadedness, no chest pain",MODERATE,,25.0,92.0,103.0,101.0,38.4,ALERT,True
+MRN-100495,Lawrence Harrington,2017-05-23,9,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,13.0,99.0,88.0,112.0,37.0,ALERT,False
+MRN-100496,Austin Osborne,1951-05-02,75,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy","Ear pain for two days, no fever",MINOR,,14.0,99.0,96.0,129.0,36.8,ALERT,False
+MRN-100497,James Bradley,2012-04-27,14,MALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,20.0,94.0,120.0,102.0,37.6,ALERT,False
+MRN-100498,Meghan Rush,1948-04-04,78,OTHER,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,17.0,99.0,80.0,117.0,36.8,ALERT,False
+MRN-100499,Phillip Berry,1987-12-29,38,OTHER,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,26.0,94.0,100.0,106.0,38.9,ALERT,False
+MRN-100500,Jennifer Banks,2010-01-16,16,FEMALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,20.0,93.0,116.0,107.0,38.8,ALERT,False
+MRN-100501,Brian Fitzgerald,1970-04-07,56,MALE,WALK_IN,"Hypertension, Type 2 Diabetes",Sprained ankle after stepping off a curb,MINOR,,16.0,98.0,81.0,118.0,36.8,ALERT,False
+MRN-100502,Mr. Justin Green III,1961-02-27,65,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Ear pain for two days, no fever",MINOR,,16.0,97.0,97.0,113.0,36.3,ALERT,False
+MRN-100503,Zachary Mitchell,1980-11-16,45,OTHER,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,98.0,98.0,115.0,36.4,ALERT,False
+MRN-100504,Katherine Martinez,1994-05-10,32,MALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,18.0,96.0,66.0,118.0,36.3,ALERT,False
+MRN-100505,Jodi Roach,1940-12-04,85,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,17.0,98.0,97.0,114.0,36.7,ALERT,False
+MRN-100506,Brandon Fleming,1952-01-11,74,MALE,WALK_IN,Hypothyroidism,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,99.0,85.0,109.0,36.6,ALERT,False
+MRN-100507,Emma Reed,1962-08-08,64,OTHER,AMBULANCE,,Requesting refill of routine blood pressure medication,MINOR,33.7,14.0,97.0,82.0,124.0,36.9,ALERT,False
+MRN-100508,Joshua Vance,1934-08-05,92,OTHER,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,26.0,93.0,105.0,107.0,38.4,ALERT,False
+MRN-100509,Michelle Ho,1986-10-05,39,FEMALE,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,22.0,94.0,116.0,103.0,38.7,ALERT,False
+MRN-100510,Rebecca Hicks,1958-11-25,67,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,99.0,91.0,125.0,37.2,ALERT,False
+MRN-100511,Curtis Taylor,1952-11-01,73,OTHER,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,21.0,92.0,116.0,100.0,38.2,ALERT,False
+MRN-100512,Allison Spencer,2017-05-20,9,OTHER,AMBULANCE,,"Migraine with photophobia, not resolving with home medication",MODERATE,12.4,25.0,93.0,114.0,101.0,37.7,ALERT,False
+MRN-100513,Robert Arnold,1986-01-04,40,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,13.0,97.0,61.0,124.0,36.6,ALERT,False
+MRN-100514,Angelica Parker,1954-10-23,71,MALE,AMBULANCE,"Immunosuppressed (post-transplant, on tacrolimus)","Mild lower back stiffness, chronic, no new injury",MINOR,31.9,17.0,96.0,94.0,113.0,36.6,ALERT,False
+MRN-100515,Dr. Kelly Hammond DVM,1940-08-05,86,OTHER,WALK_IN,Hyperlipidemia,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,98.0,79.0,108.0,37.0,ALERT,False
+MRN-100516,William Day,1993-07-23,33,FEMALE,WALK_IN,Coronary Artery Disease (CAD),"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,22.0,94.0,109.0,106.0,37.9,ALERT,False
+MRN-100517,Michael Cooper,1998-01-24,28,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,15.0,97.0,96.0,113.0,36.7,ALERT,False
+MRN-100518,Penny Bowman,1938-05-02,88,MALE,AMBULANCE,COPD,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,25.7,15.0,97.0,72.0,120.0,37.2,ALERT,False
+MRN-100519,Vincent Reynolds,1940-05-14,86,MALE,WALK_IN,Seasonal Allergies,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,26.0,94.0,113.0,99.0,38.2,ALERT,True
+MRN-100520,Amy Martinez,1987-05-12,39,MALE,WALK_IN,"COPD, Hypertension","Sore throat and mild fever, cold-like symptoms",MINOR,,18.0,99.0,93.0,123.0,36.7,ALERT,False
+MRN-100521,Christopher Morris,1963-02-16,63,FEMALE,AMBULANCE,,Moderate burn to hand from cooking oil,MODERATE,23.1,26.0,94.0,120.0,105.0,38.3,ALERT,False
+MRN-100522,Hannah Everett,1955-04-03,71,OTHER,WALK_IN,,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,36.0,80.0,141.0,82.0,35.0,VOICE,True
+MRN-100523,Sarah King,1945-04-12,81,FEMALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,24.0,95.0,120.0,106.0,38.7,ALERT,False
+MRN-100524,Krista Martinez,1985-01-08,41,FEMALE,AMBULANCE,Anxiety,Suspected fracture of the wrist after a fall,MODERATE,11.7,25.0,94.0,119.0,98.0,38.1,ALERT,False
+MRN-100525,Joseph Shaw,2022-10-04,3,OTHER,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,27.0,93.0,117.0,98.0,38.1,ALERT,False
+MRN-100526,Todd Moore,1992-07-24,34,MALE,AMBULANCE,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,8.6,21.0,94.0,110.0,109.0,38.2,ALERT,False
+MRN-100527,Michelle Jacobs,1934-06-17,92,MALE,AMBULANCE,Seasonal Allergies,Requesting refill of routine blood pressure medication,MINOR,26.8,14.0,98.0,65.0,126.0,36.9,ALERT,False
+MRN-100528,Kristy Bryan,2001-06-05,25,FEMALE,WALK_IN,"Immunocompromised, on long-term chemotherapy","Migraine with photophobia, not resolving with home medication",MODERATE,,27.0,93.0,111.0,99.0,38.4,ALERT,False
+MRN-100529,Angel May,2007-09-15,18,FEMALE,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,25.0,94.0,106.0,96.0,37.7,ALERT,False
+MRN-100530,Marilyn Wang,1995-03-10,31,FEMALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,34.3,17.0,99.0,60.0,117.0,36.7,ALERT,False
+MRN-100531,Mark Jimenez,1940-07-15,86,FEMALE,AMBULANCE,"COPD, Coronary Artery Disease","Mild dehydration after a long hike, feeling better with water",MINOR,18.0,13.0,97.0,79.0,113.0,36.8,ALERT,False
+MRN-100532,Donna Frye,1992-03-31,34,MALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,25.0,95.0,107.0,108.0,38.4,ALERT,False
+MRN-100533,Dr. Michael Evans,1992-03-31,34,OTHER,WALK_IN,"CAD, Type 2 Diabetes","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,25.0,92.0,120.0,105.0,38.6,ALERT,True
+MRN-100534,Anthony Gonzales,2002-01-08,24,MALE,WALK_IN,Migraine,"Ear pain for two days, no fever",MINOR,,13.0,100.0,79.0,116.0,37.3,ALERT,False
+MRN-100535,Mr. Lawrence Edwards,1962-07-02,64,MALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,21.0,93.0,112.0,99.0,38.8,ALERT,False
+MRN-100536,Morgan Valencia,1950-12-23,75,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,22.0,93.0,102.0,100.0,38.0,ALERT,False
+MRN-100537,Bianca Wood,1950-04-06,76,MALE,WALK_IN,Osteoarthritis,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,23.0,95.0,114.0,95.0,38.9,ALERT,False
+MRN-100538,Emma Owens,1931-12-06,94,OTHER,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,14.0,96.0,63.0,128.0,36.7,ALERT,False
+MRN-100539,David Davis,1974-06-13,52,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,13.0,99.0,66.0,124.0,36.6,ALERT,False
+MRN-100540,James Gilbert,1942-07-21,84,MALE,WALK_IN,"Immunocompromised, on long-term chemotherapy",Requesting refill of routine blood pressure medication,MINOR,,18.0,98.0,74.0,107.0,36.7,ALERT,False
+MRN-100541,Sean Moore,1976-04-27,50,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,18.0,98.0,76.0,115.0,36.3,ALERT,False
+MRN-100542,Kenneth Edwards,1981-09-29,44,FEMALE,WALK_IN,"Immunocompromised, on long-term chemotherapy","Sore throat and mild fever, cold-like symptoms",MINOR,,19.0,98.0,85.0,107.0,36.8,ALERT,False
+MRN-100543,Kathleen Robertson,1987-07-06,39,MALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,24.0,93.0,101.0,96.0,37.7,ALERT,True
+MRN-100544,Mr. Alexander Landry MD,1971-07-27,55,FEMALE,WALK_IN,Coronary Artery Disease (CAD),Requesting refill of routine blood pressure medication,MINOR,,14.0,98.0,89.0,105.0,37.0,ALERT,False
+MRN-100545,Cindy Gomez,1975-08-01,51,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,16.0,98.0,85.0,120.0,36.6,ALERT,False
+MRN-100546,Johnny Khan,1998-07-28,28,MALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)",Sprained ankle after stepping off a curb,MINOR,,15.0,96.0,75.0,105.0,37.0,ALERT,False
+MRN-100547,Julie Herrera,1940-11-16,85,OTHER,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,23.0,94.0,117.0,101.0,38.0,ALERT,True
+MRN-100548,Jessica Khan,2024-07-04,2,MALE,WALK_IN,Hyperlipidemia,Mild allergic rash after new laundry detergent,MINOR,,18.0,97.0,85.0,121.0,36.7,ALERT,False
+MRN-100549,Pamela Diaz,2001-04-04,25,MALE,WALK_IN,Anxiety,Moderate burn to hand from cooking oil,MODERATE,,20.0,92.0,104.0,106.0,38.9,ALERT,False
+MRN-100550,Kelly Lee,1994-04-10,32,MALE,WALK_IN,"COPD, Coronary Artery Disease",Minor laceration to finger while chopping vegetables,MINOR,,14.0,96.0,92.0,115.0,36.7,ALERT,False
+MRN-100551,Angel Gordon,1988-01-03,38,MALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,19.0,100.0,93.0,111.0,36.4,ALERT,False
+MRN-100552,Diana Hays,2022-11-09,3,FEMALE,WALK_IN,Congestive Heart Failure,"Witnessed generalised seizure, post-ictal and confused",CRITICAL,,39.0,79.0,147.0,82.0,37.2,PAIN,True
+MRN-100553,Barbara Hester,1933-01-25,93,MALE,WALK_IN,GERD,Persistent fever with vomiting for two days,MODERATE,,24.0,94.0,122.0,108.0,38.5,ALERT,False
+MRN-100554,Robert Morgan,1971-10-14,54,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy","Sore throat and mild fever, cold-like symptoms",MINOR,,16.0,97.0,88.0,121.0,36.4,ALERT,False
+MRN-100555,Nicole Gonzalez,2012-12-24,13,FEMALE,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,27.0,93.0,106.0,105.0,37.8,ALERT,False
+MRN-100556,Kathryn Williams,1961-08-14,65,MALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,21.0,93.0,106.0,100.0,38.1,ALERT,True
+MRN-100557,Gary Wells,1954-07-02,72,FEMALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,30.2,17.0,99.0,95.0,116.0,36.8,ALERT,False
+MRN-100558,Larry Robertson,2010-10-26,15,MALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,18.0,96.0,64.0,120.0,37.2,ALERT,False
+MRN-100559,Louis Martin,1979-04-15,47,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,96.0,85.0,113.0,36.4,ALERT,False
+MRN-100560,Nancy Evans MD,2000-02-06,26,FEMALE,WALK_IN,Hypothyroidism,Severe abdominal pain with rigidity and hypotension,CRITICAL,,32.0,84.0,128.0,77.0,38.6,PAIN,True
+MRN-100561,Kim Erickson,2006-02-01,20,OTHER,WALK_IN,Coronary Artery Disease (CAD),Moderate burn to hand from cooking oil,MODERATE,,23.0,93.0,111.0,108.0,38.6,ALERT,False
+MRN-100562,Robert Richardson,2023-12-10,2,OTHER,AMBULANCE,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,9.5,23.0,94.0,110.0,101.0,37.6,ALERT,False
+MRN-100563,Veronica Silva,1951-10-30,74,MALE,AMBULANCE,,"Small splinter in palm, unable to remove at home",MINOR,26.6,19.0,98.0,94.0,122.0,37.2,ALERT,False
+MRN-100564,Molly Watts,1985-09-05,41,FEMALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,28.7,18.0,99.0,77.0,110.0,36.8,ALERT,False
+MRN-100565,John Coffey,1941-09-28,84,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,17.0,100.0,63.0,118.0,36.7,ALERT,False
+MRN-100566,Paula Lane,1933-07-20,93,OTHER,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,13.0,98.0,80.0,123.0,36.5,ALERT,False
+MRN-100567,Lauren Jackson,2021-11-01,4,OTHER,WALK_IN,Osteoarthritis,Requesting refill of routine blood pressure medication,MINOR,,17.0,100.0,64.0,106.0,36.7,ALERT,False
+MRN-100568,Lisa Randall,2009-10-05,16,MALE,AMBULANCE,,"Mild dehydration after a long hike, feeling better with water",MINOR,22.0,17.0,98.0,97.0,124.0,37.3,ALERT,False
+MRN-100569,Michael Johnson,1944-12-20,81,OTHER,AMBULANCE,,"Migraine with photophobia, not resolving with home medication",MODERATE,12.4,22.0,94.0,117.0,105.0,38.5,ALERT,False
+MRN-100570,Ashley Smith,1983-11-16,42,OTHER,WALK_IN,Migraine,"Mild lower back stiffness, chronic, no new injury",MINOR,,13.0,99.0,91.0,107.0,36.4,ALERT,False
+MRN-100571,Christian Vaughn,1998-07-29,28,FEMALE,WALK_IN,Migraine,"Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,99.0,93.0,119.0,36.9,ALERT,False
+MRN-100572,Reginald Knapp,1932-07-01,94,FEMALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,21.0,94.0,121.0,97.0,37.9,ALERT,False
+MRN-100573,Nancy Brown,2005-02-27,21,OTHER,AMBULANCE,Congestive Heart Failure,Moderate burn to hand from cooking oil,MODERATE,19.6,21.0,93.0,107.0,103.0,37.8,ALERT,False
+MRN-100574,Daniel Nguyen,2006-11-07,19,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,18.0,97.0,91.0,117.0,36.4,ALERT,False
+MRN-100575,Kelly Edwards,1981-08-19,45,MALE,WALK_IN,Coronary Artery Disease (CAD),"Mild dehydration after a long hike, feeling better with water",MINOR,,15.0,97.0,74.0,125.0,37.1,ALERT,False
+MRN-100576,Thomas Peterson,1961-01-23,65,OTHER,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,18.0,97.0,90.0,121.0,36.7,ALERT,False
+MRN-100577,Raymond Le,1996-03-17,30,FEMALE,WALK_IN,Seasonal Allergies,"Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,99.0,93.0,122.0,36.9,ALERT,False
+MRN-100578,Melissa Bishop,1954-07-16,72,OTHER,WALK_IN,"COPD, Coronary Artery Disease","Back pain after lifting, unable to bear weight comfortably",MODERATE,,24.0,94.0,123.0,103.0,38.6,ALERT,False
+MRN-100579,David Grant,2002-04-18,24,MALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Back pain after lifting, unable to bear weight comfortably",MODERATE,,23.0,94.0,115.0,101.0,37.7,ALERT,False
+MRN-100580,William Evans,2002-08-24,24,FEMALE,AMBULANCE,"Immunosuppressed (post-transplant, on tacrolimus)","Migraine with photophobia, not resolving with home medication",MODERATE,25.4,21.0,95.0,113.0,99.0,37.8,ALERT,False
+MRN-100581,Daniel Bush,2018-03-19,8,OTHER,WALK_IN,Type 2 Diabetes,Requesting refill of routine blood pressure medication,MINOR,,15.0,97.0,76.0,113.0,36.7,ALERT,False
+MRN-100582,Gregory Peck,2019-05-02,7,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,16.0,98.0,96.0,111.0,36.6,ALERT,False
+MRN-100583,Denise Martinez,1955-08-15,71,FEMALE,WALK_IN,"Hypertension, Type 2 Diabetes",Mild allergic rash after new laundry detergent,MINOR,,18.0,96.0,81.0,119.0,36.4,ALERT,False
+MRN-100584,Jamie Baird,1987-02-13,39,OTHER,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,13.0,100.0,74.0,129.0,37.1,ALERT,False
+MRN-100585,Tina Ballard,1956-12-06,69,FEMALE,WALK_IN,Congestive Heart Failure,Severe abdominal pain with rigidity and hypotension,CRITICAL,,40.0,85.0,148.0,73.0,35.3,PAIN,True
+MRN-100586,Dwayne Klein,1938-03-26,88,FEMALE,AMBULANCE,Hyperlipidemia,"Palpitations and lightheadedness, no chest pain",MODERATE,35.0,22.0,92.0,113.0,96.0,37.7,ALERT,False
+MRN-100587,Jeremy Scott,1969-11-05,56,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,16.0,100.0,87.0,112.0,37.0,ALERT,False
+MRN-100588,Dale Ryan,1984-05-25,42,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,18.0,97.0,95.0,120.0,36.3,ALERT,False
+MRN-100589,Melissa Taylor,2024-06-03,2,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy","Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,98.0,90.0,121.0,36.4,ALERT,False
+MRN-100590,Laurie Sanchez,1939-03-25,87,MALE,AMBULANCE,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,33.1,23.0,93.0,118.0,105.0,37.6,ALERT,False
+MRN-100591,Kiara Little,1969-05-23,57,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,99.0,84.0,124.0,36.5,ALERT,False
+MRN-100592,Jason Love,1962-08-28,64,FEMALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,13.0,97.0,91.0,115.0,37.2,ALERT,False
+MRN-100593,Randy Smith,1953-01-08,73,OTHER,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,25.0,94.0,104.0,104.0,38.6,ALERT,True
+MRN-100594,Tanya Russell,1952-12-24,73,MALE,WALK_IN,Hypertension,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,27.0,94.0,113.0,99.0,38.3,ALERT,False
+MRN-100595,Sherry Woods,1984-02-14,42,FEMALE,WALK_IN,Hyperlipidemia,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,98.0,62.0,122.0,36.3,ALERT,False
+MRN-100596,Victor Morris,1968-09-11,58,FEMALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,26.0,95.0,105.0,105.0,38.8,ALERT,False
+MRN-100597,Susan Davis,2000-03-21,26,MALE,WALK_IN,Hypothyroidism,Sprained ankle after stepping off a curb,MINOR,,12.0,98.0,61.0,124.0,37.2,ALERT,False
+MRN-100598,Kimberly Sharp,2012-05-03,14,FEMALE,AMBULANCE,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,7.9,16.0,97.0,63.0,119.0,36.7,ALERT,False
+MRN-100599,Susan Thompson,1968-07-12,58,OTHER,WALK_IN,,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,33.0,88.0,149.0,84.0,35.3,PAIN,True
+MRN-100600,Casey Gillespie,2017-10-24,8,FEMALE,WALK_IN,Anxiety,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,35.0,81.0,138.0,72.0,38.6,VOICE,True
+MRN-100601,Jennifer Simpson DVM,2024-02-16,2,FEMALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,97.0,96.0,124.0,36.8,ALERT,False
+MRN-100602,Tammy Mcdowell,1983-06-04,43,OTHER,WALK_IN,"Immunocompromised, on long-term chemotherapy","Sudden severe shortness of breath, unable to speak in full sentences",CRITICAL,,35.0,87.0,157.0,72.0,37.4,PAIN,True
+MRN-100603,Keith Rodriguez,2002-06-27,24,MALE,WALK_IN,,"Sudden facial droop and slurred speech, stroke alert",CRITICAL,,35.0,84.0,148.0,76.0,37.8,ALERT,True
+MRN-100604,Mrs. Virginia Daniels,2007-01-07,19,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,27.0,94.0,116.0,97.0,37.9,ALERT,False
+MRN-100605,Todd Rosales MD,1954-02-13,72,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,17.0,97.0,85.0,122.0,37.3,ALERT,False
+MRN-100606,Brian Martin,1949-04-02,77,OTHER,AMBULANCE,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,6.3,16.0,98.0,66.0,116.0,37.1,ALERT,False
+MRN-100607,David Lopez,1996-10-14,29,MALE,WALK_IN,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,,21.0,93.0,118.0,107.0,38.6,ALERT,False
+MRN-100608,Rachel Bradley,1974-09-09,52,MALE,WALK_IN,,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,35.0,80.0,140.0,81.0,39.4,PAIN,True
+MRN-100609,Casey Chase,2020-05-22,6,MALE,WALK_IN,Hypertension,"Migraine with photophobia, not resolving with home medication",MODERATE,,25.0,93.0,113.0,98.0,37.6,ALERT,False
+MRN-100610,Samantha Robertson,1939-03-11,87,MALE,WALK_IN,Anxiety,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,19.0,97.0,69.0,124.0,37.0,ALERT,False
+MRN-100611,Michael Lopez,1970-08-11,56,OTHER,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,18.0,97.0,74.0,114.0,36.9,ALERT,False
+MRN-100612,Franklin Wright,1944-08-27,82,MALE,WALK_IN,"COPD, Coronary Artery Disease","Small splinter in palm, unable to remove at home",MINOR,,14.0,97.0,69.0,120.0,36.6,ALERT,False
+MRN-100613,David Molina,1951-06-03,75,FEMALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,12.0,98.0,89.0,120.0,36.8,ALERT,False
+MRN-100614,Elizabeth Sharp,1962-01-21,64,OTHER,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,17.0,99.0,79.0,111.0,36.7,ALERT,False
+MRN-100615,Matthew Schwartz,1951-08-31,75,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,18.0,98.0,72.0,126.0,36.9,ALERT,False
+MRN-100616,Bryan Parker,1977-12-04,48,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,15.0,97.0,82.0,116.0,36.9,ALERT,False
+MRN-100617,Jonathan Jacobson,1971-01-17,55,FEMALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,22.0,93.0,104.0,99.0,38.4,ALERT,False
+MRN-100618,Emily Wilson,2014-12-20,11,FEMALE,WALK_IN,"Heart Failure, Chronic Kidney Disease",Requesting refill of routine blood pressure medication,MINOR,,18.0,96.0,63.0,106.0,36.5,ALERT,False
+MRN-100619,Elizabeth Mendez,1992-09-23,33,FEMALE,AMBULANCE,,"Back pain after lifting, unable to bear weight comfortably",MODERATE,14.0,27.0,95.0,118.0,106.0,38.8,ALERT,True
+MRN-100620,Casey Hernandez,1981-02-15,45,FEMALE,AMBULANCE,,Minor laceration to finger while chopping vegetables,MINOR,11.8,15.0,98.0,89.0,109.0,36.7,ALERT,False
+MRN-100621,Lisa Perry,1999-05-10,27,FEMALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,17.0,98.0,90.0,113.0,36.5,ALERT,False
+MRN-100622,Kaitlin Medina,1936-06-06,90,FEMALE,WALK_IN,Osteoarthritis,Minor laceration to finger while chopping vegetables,MINOR,,15.0,98.0,65.0,128.0,36.3,ALERT,False
+MRN-100623,Colleen Wright,1982-02-08,44,MALE,WALK_IN,Osteoarthritis,"Small splinter in palm, unable to remove at home",MINOR,,14.0,98.0,82.0,106.0,36.4,ALERT,False
+MRN-100624,Shelley Miller,1952-11-13,73,OTHER,AMBULANCE,"Immunocompromised, on long-term chemotherapy","Ear pain for two days, no fever",MINOR,24.2,19.0,97.0,75.0,118.0,36.5,ALERT,False
+MRN-100625,Michael Miller,1987-06-14,39,MALE,WALK_IN,"CAD, Type 2 Diabetes",Minor laceration to finger while chopping vegetables,MINOR,,18.0,98.0,61.0,110.0,37.2,ALERT,False
+MRN-100626,Amy Kelley,1995-10-05,30,FEMALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,16.0,97.0,93.0,115.0,36.5,ALERT,False
+MRN-100627,Laura Hernandez,2010-12-03,15,MALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,19.0,99.0,65.0,110.0,36.7,ALERT,False
+MRN-100628,Joseph Wilson,1935-01-22,91,OTHER,WALK_IN,"COPD, Hypertension",Requesting refill of routine blood pressure medication,MINOR,,16.0,98.0,86.0,112.0,36.3,ALERT,False
+MRN-100629,Kevin Davis,1974-05-09,52,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,98.0,88.0,112.0,37.2,ALERT,False
+MRN-100630,Rhonda Chavez,1966-09-21,59,FEMALE,AMBULANCE,,"Ear pain for two days, no fever",MINOR,27.0,16.0,99.0,67.0,111.0,37.2,ALERT,False
+MRN-100631,Joyce Brown,1966-10-12,59,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,17.0,96.0,94.0,109.0,37.2,ALERT,False
+MRN-100632,Robert Cummings,1956-10-10,69,FEMALE,AMBULANCE,,Mild allergic rash after new laundry detergent,MINOR,27.7,18.0,98.0,89.0,108.0,36.7,ALERT,False
+MRN-100633,Robert Reese,1961-02-18,65,FEMALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,20.0,92.0,115.0,105.0,38.2,ALERT,False
+MRN-100634,Amber Cooper,1974-02-21,52,MALE,WALK_IN,,Suspected fracture of the wrist after a fall,MODERATE,,22.0,94.0,112.0,96.0,38.3,ALERT,False
+MRN-100635,Zachary Michael,1969-01-15,57,MALE,AMBULANCE,COPD,"Sore throat and mild fever, cold-like symptoms",MINOR,25.3,18.0,98.0,67.0,108.0,37.0,ALERT,False
+MRN-100636,Timothy Johnson,2006-03-05,20,FEMALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,14.0,99.0,92.0,124.0,36.9,ALERT,False
+MRN-100637,Randy Cannon,1934-08-01,92,OTHER,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,24.0,92.0,109.0,98.0,37.9,ALERT,False
+MRN-100638,Maria Fisher,2000-08-28,26,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,99.0,62.0,128.0,36.4,ALERT,False
+MRN-100639,Janet Kane DVM,1933-08-31,93,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,22.0,94.0,115.0,109.0,38.1,ALERT,False
+MRN-100640,Michael Stanley,1996-07-14,30,MALE,WALK_IN,Hypertension,Moderate burn to hand from cooking oil,MODERATE,,25.0,92.0,105.0,98.0,38.5,ALERT,False
+MRN-100641,Martha Bailey,2017-02-03,9,MALE,WALK_IN,"Heart Failure, Chronic Kidney Disease",Sprained ankle after stepping off a curb,MINOR,,17.0,99.0,95.0,119.0,36.6,ALERT,False
+MRN-100642,Joshua Rice,1945-03-05,81,OTHER,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,99.0,94.0,113.0,37.2,ALERT,False
+MRN-100643,Courtney Smith,1964-03-27,62,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,15.0,99.0,69.0,119.0,37.3,ALERT,False
+MRN-100644,Edwin Nunez,1995-10-27,30,MALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,25.0,94.0,115.0,96.0,38.1,ALERT,False
+MRN-100645,Kim Morrow,2006-05-23,20,FEMALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Back pain after lifting, unable to bear weight comfortably",MODERATE,,27.0,93.0,121.0,97.0,38.0,ALERT,False
+MRN-100646,Gregory Hill,1943-09-08,83,FEMALE,WALK_IN,Hypothyroidism,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,14.0,98.0,94.0,121.0,36.5,ALERT,False
+MRN-100647,Molly Rodriguez,1947-12-27,78,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,12.0,98.0,96.0,106.0,37.3,ALERT,False
+MRN-100648,Jennifer Miranda,1999-07-22,27,MALE,WALK_IN,Coronary Artery Disease (CAD),Mild allergic rash after new laundry detergent,MINOR,,14.0,96.0,88.0,112.0,37.0,ALERT,False
+MRN-100649,Alexis Harris,1948-04-16,78,MALE,WALK_IN,"Immunocompromised, on long-term chemotherapy",Mild allergic rash after new laundry detergent,MINOR,,14.0,99.0,63.0,128.0,36.7,ALERT,False
+MRN-100650,Andrew Harper,1970-11-05,55,OTHER,WALK_IN,"Hypertension, Type 2 Diabetes","Mild lower back stiffness, chronic, no new injury",MINOR,,12.0,98.0,92.0,123.0,37.2,ALERT,False
+MRN-100651,Amber Yang,1955-06-20,71,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,14.0,98.0,78.0,113.0,37.0,ALERT,False
+MRN-100652,David Robinson,2000-05-31,26,MALE,WALK_IN,"COPD, Hypertension","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,100.0,96.0,128.0,36.7,ALERT,False
+MRN-100653,Amy Gordon,1973-07-11,53,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,17.0,100.0,89.0,123.0,36.6,ALERT,False
+MRN-100654,Robert Dennis,1934-11-01,91,FEMALE,WALK_IN,Hypertension,"Ear pain for two days, no fever",MINOR,,18.0,99.0,69.0,106.0,37.1,ALERT,False
+MRN-100655,Kyle Chambers,1935-10-27,90,OTHER,WALK_IN,GERD,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,98.0,96.0,125.0,36.3,ALERT,False
+MRN-100656,Eric Thomas,1974-11-16,51,OTHER,AMBULANCE,Anxiety,Persistent fever with vomiting for two days,MODERATE,14.2,26.0,92.0,110.0,105.0,38.3,ALERT,False
+MRN-100657,Connie Turner,1973-07-29,53,OTHER,WALK_IN,Coronary Artery Disease (CAD),"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,97.0,68.0,123.0,37.0,ALERT,False
+MRN-100658,Travis Hobbs,1963-07-28,63,MALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,15.0,97.0,76.0,109.0,36.5,ALERT,False
+MRN-100659,Lori Simmons,2007-12-29,18,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,16.0,97.0,68.0,123.0,37.1,ALERT,False
+MRN-100660,William David DDS,2001-02-08,25,FEMALE,WALK_IN,"CAD, Type 2 Diabetes",Sprained ankle after stepping off a curb,MINOR,,18.0,97.0,71.0,114.0,36.6,ALERT,False
+MRN-100661,Emma Butler,1963-10-06,62,FEMALE,WALK_IN,,"Sudden facial droop and slurred speech, stroke alert",CRITICAL,,37.0,78.0,145.0,88.0,35.5,ALERT,True
+MRN-100662,James Webster,2024-10-26,1,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,19.0,98.0,73.0,115.0,36.7,ALERT,False
+MRN-100663,Samuel Turner,1982-05-11,44,FEMALE,AMBULANCE,GERD,"Ear pain for two days, no fever",MINOR,26.8,16.0,100.0,93.0,124.0,36.3,ALERT,False
+MRN-100664,Renee Melendez,2007-10-31,18,MALE,WALK_IN,,Mild allergic rash after new laundry detergent,MINOR,,15.0,98.0,85.0,116.0,36.7,ALERT,False
+MRN-100665,Tracy Grant,2000-10-14,25,MALE,AMBULANCE,,Minor laceration to finger while chopping vegetables,MINOR,12.0,16.0,99.0,97.0,123.0,37.0,ALERT,False
+MRN-100666,David Harris,1962-11-06,63,FEMALE,WALK_IN,"COPD, Coronary Artery Disease","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,27.0,95.0,122.0,106.0,38.0,ALERT,False
+MRN-100667,Tammy Boone,1952-01-03,74,OTHER,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,14.0,99.0,81.0,126.0,36.5,ALERT,False
+MRN-100668,Nathaniel Lee,1968-01-11,58,MALE,WALK_IN,,Persistent fever with vomiting for two days,MODERATE,,21.0,95.0,117.0,97.0,38.9,ALERT,True
+MRN-100669,Michael Morrison,1984-04-19,42,FEMALE,WALK_IN,Osteoarthritis,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,27.0,94.0,116.0,109.0,38.4,ALERT,False
+MRN-100670,Chelsea Gill,1996-11-03,29,OTHER,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,25.0,94.0,123.0,102.0,37.9,ALERT,False
+MRN-100671,Kristin Mendoza,1988-07-13,38,MALE,WALK_IN,Hypertension,Mild allergic rash after new laundry detergent,MINOR,,17.0,96.0,74.0,125.0,37.3,ALERT,False
+MRN-100672,Felicia Krueger,1985-11-11,40,MALE,WALK_IN,Hypothyroidism,"Ear pain for two days, no fever",MINOR,,14.0,97.0,86.0,124.0,36.8,ALERT,False
+MRN-100673,Timothy Hayden,2012-08-29,14,FEMALE,WALK_IN,COPD,"Sore throat and mild fever, cold-like symptoms",MINOR,,18.0,97.0,68.0,121.0,36.4,ALERT,False
+MRN-100674,Zachary Mendoza,1949-04-13,77,FEMALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,19.0,99.0,78.0,125.0,36.8,ALERT,False
+MRN-100675,Larry Harris,1935-08-23,91,FEMALE,AMBULANCE,GERD,Persistent fever with vomiting for two days,MODERATE,14.0,26.0,95.0,105.0,106.0,38.8,ALERT,False
+MRN-100676,Kristen Rowe,1941-09-09,85,MALE,WALK_IN,"COPD, Coronary Artery Disease","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,27.0,94.0,109.0,103.0,38.0,ALERT,False
+MRN-100677,Joseph Howard,1975-07-07,51,MALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,18.0,99.0,77.0,109.0,36.4,ALERT,False
+MRN-100678,Jose Crawford,1936-04-25,90,FEMALE,AMBULANCE,,Persistent fever with vomiting for two days,MODERATE,9.4,25.0,92.0,117.0,104.0,38.5,ALERT,False
+MRN-100679,William Harrison,1971-06-19,55,OTHER,AMBULANCE,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,23.8,21.0,92.0,124.0,105.0,38.4,ALERT,False
+MRN-100680,Suzanne Wood,1974-08-26,52,MALE,WALK_IN,,"Migraine with photophobia, not resolving with home medication",MODERATE,,25.0,95.0,116.0,101.0,38.5,ALERT,False
+MRN-100681,Justin Walker,1941-01-26,85,MALE,AMBULANCE,Hyperlipidemia,Requesting refill of routine blood pressure medication,MINOR,11.7,16.0,98.0,60.0,108.0,36.4,ALERT,False
+MRN-100682,Dean Donovan,1949-11-29,76,OTHER,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,18.0,97.0,78.0,120.0,36.7,ALERT,False
+MRN-100683,Jennifer Hernandez,1952-07-29,74,MALE,WALK_IN,Migraine,"Small splinter in palm, unable to remove at home",MINOR,,13.0,99.0,61.0,118.0,36.8,ALERT,False
+MRN-100684,James Whitaker,2016-11-06,9,OTHER,WALK_IN,Hypertension,Sprained ankle after stepping off a curb,MINOR,,17.0,97.0,85.0,108.0,37.2,ALERT,False
+MRN-100685,Mr. Michael Scott PhD,1954-04-10,72,FEMALE,WALK_IN,"COPD, Coronary Artery Disease",Persistent fever with vomiting for two days,MODERATE,,25.0,92.0,106.0,106.0,37.7,ALERT,True
+MRN-100686,Maria Henry,2003-10-04,22,FEMALE,WALK_IN,,"Palpitations and lightheadedness, no chest pain",MODERATE,,26.0,93.0,113.0,97.0,38.2,ALERT,False
+MRN-100687,Robert Jackson,1979-12-10,46,OTHER,WALK_IN,Hypothyroidism,Minor laceration to finger while chopping vegetables,MINOR,,14.0,97.0,71.0,125.0,37.3,ALERT,False
+MRN-100688,Katherine Stark,1950-04-29,76,FEMALE,WALK_IN,GERD,Sprained ankle after stepping off a curb,MINOR,,16.0,97.0,85.0,109.0,36.8,ALERT,False
+MRN-100689,Maria Brown,1936-12-21,89,MALE,WALK_IN,Anxiety,Requesting refill of routine blood pressure medication,MINOR,,19.0,99.0,67.0,114.0,37.0,ALERT,False
+MRN-100690,Ryan Landry,2005-06-18,21,FEMALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,12.0,98.0,63.0,108.0,36.4,ALERT,False
+MRN-100691,Pamela Gutierrez,1955-08-15,71,FEMALE,WALK_IN,"COPD, Hypertension","Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,25.0,92.0,119.0,99.0,37.7,ALERT,False
+MRN-100692,Crystal Mann,2009-12-08,16,MALE,WALK_IN,,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,21.0,93.0,114.0,99.0,38.0,ALERT,True
+MRN-100693,Jonathan Brooks,2019-03-23,7,MALE,AMBULANCE,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,22.8,26.0,94.0,119.0,103.0,38.7,ALERT,False
+MRN-100694,Mary Jensen,1991-09-22,34,MALE,WALK_IN,Anxiety,Suspected fracture of the wrist after a fall,MODERATE,,21.0,94.0,106.0,109.0,38.4,ALERT,False
+MRN-100695,Mr. Aaron Arnold,1972-01-22,54,OTHER,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,16.0,97.0,76.0,128.0,37.2,ALERT,False
+MRN-100696,Joseph Hill,1995-10-17,30,FEMALE,AMBULANCE,COPD,"Ear pain for two days, no fever",MINOR,7.5,17.0,99.0,84.0,107.0,36.5,ALERT,False
+MRN-100697,Alicia Li,1988-12-30,37,OTHER,WALK_IN,,"Witnessed generalised seizure, post-ictal and confused",CRITICAL,,36.0,88.0,130.0,79.0,38.3,ALERT,True
+MRN-100698,Renee Browning,1957-07-15,69,OTHER,WALK_IN,Hyperlipidemia,Minor laceration to finger while chopping vegetables,MINOR,,17.0,99.0,88.0,111.0,37.0,ALERT,False
+MRN-100699,Brent Hernandez,1938-08-31,88,OTHER,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,18.0,97.0,74.0,108.0,36.7,ALERT,False
+MRN-100700,Joseph Ochoa,2018-12-22,7,FEMALE,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,22.0,94.0,120.0,108.0,38.7,ALERT,False
+MRN-100701,James Watson,1964-05-02,62,FEMALE,WALK_IN,Migraine,"Mild dehydration after a long hike, feeling better with water",MINOR,,15.0,100.0,95.0,128.0,36.8,ALERT,False
+MRN-100702,Karl Branch,1946-08-21,80,FEMALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,14.0,96.0,73.0,122.0,36.7,ALERT,False
+MRN-100703,Michael Abbott,1963-08-03,63,MALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,13.0,98.0,66.0,121.0,36.5,ALERT,False
+MRN-100704,Shannon Malone,1975-04-12,51,FEMALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Small splinter in palm, unable to remove at home",MINOR,,18.0,96.0,77.0,125.0,36.5,ALERT,False
+MRN-100705,James Tran,2024-09-01,1,FEMALE,WALK_IN,Seasonal Allergies,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,21.0,93.0,108.0,95.0,38.5,ALERT,False
+MRN-100706,Adam Jackson,2009-12-27,16,FEMALE,WALK_IN,GERD,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,99.0,94.0,117.0,37.2,ALERT,False
+MRN-100707,Mr. Richard Knight PhD,2009-07-10,17,MALE,WALK_IN,,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,24.0,94.0,106.0,105.0,38.0,ALERT,False
+MRN-100708,Joseph Williams,2023-12-29,2,FEMALE,WALK_IN,Hypothyroidism,"Ear pain for two days, no fever",MINOR,,14.0,97.0,79.0,111.0,37.1,ALERT,False
+MRN-100709,Sean Clay,1940-06-11,86,FEMALE,WALK_IN,,Sprained ankle after stepping off a curb,MINOR,,17.0,98.0,67.0,129.0,36.9,ALERT,False
+MRN-100710,Anthony Jones,1944-05-25,82,MALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)",Requesting refill of routine blood pressure medication,MINOR,,19.0,100.0,76.0,120.0,36.4,ALERT,False
+MRN-100711,Stephanie Elliott,1957-09-23,68,FEMALE,WALK_IN,GERD,"Asthma exacerbation, increased wheeze and rescue inhaler use",MODERATE,,23.0,92.0,110.0,96.0,37.7,ALERT,False
+MRN-100712,Timothy Edwards,1994-08-14,32,FEMALE,WALK_IN,Congestive Heart Failure,"Anaphylaxis after bee sting, facial swelling and stridor",CRITICAL,,31.0,83.0,157.0,72.0,35.9,PAIN,True
+MRN-100713,Laurie Goodwin,2010-09-26,15,MALE,WALK_IN,,"Sore throat and mild fever, cold-like symptoms",MINOR,,14.0,99.0,74.0,124.0,36.8,ALERT,False
+MRN-100714,Jennifer Jones,1977-10-14,48,MALE,WALK_IN,Hypothyroidism,Sprained ankle after stepping off a curb,MINOR,,18.0,97.0,88.0,108.0,36.9,ALERT,False
+MRN-100715,David Davenport,2001-01-20,25,OTHER,AMBULANCE,,Penetrating stab wound to the abdomen,CRITICAL,6.3,35.0,81.0,142.0,84.0,37.6,VOICE,True
+MRN-100716,Steven Rivera,2000-11-28,25,FEMALE,WALK_IN,,"Small splinter in palm, unable to remove at home",MINOR,,19.0,100.0,77.0,122.0,37.2,ALERT,False
+MRN-100717,Brenda Hinton,2017-01-30,9,FEMALE,WALK_IN,"CAD, Type 2 Diabetes",Minor laceration to finger while chopping vegetables,MINOR,,13.0,97.0,97.0,112.0,37.3,ALERT,False
+MRN-100718,Kathryn Mccann,1974-09-27,51,FEMALE,WALK_IN,Coronary Artery Disease (CAD),Sprained ankle after stepping off a curb,MINOR,,13.0,99.0,75.0,124.0,36.7,ALERT,False
+MRN-100719,Jeffrey Roberson,2024-11-11,1,MALE,WALK_IN,Hyperlipidemia,"Small splinter in palm, unable to remove at home",MINOR,,15.0,99.0,80.0,112.0,36.5,ALERT,False
+MRN-100720,Randy Friedman,2010-05-12,16,MALE,WALK_IN,,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,24.0,95.0,107.0,97.0,38.7,ALERT,True
+MRN-100721,Raymond Johnson,1993-12-08,32,MALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,19.0,97.0,96.0,126.0,36.6,ALERT,False
+MRN-100722,Willie Henry,2007-10-26,18,FEMALE,WALK_IN,Anxiety,Minor laceration to finger while chopping vegetables,MINOR,,18.0,97.0,97.0,109.0,37.3,ALERT,False
+MRN-100723,Todd Reynolds,2011-09-16,14,OTHER,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,99.0,68.0,111.0,36.9,ALERT,False
+MRN-100724,Mary Miller,1975-01-27,51,MALE,WALK_IN,,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,13.0,98.0,79.0,116.0,37.1,ALERT,False
+MRN-100725,Rebecca Marquez,2002-11-18,23,MALE,WALK_IN,,Requesting refill of routine blood pressure medication,MINOR,,12.0,97.0,67.0,114.0,36.9,ALERT,False
+MRN-100726,Christian Dawson,2017-07-27,9,MALE,WALK_IN,,"Ear pain for two days, no fever",MINOR,,13.0,98.0,88.0,124.0,36.9,ALERT,False
+MRN-100727,Nancy Stewart,1977-09-01,49,FEMALE,WALK_IN,Type 2 Diabetes,"Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,30.0,86.0,134.0,87.0,37.9,VOICE,True
+MRN-100728,Aaron Parker,1956-03-27,70,OTHER,AMBULANCE,,Suspected fracture of the wrist after a fall,MODERATE,6.7,23.0,94.0,111.0,97.0,38.0,ALERT,False
+MRN-100729,Derrick Anderson,1936-11-04,89,FEMALE,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Crushing chest pain radiating to left arm, diaphoretic",CRITICAL,,29.0,81.0,143.0,85.0,35.7,VOICE,True
+MRN-100730,Jerry Peters,1976-03-15,50,MALE,WALK_IN,,Moderate burn to hand from cooking oil,MODERATE,,25.0,94.0,122.0,102.0,38.9,ALERT,False
+MRN-100731,Alexander Gomez,1989-07-31,37,FEMALE,WALK_IN,,"Deep laceration to forearm from kitchen knife, needs sutures",MODERATE,,26.0,94.0,104.0,103.0,38.4,ALERT,False
+MRN-100732,Kyle Nguyen,2005-09-18,20,OTHER,WALK_IN,Type 2 Diabetes,"Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,18.0,97.0,79.0,114.0,36.6,ALERT,False
+MRN-100733,Edgar Hughes,2024-09-29,1,MALE,WALK_IN,"COPD, Hypertension","Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,25.0,94.0,111.0,96.0,38.4,ALERT,False
+MRN-100734,Steven Stein,1984-06-08,42,MALE,WALK_IN,Hypothyroidism,"Dog bite to lower leg, puncture wounds, needs cleaning",MODERATE,,23.0,94.0,110.0,107.0,38.0,ALERT,False
+MRN-100735,Laura Jackson,1975-12-05,50,FEMALE,WALK_IN,Hypothyroidism,"Small splinter in palm, unable to remove at home",MINOR,,16.0,97.0,63.0,122.0,36.8,ALERT,False
+MRN-100736,Charles Turner,1936-05-24,90,MALE,WALK_IN,"Hypertension, Type 2 Diabetes","Moderate abdominal pain, worsening over 6 hours",MODERATE,,23.0,93.0,103.0,97.0,38.8,ALERT,False
+MRN-100737,Arthur Hamilton MD,1988-06-27,38,FEMALE,AMBULANCE,,"Ear pain for two days, no fever",MINOR,26.1,14.0,99.0,62.0,108.0,37.3,ALERT,False
+MRN-100738,Mr. David Wright,1977-08-29,49,OTHER,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,17.0,99.0,63.0,125.0,37.2,ALERT,False
+MRN-100739,Linda Gonzalez,2022-02-25,4,MALE,WALK_IN,Seasonal Allergies,"Moderate abdominal pain, worsening over 6 hours",MODERATE,,24.0,94.0,104.0,98.0,38.6,ALERT,False
+MRN-100740,Eric Rush,1965-03-26,61,FEMALE,WALK_IN,,Minor laceration to finger while chopping vegetables,MINOR,,14.0,97.0,93.0,106.0,37.1,ALERT,False
+MRN-100741,Manuel Brock,1961-09-10,65,MALE,WALK_IN,,"Mild lower back stiffness, chronic, no new injury",MINOR,,16.0,99.0,95.0,117.0,37.0,ALERT,False
+MRN-100742,George Ochoa,1971-04-27,55,MALE,AMBULANCE,Anxiety,"Sore throat and mild fever, cold-like symptoms",MINOR,30.3,17.0,98.0,62.0,114.0,37.1,ALERT,False
+MRN-100743,Valerie Taylor,1937-01-20,89,FEMALE,WALK_IN,"Heart Failure, Chronic Kidney Disease","Ear pain for two days, no fever",MINOR,,13.0,99.0,85.0,110.0,36.4,ALERT,False
+MRN-100744,Travis Harris,2022-04-09,4,MALE,WALK_IN,COPD,Persistent fever with vomiting for two days,MODERATE,,24.0,94.0,107.0,103.0,38.4,ALERT,True
+MRN-100745,Vincent Novak,1953-08-25,73,FEMALE,WALK_IN,"Hypertension, Type 2 Diabetes","Migraine with photophobia, not resolving with home medication",MODERATE,,20.0,93.0,107.0,101.0,37.9,ALERT,False
+MRN-100746,Michael Henry,1936-08-03,90,OTHER,WALK_IN,Hypertension,"Small splinter in palm, unable to remove at home",MINOR,,13.0,99.0,66.0,119.0,36.7,ALERT,False
+MRN-100747,Dana Bennett,1988-06-23,38,MALE,WALK_IN,"COPD, Coronary Artery Disease","Sudden severe shortness of breath, unable to speak in full sentences",CRITICAL,,39.0,81.0,133.0,82.0,35.7,ALERT,True
+MRN-100748,Jenna Wilson,1958-11-09,67,OTHER,WALK_IN,"Immunosuppressed (post-transplant, on tacrolimus)","Minor bump to the head, no loss of consciousness, feeling fine",MINOR,,15.0,97.0,71.0,120.0,37.2,ALERT,False
+MRN-100749,Leslie Gardner,1994-10-30,31,MALE,WALK_IN,,"Mild dehydration after a long hike, feeling better with water",MINOR,,16.0,98.0,91.0,108.0,37.2,ALERT,False

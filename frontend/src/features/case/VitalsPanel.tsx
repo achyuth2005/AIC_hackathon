@@ -55,8 +55,8 @@ export const VitalsPanel: React.FC<VitalsPanelProps> = ({
     <div className="space-y-4 text-left">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Activity className="w-5 h-5 text-cyan-400" />
-          <h3 className="text-base font-bold text-slate-100">
+          <Activity className="w-5 h-5 text-indigo-600" />
+          <h3 className="text-base font-bold text-slate-900">
             Current Physiological Observations ({sortedObs.length})
           </h3>
         </div>
@@ -66,19 +66,19 @@ export const VitalsPanel: React.FC<VitalsPanelProps> = ({
           size="sm"
           onClick={() => setIsRecordModalOpen(true)}
           leftIcon={<Plus className="w-4 h-4" />}
-          className="font-bold shadow-md shadow-cyan-950/40"
+          className="font-bold"
         >
           Record Vitals Set
         </Button>
       </div>
 
       {sortedObs.length === 0 ? (
-        <div className="p-8 rounded-2xl bg-slate-900/60 border border-dashed border-slate-800 text-center space-y-3">
-          <FileText className="w-8 h-8 text-slate-600 mx-auto" />
-          <div className="text-sm font-semibold text-slate-300">
+        <div className="p-8 rounded-2xl bg-white border border-dashed border-slate-300 text-center space-y-3">
+          <FileText className="w-8 h-8 text-slate-300 mx-auto" />
+          <div className="text-sm font-semibold text-slate-700">
             No observations recorded for this case
           </div>
-          <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
             Record respiratory rate, SpO2, heart rate, blood pressure, temperature, and AVPU to assess the patient.
           </p>
           <Button

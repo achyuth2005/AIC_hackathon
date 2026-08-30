@@ -6,9 +6,18 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.enums import DeEscalationReasonCode, HumanDecisionAction
+
+# Audit fix (Medium, dimension 3): the valid ESI/acuity scale used
+# throughout this codebase (RiskAssessment.final_acuity, HardTriggerDefinition
+# .target_esi_level, AcuityBand.esi_level, ...) is always 1-5. target_acuity
+# previously had no bound at all here, so e.g. -999 or 0 could reach
+# EventStore.record_human_override's own comparison logic and be persisted
+# to the permanent audit trail as a "resulting_acuity" outside the scale.
+MIN_ACUITY = 1
+MAX_ACUITY = 5
 
 
 class OverrideRequest(BaseModel):
@@ -24,9 +33,9 @@ class OverrideRequest(BaseModel):
     urgent than the case's current final_acuity) and ignored for ACCEPT;
     it is required for DE_ESCALATE."""
     action: HumanDecisionAction
-    target_acuity: Optional[int] = None
+    target_acuity: Optional[int] = Field(default=None, ge=MIN_ACUITY, le=MAX_ACUITY)
     reason_code: Optional[DeEscalationReasonCode] = None
-    free_text_reason: Optional[str] = None
+    free_text_reason: Optional[str] = Field(default=None, max_length=2000)
 
 
 class HumanDecisionResponse(BaseModel):

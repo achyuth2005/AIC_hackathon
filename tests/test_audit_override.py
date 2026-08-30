@@ -135,16 +135,16 @@ def _token(client, role):
     return client.post("/auth/login", json={"role": role}).json()["access_token"]
 
 
-def test_override_endpoint_requires_authentication(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    client.get("/queue")  # backfill an initial assessment
+def test_override_endpoint_requires_authentication(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    client.get("/queue", headers=nurse_headers)  # backfill an initial assessment
     resp = client.post(f"/cases/{case_id}/override", json={"action": "ESCALATE"})
     assert resp.status_code == 401
 
 
-def test_override_endpoint_escalate_one_tap(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    client.get("/queue")
+def test_override_endpoint_escalate_one_tap(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    client.get("/queue", headers=nurse_headers)
     token = _token(client, "NURSE")
 
     resp = client.post(
@@ -159,10 +159,10 @@ def test_override_endpoint_escalate_one_tap(client):
     assert body["resulting_acuity"] < body["system_recommendation"]
 
 
-def test_override_endpoint_de_escalate_without_reason_is_400(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    detail = client.get(f"/cases/{case_id}").json()
-    client.get("/queue")
+def test_override_endpoint_de_escalate_without_reason_is_400(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    detail = client.get(f"/cases/{case_id}", headers=nurse_headers).json()
+    client.get("/queue", headers=nurse_headers)
     token = _token(client, "DOCTOR")
 
     resp = client.post(
@@ -173,13 +173,13 @@ def test_override_endpoint_de_escalate_without_reason_is_400(client):
     assert resp.status_code == 400
 
 
-def test_override_endpoint_de_escalate_with_reason_is_flagged(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    client.get("/queue")
+def test_override_endpoint_de_escalate_with_reason_is_flagged(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    client.get("/queue", headers=nurse_headers)
     doctor_token = _token(client, "DOCTOR")
     admin_token = _token(client, "ADMIN")
 
-    current = client.get(f"/cases/{case_id}").json()["latest_risk_assessment"]["final_acuity"]
+    current = client.get(f"/cases/{case_id}", headers=nurse_headers).json()["latest_risk_assessment"]["final_acuity"]
     resp = client.post(
         f"/cases/{case_id}/override",
         json={
@@ -197,13 +197,13 @@ def test_override_endpoint_de_escalate_with_reason_is_flagged(client):
     ).json()
     assert any(d["case_id"] == case_id for d in flagged)
 
-    decisions = client.get(f"/cases/{case_id}/decisions").json()
+    decisions = client.get(f"/cases/{case_id}/decisions", headers=nurse_headers).json()
     assert len(decisions) == 1
 
 
-def test_monitoring_endpoint_requires_admin(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    client.get("/queue")
+def test_monitoring_endpoint_requires_admin(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    client.get("/queue", headers=nurse_headers)
     nurse_token = _token(client, "NURSE")
     admin_token = _token(client, "ADMIN")
 

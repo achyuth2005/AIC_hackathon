@@ -23,6 +23,13 @@ class DemoUser:
     user_id: str
     display_name: str
     role: Role
+    # Audit finding (RBAC/IDOR, dimension 1): the auth model previously had
+    # no tenancy dimension at all -- any of the three roles could act on any
+    # hospital_profile_id's data. Every demo identity is now scoped to a
+    # hospital profile the same way a real SSO/directory claim would be, and
+    # app/auth/deps.py's require_hospital_scope enforces it on every
+    # ID-addressed lookup.
+    hospital_profile_id: str = "default"
 
 
 DEMO_USERS: Dict[Role, DemoUser] = {

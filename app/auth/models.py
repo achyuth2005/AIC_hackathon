@@ -12,10 +12,18 @@ class AuthenticatedUser(BaseModel):
     """The identity a verified token resolves to. Every endpoint that
     needs to know "who is doing this" (CP10's audit trail, above all)
     depends on this shape, never on raw request-body fields -- that is
-    precisely the gap CP9.5 closes (see app/auth/deps.py)."""
+    precisely the gap CP9.5 closes (see app/auth/deps.py).
+
+    `hospital_profile_id` closes a separate, previously-open gap (audit
+    finding, dimension 1): a role alone ("NURSE") is not a tenancy claim.
+    Without this field, any authenticated staff member of any hospital
+    could act on any other hospital's cases/resources/alerts by ID -- an
+    IDOR that authentication alone does not close. This field is the unit
+    app/auth/deps.py's require_hospital_scope checks against."""
     user_id: str
     display_name: str
     role: Role
+    hospital_profile_id: str = "default"
 
 
 class LoginRequest(BaseModel):

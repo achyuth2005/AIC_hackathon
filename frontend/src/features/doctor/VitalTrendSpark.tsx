@@ -39,15 +39,15 @@ export const VitalTrendSpark: React.FC<VitalTrendSparkProps> = ({
   const trend = (direction || 'STABLE') as DeteriorationTrend;
 
   return (
-    <div className="inline-flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-lg border border-slate-800 text-[11px] font-mono">
-      <span className="text-slate-500 font-bold">{formatConceptLabel(concept)}:</span>
-      <span className="font-bold text-slate-200">
+    <div className="inline-flex items-center gap-1.5 bg-slate-50 px-2 py-1 rounded-lg border border-slate-200 text-[11px] font-mono tabular-nums">
+      <span className="text-slate-400 font-bold">{formatConceptLabel(concept)}:</span>
+      <span className="font-bold text-slate-800">
         {String(latestValue)}
-        {unit ? <span className="text-[10px] text-slate-500 ml-0.5">{unit}</span> : ''}
+        {unit ? <span className="text-[10px] text-slate-400 ml-0.5">{unit}</span> : ''}
       </span>
 
       {previousValue != null && (
-        <span className="text-[10px] text-slate-500 line-through">
+        <span className="text-[10px] text-slate-400 line-through">
           {String(previousValue)}
         </span>
       )}

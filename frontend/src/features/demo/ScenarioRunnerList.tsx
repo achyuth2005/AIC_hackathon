@@ -37,15 +37,15 @@ export const ScenarioRunnerList: React.FC<ScenarioRunnerListProps> = () => {
   return (
     <div className="space-y-8 text-left">
       {/* 1. Control Action Bar */}
-      <div className="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-card-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-lg font-extrabold text-white">
+            <Sparkles className="w-5 h-5 text-indigo-600" />
+            <h2 className="text-lg font-bold text-slate-900">
               Phase 14.1 Synthetic Scenario Generator
             </h2>
           </div>
-          <p className="text-xs text-slate-400 max-w-xl">
+          <p className="text-xs text-slate-500 max-w-xl">
             Seed the full suite of 20 clinical scenarios covering emergency bypass, PEWS, ML challenge, resource conflicts, and diagnostic workflows.
           </p>
         </div>
@@ -57,18 +57,17 @@ export const ScenarioRunnerList: React.FC<ScenarioRunnerListProps> = () => {
             isLoading={isSeedPending}
             onClick={() => seedDemo()}
             leftIcon={<Play className="w-4 h-4" />}
-            className="bg-cyan-600 hover:bg-cyan-500 font-extrabold text-white shadow-lg shadow-cyan-950/60"
           >
             Seed 20 Demo Patients
           </Button>
 
           <Button
-            variant="warning"
+            variant="primary"
             size="md"
             isLoading={isSurgePending}
             onClick={() => runSurge({ baseline_count: 10, multiplier: 3 })}
             leftIcon={<Flame className="w-4 h-4" />}
-            className="bg-amber-600 hover:bg-amber-500 font-extrabold text-slate-950 shadow-lg shadow-amber-950/60"
+            className="bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 focus-visible:ring-indigo-500"
           >
             Run 3x Surge Simulation
           </Button>
@@ -82,7 +81,7 @@ export const ScenarioRunnerList: React.FC<ScenarioRunnerListProps> = () => {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <h3 className="text-base font-extrabold text-slate-100">
+            <h3 className="text-base font-bold text-slate-900">
               Interactive Scenario Catalog ({scenarios.length > 0 ? scenarios.length : 20} Scenarios)
             </h3>
           </div>
@@ -97,12 +96,12 @@ export const ScenarioRunnerList: React.FC<ScenarioRunnerListProps> = () => {
         </div>
 
         {scenarios.length === 0 ? (
-          <div className="p-12 rounded-2xl bg-slate-900/40 border border-dashed border-slate-800 text-center space-y-3">
-            <Play className="w-8 h-8 text-cyan-400 mx-auto" />
-            <div className="text-sm font-semibold text-slate-200">
+          <div className="p-12 rounded-xl bg-white border border-dashed border-slate-300 text-center space-y-3">
+            <Play className="w-8 h-8 text-indigo-600 mx-auto" />
+            <div className="text-sm font-semibold text-slate-900">
               Database Ready for Interactive Seeding
             </div>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">
               Click "Seed 20 Demo Patients" above to instantiate the complete clinical scenario benchmark pipeline.
             </p>
             <Button

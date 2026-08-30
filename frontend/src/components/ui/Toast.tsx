@@ -56,17 +56,17 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-md w-full pointer-events-none px-4">
         {toasts.map((toast) => {
           const icon = {
-            success: <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />,
-            error: <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />,
-            warning: <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />,
-            info: <Info className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />,
+            success: <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />,
+            error: <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />,
+            warning: <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />,
+            info: <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />,
           }[toast.type];
 
           const bgClasses = {
-            success: 'bg-slate-900 border-emerald-500/40 text-slate-100 shadow-emerald-950/30',
-            error: 'bg-slate-900 border-rose-500/40 text-slate-100 shadow-rose-950/30',
-            warning: 'bg-slate-900 border-amber-500/40 text-slate-100 shadow-amber-950/30',
-            info: 'bg-slate-900 border-cyan-500/40 text-slate-100 shadow-cyan-950/30',
+            success: 'bg-white/85 backdrop-blur-2xl border-white/90 text-slate-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_12px_36px_rgba(16,185,129,0.12)]',
+            error: 'bg-white/85 backdrop-blur-2xl border-white/90 text-slate-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_12px_36px_rgba(244,63,94,0.12)]',
+            warning: 'bg-white/85 backdrop-blur-2xl border-white/90 text-slate-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_12px_36px_rgba(245,158,11,0.12)]',
+            info: 'bg-white/85 backdrop-blur-2xl border-white/90 text-slate-900 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_12px_36px_rgba(59,130,246,0.12)]',
           }[toast.type];
 
           return (
@@ -74,18 +74,18 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               key={toast.id}
               role="alert"
               className={cn(
-                'pointer-events-auto flex items-start gap-3 p-4 rounded-xl border shadow-xl transition-all duration-200 animate-fade-in',
+                'pointer-events-auto flex items-start gap-3 p-4 rounded-2xl border shadow-xl transition-all duration-200 animate-fade-in',
                 bgClasses
               )}
             >
               {icon}
               <div className="flex-1 text-sm">
-                {toast.title && <h4 className="font-semibold text-slate-100">{toast.title}</h4>}
-                <p className="text-slate-300">{toast.message}</p>
+                {toast.title && <h4 className="font-semibold text-slate-900">{toast.title}</h4>}
+                <p className="text-slate-600">{toast.message}</p>
               </div>
               <button
                 onClick={() => dismiss(toast.id)}
-                className="text-slate-400 hover:text-slate-200 transition-colors p-1"
+                className="text-slate-400 hover:text-slate-600 transition-colors p-1"
                 aria-label="Dismiss notification"
               >
                 <X className="w-4 h-4" />

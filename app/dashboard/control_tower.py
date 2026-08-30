@@ -79,9 +79,7 @@ def _capacity(store: EventStore, profile: HospitalProfile, active_cases) -> List
 
 
 def _incoming_ambulances(store: EventStore, profile: HospitalProfile) -> List[IncomingAmbulanceTile]:
-    pre_arrival = [
-        c for c in store.list_cases(status=CaseStatus.PRE_ARRIVAL) if c.hospital_profile_id == profile.profile_id
-    ]
+    pre_arrival = store.list_cases(status=CaseStatus.PRE_ARRIVAL, hospital_profile_id=profile.profile_id)
     tiles = []
     for case in pre_arrival:
         latest = store.get_latest_risk_assessment(case.case_id)
@@ -96,9 +94,7 @@ def _incoming_ambulances(store: EventStore, profile: HospitalProfile) -> List[In
 
 
 def build_control_tower(store: EventStore, profile: HospitalProfile) -> ControlTowerResponse:
-    active_cases = [
-        c for c in store.list_cases(status=CaseStatus.ACTIVE) if c.hospital_profile_id == profile.profile_id
-    ]
+    active_cases = store.list_cases(status=CaseStatus.ACTIVE, hospital_profile_id=profile.profile_id)
     return ControlTowerResponse(
         patients_by_acuity_band=_patients_by_acuity_band(store, active_cases),
         deteriorating_patients=_deteriorating_patients(store, active_cases),

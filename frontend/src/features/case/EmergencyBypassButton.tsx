@@ -39,7 +39,7 @@ export const EmergencyBypassButton: React.FC<EmergencyBypassButtonProps> = ({
 
   if (isActive) {
     return (
-      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 border border-red-400 text-white font-black text-xs uppercase tracking-wider animate-pulse shadow-lg glow-red select-none ${className || ''}`}>
+      <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-rose-600 text-white font-black text-xs uppercase tracking-wider animate-pulse shadow-[0_4px_16px_rgba(225,29,72,0.35)] glow-red select-none backdrop-blur-sm ${className || ''}`}>
         <Zap className="w-4 h-4 fill-white" />
         <span>Bypass Engaged (ESI 1)</span>
       </div>
@@ -54,7 +54,7 @@ export const EmergencyBypassButton: React.FC<EmergencyBypassButtonProps> = ({
       onClick={() => triggerBypass()}
       leftIcon={<Zap className="w-4 h-4" />}
       title="Zero-latency Emergency Bypass: Forces case to ESI 1 and sounds critical alert"
-      className={`font-extrabold uppercase tracking-wider bg-red-600 hover:bg-red-500 shadow-md shadow-red-950/60 border border-red-500 ${className || ''}`}
+      className={`font-extrabold uppercase tracking-wider glow-red ${className || ''}`}
     >
       Emergency Bypass
     </Button>

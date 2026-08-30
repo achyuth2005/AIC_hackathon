@@ -20,7 +20,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     <div
       aria-hidden="true"
       className={cn(
-        'animate-pulse bg-slate-800/80 border border-slate-700/40',
+        'animate-pulse bg-slate-200/70',
         variantClasses[variant],
         className
       )}

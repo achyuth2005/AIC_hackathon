@@ -65,3 +65,39 @@ ML_FEATURE_CONCEPTS = [
     SYMPTOM_BREATHLESSNESS,
     SYMPTOM_ALTERED_CONSCIOUSNESS,
 ]
+
+# ---------------------------------------------------------------------
+# Audit fix (dimension 3, Validation): the complete controlled vocabulary,
+# as a set the API boundary can actually check a caller's concept_code
+# against. Previously only app/llm/intake.py's Literal-typed extraction
+# schema enforced "concept_code must be one of these" -- the direct
+# POST /cases/{id}/observations path (ObservationCreateRequest) accepted
+# any string, silently invisible to every downstream engine on a typo.
+# Same discipline as KNOWN_EVENT_TYPES in app/models/event.py: add a new
+# concept here deliberately, never by an unchecked string reaching a
+# scorer that simply doesn't recognise it.
+# ---------------------------------------------------------------------
+KNOWN_CONCEPT_CODES = frozenset(
+    ADULT_REQUIRED_CONCEPTS + PAEDIATRIC_REQUIRED_CONCEPTS + ML_FEATURE_CONCEPTS + [SYMPTOM_TEXT]
+)
+
+# Audit fix (dimension 3, Validation): plausible physiological bounds for
+# the five numeric vitals, single-sourced here so the LLM Intake Engine
+# (app/llm/intake.py) and the direct nurse-entry schema
+# (app/schemas/observation.py) apply the identical check instead of the
+# LLM path alone validating range while direct entry accepted anything.
+# [Assumption], same convention as every clinical threshold in
+# app/config/hospital_profile.py: generous outer bounds meant to catch
+# data-entry errors (a stray digit, a unit mix-up), not to encode a
+# clinical judgement about what's survivable. Values assumed to already be
+# in the canonical unit noted below (Celsius for temperature) -- a caller
+# entering Fahrenheit directly (bypassing the LLM intake path's own
+# unit-aware normalisation) is a known, separate scope boundary, not
+# silently mishandled by widening these bounds to cover both scales.
+VITAL_PLAUSIBLE_RANGES = {
+    RESP_RATE: (0.0, 100.0),
+    SPO2: (0.0, 100.0),
+    HEART_RATE: (0.0, 300.0),
+    SYSTOLIC_BP: (0.0, 300.0),
+    TEMPERATURE: (25.0, 45.0),  # Celsius
+}

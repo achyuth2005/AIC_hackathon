@@ -50,6 +50,10 @@ export interface CaseResponse {
   date_of_birth: string | null; // YYYY-MM-DD
   age_years: number | null;
   sex: string | null;
+  // Medical History feature: free-text past medical history (e.g. "COPD,
+  // Type 2 Diabetes"). null/empty means none recorded -- render an
+  // explicit "No known medical history" state rather than leaving blank.
+  medical_history: string | null;
   arrival_mode: ArrivalMode;
   status: CaseStatus;
   identity_link_status: IdentityLinkStatus;
@@ -76,6 +80,7 @@ export interface CaseCreateRequest {
   date_of_birth?: string | null;
   age_years?: number | null;
   sex?: string | null;
+  medical_history?: string | null;
   arrival_mode?: ArrivalMode;
   estimated_transport_minutes?: number | null;
 }
@@ -330,6 +335,7 @@ export interface DoctorPendingAction {
 export interface DoctorCaseView {
   case_id: string;
   display_name: string | null;
+  medical_history: string | null;
   current_observations: ObservationResponse[];
   latest_risk_assessment: RiskAssessmentResponse | null;
   trends: DoctorCaseTrend[];
@@ -417,6 +423,7 @@ export interface DoctorCaseDetailResponse {
     sex: string | null;
     waiting_minutes: number;
     assigned_resource_label?: string | null;
+    medical_history?: string | null;
   };
   acuity_summary: {
     final_acuity: number;

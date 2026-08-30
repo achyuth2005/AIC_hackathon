@@ -21,9 +21,9 @@ export const Spinner: React.FC<SpinnerProps> = ({
   };
 
   const variantClasses = {
-    primary: 'border-cyan-500/30 border-t-cyan-500',
+    primary: 'border-indigo-200 border-t-indigo-600',
     white: 'border-white/30 border-t-white',
-    slate: 'border-slate-600/30 border-t-slate-300',
+    slate: 'border-slate-200 border-t-slate-500',
   };
 
   return (

@@ -27,7 +27,7 @@ export const ArrivedButton: React.FC<ArrivedButtonProps> = ({
       isLoading={isPending}
       onClick={() => recordArrival({ caseId })}
       leftIcon={<Truck className="w-4 h-4" />}
-      className="bg-emerald-600 hover:bg-emerald-500 font-extrabold text-white shadow-lg shadow-emerald-950/60"
+      className="bg-emerald-600 hover:bg-emerald-700 font-bold text-white shadow-sm"
     >
       Record Patient Arrival (Enter ED)
     </Button>

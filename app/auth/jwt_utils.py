@@ -20,7 +20,29 @@ from app.auth.demo_users import DemoUser
 from app.timeutil import utcnow
 
 _DEV_DEFAULT_SECRET = "dev-only-insecure-secret-DO-NOT-USE-IN-PRODUCTION"
-SECRET_KEY = os.environ.get("AUTH_SECRET_KEY", _DEV_DEFAULT_SECRET)
+
+
+def _load_secret_key() -> str:
+    """Audit finding (Critical, dimension 1): the previous fallback let the
+    app boot silently on the well-known, publicly-readable dev secret if an
+    operator forgot to set AUTH_SECRET_KEY -- anyone who has seen this
+    source (it's public) could forge a valid token for any role. Failing
+    startup outright in a non-dev environment turns that into a deploy-time
+    error instead of a silent, forgeable production secret."""
+    key = os.environ.get("AUTH_SECRET_KEY")
+    if key:
+        return key
+    app_env = os.environ.get("APP_ENV", "dev").lower()
+    if app_env not in ("dev", "development", "test", "testing"):
+        raise RuntimeError(
+            "AUTH_SECRET_KEY is not set. Refusing to start with the public, "
+            "well-known dev default outside dev/test (APP_ENV="
+            f"{app_env!r}). Set AUTH_SECRET_KEY to a real secret."
+        )
+    return _DEV_DEFAULT_SECRET
+
+
+SECRET_KEY = _load_secret_key()
 ALGORITHM = "HS256"
 TOKEN_TTL_MINUTES = 12 * 60  # a demo "shift", not a tuned security figure
 
@@ -37,6 +59,7 @@ def create_access_token(user: DemoUser) -> str:
         "sub": user.user_id,
         "role": user.role.value,
         "display_name": user.display_name,
+        "hospital_profile_id": user.hospital_profile_id,
         "iat": now,
         "exp": now + timedelta(minutes=TOKEN_TTL_MINUTES),
     }

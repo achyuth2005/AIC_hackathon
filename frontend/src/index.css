@@ -4,7 +4,15 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased font-sans min-h-screen;
+    @apply text-slate-900 antialiased font-sans min-h-screen;
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.55) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(238, 242, 255, 0.6) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(241, 245, 249, 0.5) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(224, 231, 255, 0.45) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(219, 234, 254, 0.5) 0px, transparent 50%);
+    background-attachment: fixed;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
@@ -14,31 +22,36 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #090d16;
+    background: rgba(241, 245, 249, 0.5);
   }
   ::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 3px;
+    background: rgba(203, 213, 225, 0.8);
+    border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: rgba(148, 163, 184, 0.9);
   }
 }
 
 @layer utilities {
+  /* Soft beacon rings for critical/urgent live-status elements */
   .glow-red {
-    box-shadow: 0 0 15px -3px rgba(220, 38, 38, 0.45);
+    box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(244, 63, 94, 0.08);
   }
   .glow-orange {
-    box-shadow: 0 0 15px -3px rgba(234, 88, 12, 0.45);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(249, 115, 22, 0.08);
   }
   .glow-amber {
-    box-shadow: 0 0 15px -3px rgba(217, 119, 6, 0.45);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(245, 158, 11, 0.08);
   }
   .glow-emerald {
-    box-shadow: 0 0 15px -3px rgba(22, 163, 74, 0.45);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(16, 185, 129, 0.08);
   }
   .glow-cyan {
-    box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.45);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(99, 102, 241, 0.08);
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 }

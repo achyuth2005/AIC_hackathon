@@ -13,6 +13,8 @@ rather than merely self-reported.
 """
 from __future__ import annotations
 
+from typing import Optional
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
@@ -35,7 +37,13 @@ def get_current_user(
     except InvalidTokenError as exc:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"Invalid or expired token: {exc}")
     return AuthenticatedUser(
-        user_id=payload["sub"], display_name=payload["display_name"], role=Role(payload["role"])
+        user_id=payload["sub"],
+        display_name=payload["display_name"],
+        role=Role(payload["role"]),
+        # Old tokens issued before this claim existed have no
+        # hospital_profile_id -- default to "default" rather than raise, so
+        # an in-flight token isn't invalidated by this change.
+        hospital_profile_id=payload.get("hospital_profile_id", "default"),
     )
 
 
@@ -53,3 +61,28 @@ def require_role(*allowed_roles: Role):
         return user
 
     return _check
+
+
+def require_hospital_scope(user: AuthenticatedUser, hospital_profile_id: Optional[str]) -> None:
+    """Audit finding (High, IDOR/dimension 1): a role alone is not a
+    tenancy claim. `AuthenticatedUser.hospital_profile_id` is the tenant a
+    verified token is actually scoped to; every ID-addressed lookup that
+    resolves an object belonging to a specific hospital_profile_id (a case,
+    a resource, an alert, a data conflict, ...) MUST call this immediately
+    after loading the object and before doing anything else with it, so
+    that a nurse authenticated for one hospital can never read or mutate
+    another hospital's data merely by knowing/guessing an ID.
+
+    `hospital_profile_id=None` (an object that couldn't be resolved to a
+    hospital at all -- should not normally happen) is treated as
+    out-of-scope, never as an open pass.
+    """
+    if hospital_profile_id is None or hospital_profile_id != user.hospital_profile_id:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            # 404, not 403: confirming *that a record exists* under another
+            # hospital's tenancy is itself an information leak in this
+            # domain (patient existence/PHI) -- the same reasoning
+            # NotFoundError already applies uniformly elsewhere in this API.
+            detail="Not found.",
+        )

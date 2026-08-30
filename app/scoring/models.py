@@ -91,6 +91,13 @@ class ClinicalScoreResult(BaseModel):
 
     hard_triggers_fired: List[HardTriggerResult] = Field(default_factory=list)  # Phase 3.3 Layer 4, applied on top of the framework score
 
+    # Medical History feature (app/scoring/medical_history.py): True when a
+    # high-risk free-text history (COPD, CAD, heart failure,
+    # immunosuppressed, ...) escalated rule_acuity by one ESI level on top
+    # of already-abnormal vitals. Surfaced separately from
+    # hard_triggers_fired since it is a relative, not absolute, escalation.
+    medical_history_escalation_applied: bool = False
+
     missing_data_cap_applied: bool = False
     has_any_missing_or_stale: bool = False
 

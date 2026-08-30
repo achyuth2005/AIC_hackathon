@@ -61,15 +61,15 @@ export const ResolveConflictModal: React.FC<ResolveConflictModalProps> = ({
       onClose={onClose}
       size="lg"
       title={
-        <div className="flex items-center gap-2 text-purple-300">
-          <GitCompare className="w-5 h-5 text-purple-400" />
+        <div className="flex items-center gap-2 text-purple-700">
+          <GitCompare className="w-5 h-5 text-purple-600" />
           <span>Resolve Conflicting Clinical Observations</span>
         </div>
       }
       description={
         <span>
           Contradictory readings detected for concept{' '}
-          <strong className="text-white font-mono">{concept_code}</strong>. Choose which reading to maintain for scoring.
+          <strong className="text-slate-900 font-mono">{concept_code}</strong>. Choose which reading to maintain for scoring.
         </span>
       }
       footer={
@@ -89,10 +89,10 @@ export const ResolveConflictModal: React.FC<ResolveConflictModalProps> = ({
       }
     >
       <form onSubmit={handleSubmit} className="space-y-4 text-left">
-        <div className="p-3 rounded-xl bg-purple-950/40 border border-purple-800/60 text-xs text-purple-200 flex items-start gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+        <div className="p-3 rounded-xl bg-purple-50 border border-purple-200 text-xs text-purple-800 flex items-start gap-2.5">
+          <AlertTriangle className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold text-purple-300">Conservative Safety Default:</span>{' '}
+            <span className="font-bold text-purple-800">Conservative Safety Default:</span>{' '}
             The scoring stack currently defaults to the more conservative/abnormal observation until explicitly resolved by clinician review.
           </div>
         </div>
@@ -110,12 +110,12 @@ export const ResolveConflictModal: React.FC<ResolveConflictModalProps> = ({
                 onClick={() => setSelectedObsId(obs.observation_id)}
                 className={`p-4 rounded-xl border text-left transition-all cursor-pointer relative ${
                   isSelected
-                    ? 'bg-purple-950/60 border-purple-500 ring-2 ring-purple-500'
-                    : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                    ? 'bg-purple-50 border-purple-400 ring-2 ring-purple-400'
+                    : 'bg-white border-slate-200 hover:border-slate-300'
                 }`}
               >
                 {isConservative && (
-                  <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-700/60">
+                  <span className="absolute top-2 right-2 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-700 border border-amber-200">
                     Conservative Default
                   </span>
                 )}
@@ -124,20 +124,20 @@ export const ResolveConflictModal: React.FC<ResolveConflictModalProps> = ({
                   <div
                     className={`w-4 h-4 rounded-full border flex items-center justify-center ${
                       isSelected
-                        ? 'border-purple-400 bg-purple-400 text-slate-950'
-                        : 'border-slate-600'
+                        ? 'border-purple-500 bg-purple-500 text-white'
+                        : 'border-slate-300'
                     }`}
                   >
                     {isSelected && <CheckCircle2 className="w-3.5 h-3.5" />}
                   </div>
-                  <span className="font-mono font-black text-xl text-white">
+                  <span className="font-mono font-black text-xl text-slate-900">
                     {String(obs.value)} {obs.unit || ''}
                   </span>
                 </div>
 
-                <div className="mt-3 space-y-1 text-xs text-slate-400 font-mono">
-                  <div>Source: <strong className="text-slate-200">{SOURCE_TYPE_LABELS[obs.source_type]}</strong></div>
-                  <div>Reliability: <span className="text-slate-300">{RELIABILITY_TIER_LABELS[obs.reliability_tier]}</span></div>
+                <div className="mt-3 space-y-1 text-xs text-slate-500 font-mono">
+                  <div>Source: <strong className="text-slate-700">{SOURCE_TYPE_LABELS[obs.source_type]}</strong></div>
+                  <div>Reliability: <span className="text-slate-600">{RELIABILITY_TIER_LABELS[obs.reliability_tier]}</span></div>
                   <div>Observed: {formatRelative(obs.observed_at)} ({formatClock(obs.observed_at, true)})</div>
                 </div>
               </button>

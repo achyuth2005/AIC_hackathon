@@ -74,8 +74,11 @@ def test_different_multiplier_and_baseline_size(store: EventStore):
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_surge_endpoint(client):
-    resp = client.post("/demo/surge", params={"baseline_count": 6, "multiplier": 3})
+def test_surge_endpoint(client, admin_headers):
+    unauth = client.post("/demo/surge", params={"baseline_count": 6, "multiplier": 3})
+    assert unauth.status_code == 401
+
+    resp = client.post("/demo/surge", params={"baseline_count": 6, "multiplier": 3}, headers=admin_headers)
     assert resp.status_code == 200
     body = resp.json()
     assert body["total_cases"] == 18

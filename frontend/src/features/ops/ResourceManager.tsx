@@ -48,8 +48,8 @@ export const ResourceManager: React.FC = () => {
       { type: 'TREATMENT_SPACE', label: 'Bed 03 (Subacute)' },
       { type: 'RESUSCITATION_BAY', label: 'Resus Bay 1 (Trauma)' },
       { type: 'RESUSCITATION_BAY', label: 'Resus Bay 2 (Cardiac)' },
-      { type: 'CLINICIAN', label: 'Dr. Arjun Rao (Attending)' },
-      { type: 'CLINICIAN', label: 'Nurse Priya Nair (Triage)' },
+      { type: 'CLINICIAN', label: 'Attending Physician 1' },
+      { type: 'CLINICIAN', label: 'Triage Nurse 1' },
     ];
 
     defaults.forEach((item) => {
@@ -65,11 +65,11 @@ export const ResourceManager: React.FC = () => {
     <div className="space-y-6 text-left">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2.5">
-            <Layers className="w-6 h-6 text-cyan-400" />
+          <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2.5">
+            <Layers className="w-6 h-6 text-indigo-600" />
             Department Capacity & Bed Manager
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 mt-0.5">
             Manage physical treatment bays, resus suites, and staff assignments.
           </p>
         </div>
@@ -80,7 +80,7 @@ export const ResourceManager: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={handleQuickSeedDefaults}
-              className="text-xs border-cyan-700/60 text-cyan-300"
+              className="text-xs border-indigo-200 text-indigo-700"
             >
               Seed Default Beds & Staff
             </Button>
@@ -99,29 +99,29 @@ export const ResourceManager: React.FC = () => {
 
       {/* Summary metric tiles */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+        <div className="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-card">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
             Total Capacity
           </span>
-          <span className="text-2xl font-black font-mono text-slate-100 mt-1 block">
+          <span className="text-2xl font-bold font-mono tabular-nums text-slate-900 mt-1 block">
             {totalCount}
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-emerald-900/40">
-          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
+        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 shadow-card">
+          <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">
             Available
           </span>
-          <span className="text-2xl font-black font-mono text-emerald-400 mt-1 block">
+          <span className="text-2xl font-bold font-mono tabular-nums text-emerald-700 mt-1 block">
             {availableCount}
           </span>
         </div>
 
-        <div className="p-3.5 rounded-xl bg-slate-900 border border-amber-900/40">
-          <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
+        <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 shadow-card">
+          <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">
             Occupied
           </span>
-          <span className="text-2xl font-black font-mono text-amber-400 mt-1 block">
+          <span className="text-2xl font-bold font-mono tabular-nums text-amber-700 mt-1 block">
             {occupiedCount}
           </span>
         </div>
@@ -129,7 +129,7 @@ export const ResourceManager: React.FC = () => {
 
       {/* Create form */}
       {showCreateForm && (
-        <Card className="bg-slate-900 border-slate-800 animate-fade-in">
+        <Card className="animate-fade-in">
           <CardHeader>
             <CardTitle className="text-sm">Register Department Resource</CardTitle>
           </CardHeader>
@@ -169,14 +169,14 @@ export const ResourceManager: React.FC = () => {
       )}
 
       {/* Resources Table */}
-      <Card className="bg-slate-900 border-slate-800">
+      <Card>
         <CardHeader className="pb-3 flex flex-row items-center justify-between">
-          <CardTitle className="text-sm text-slate-200">
+          <CardTitle className="text-sm">
             Registered Department Resources
           </CardTitle>
           <button
             onClick={() => refetch()}
-            className="text-slate-400 hover:text-slate-200 p-1 rounded hover:bg-slate-800"
+            className="text-slate-400 hover:text-slate-700 p-1 rounded hover:bg-slate-100"
             title="Refresh resources list"
           >
             <RefreshCw className="w-3.5 h-3.5" />
@@ -186,11 +186,11 @@ export const ResourceManager: React.FC = () => {
         <CardContent>
           {isLoading ? (
             <div className="space-y-2 py-4">
-              <div className="h-8 bg-slate-800 rounded animate-pulse" />
-              <div className="h-8 bg-slate-800 rounded animate-pulse" />
+              <div className="h-8 bg-slate-100 rounded animate-pulse" />
+              <div className="h-8 bg-slate-100 rounded animate-pulse" />
             </div>
           ) : !resources || resources.length === 0 ? (
-            <div className="text-center py-8 text-xs text-slate-400 font-mono space-y-2">
+            <div className="text-center py-8 text-xs text-slate-500 font-mono space-y-2">
               <p>No resources configured yet. All capacity tiles currently read zero.</p>
               <Button size="sm" variant="outline" onClick={handleQuickSeedDefaults}>
                 Seed Default Beds & Staff
@@ -214,11 +214,11 @@ export const ResourceManager: React.FC = () => {
 
                   return (
                     <TableRow key={r.resource_id}>
-                      <TableCell className="font-bold text-slate-100 text-xs font-mono">
+                      <TableCell className="font-bold text-slate-900 text-xs font-mono">
                         {r.label}
                       </TableCell>
 
-                      <TableCell className="text-xs text-slate-300">
+                      <TableCell className="text-xs text-slate-600">
                         {RESOURCE_TYPE_LABELS[r.resource_type] || r.resource_type}
                       </TableCell>
 
@@ -226,41 +226,41 @@ export const ResourceManager: React.FC = () => {
                         <span
                           className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                             isAvailable
-                              ? 'bg-emerald-950/80 text-emerald-300 border-emerald-700/60'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                               : isOccupied
-                              ? 'bg-amber-950/80 text-amber-300 border-amber-700/60'
-                              : 'bg-slate-800 text-slate-400 border-slate-700'
+                              ? 'bg-amber-50 text-amber-700 border-amber-200'
+                              : 'bg-slate-100 text-slate-500 border-slate-200'
                           }`}
                         >
                           <span
                             className={`w-1.5 h-1.5 rounded-full ${
-                              isAvailable ? 'bg-emerald-400' : isOccupied ? 'bg-amber-400' : 'bg-slate-400'
+                              isAvailable ? 'bg-emerald-500' : isOccupied ? 'bg-amber-500' : 'bg-slate-400'
                             }`}
                           />
                           {RESOURCE_STATUS_LABELS[r.status] || r.status}
                         </span>
                         {r.occupancy_stuck_flagged && (
-                          <span className="ml-2 text-[10px] font-mono font-bold text-rose-400 bg-rose-950 px-1.5 py-0.2 rounded border border-rose-800">
+                          <span className="ml-2 text-[10px] font-mono font-bold text-rose-700 bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200">
                             STUCK
                           </span>
                         )}
                       </TableCell>
 
-                      <TableCell className="text-xs font-mono text-slate-400">
+                      <TableCell className="text-xs font-mono text-slate-500">
                         {r.assigned_case_id ? (
                           <Link
                             to={`/cases/${r.assigned_case_id}`}
-                            className="text-cyan-400 hover:underline flex items-center gap-1"
+                            className="text-indigo-600 hover:underline flex items-center gap-1"
                           >
                             Case {r.assigned_case_id.substring(0, 8)}
                             {r.assigned_at && (
-                              <span className="text-[10px] text-slate-500">
+                              <span className="text-[10px] text-slate-400">
                                 ({formatRelative(r.assigned_at)})
                               </span>
                             )}
                           </Link>
                         ) : (
-                          <span className="text-slate-600">--</span>
+                          <span className="text-slate-300">--</span>
                         )}
                       </TableCell>
 
@@ -273,7 +273,7 @@ export const ResourceManager: React.FC = () => {
                               disabled={isConfirmPending}
                               onClick={() => confirmOccupancy(r.resource_id)}
                               leftIcon={<CheckCircle2 className="w-3 h-3" />}
-                              className="text-[10px] bg-emerald-600 hover:bg-emerald-500"
+                              className="text-[10px] bg-emerald-600 hover:bg-emerald-700"
                             >
                               Confirm Occupancy
                             </Button>

@@ -41,6 +41,18 @@ class Case(Base):
     age_years = Column(Integer, nullable=True)  # convenience field consumed by the Age Router (CP3)
     sex = Column(String, nullable=True)
 
+    # Medical History feature: free-text, nurse/paramedic-reported past
+    # medical history (e.g. "COPD, Type 2 Diabetes"), captured once at
+    # intake alongside demographics. Deliberately a plain nullable string
+    # rather than a new Observation concept -- unlike the structured
+    # HISTORY_CARDIAC/HISTORY_RESPIRATORY/HISTORY_DIABETES boolean flags
+    # app/scoring/concepts.py already defines for the ML Risk Challenger,
+    # this is the free-text field a human actually reads (and the Risk
+    # Engine keyword-scans, see app/scoring/medical_history.py) -- not a
+    # replacement for those structured flags. Optional/nullable: most
+    # patients (see scripts/generate_patients.py) have none recorded.
+    medical_history = Column(String, nullable=True)
+
     arrival_mode = Column(SAEnum(ArrivalMode), nullable=False, default=ArrivalMode.WALK_IN)
     status = Column(SAEnum(CaseStatus), nullable=False, default=CaseStatus.ACTIVE)
     identity_link_status = Column(

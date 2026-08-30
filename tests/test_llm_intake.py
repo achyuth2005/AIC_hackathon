@@ -55,8 +55,8 @@ def test_disabled_returns_immediately_with_no_llm_call(store: EventStore, monkey
 
     outcome = extract_intake_fields(case, store, disabled_profile, "chest pain", llm_client=None)
     assert outcome.llm_available is False
-    assert outcome.reason == "LLM_DISABLED"
-    assert outcome.observations_created == []
+    assert outcome.parse_succeeded is True
+    assert outcome.model_version == "regex-fallback"
 
 
 def test_successful_extraction_persists_ai_inferred_observations(store: EventStore, monkeypatch):
@@ -124,9 +124,8 @@ def test_invalid_output_on_both_attempts_reports_parse_failure(store: EventStore
     case = store.create_case(age_years=40)
 
     outcome = extract_intake_fields(case, store, PROFILE, "text", llm_client=client)
-    assert outcome.parse_succeeded is False
-    assert outcome.reason == "PARSE_FAILED_AFTER_RETRY"
-    assert outcome.observations_created == []
+    assert outcome.parse_succeeded is True
+    assert outcome.model_version == "regex-fallback"
     assert len(calls["requests"]) == 2
 
     event_types = [e.event_type for e in store.get_timeline(case.case_id)]
@@ -153,7 +152,8 @@ def test_network_failure_reports_llm_unavailable_and_logs_event(store: EventStor
 
     outcome = extract_intake_fields(case, store, PROFILE, "text", llm_client=client)
     assert outcome.llm_available is False
-    assert outcome.reason == "LLM_UNAVAILABLE"
+    assert outcome.parse_succeeded is True
+    assert outcome.model_version == "regex-fallback"
 
     event_types = [e.event_type for e in store.get_timeline(case.case_id)]
     assert "AI_UNAVAILABLE" in event_types
@@ -207,14 +207,69 @@ def test_request_carries_zero_retention_flag(store: EventStore, monkeypatch):
 # ---------------------------------------------------------------------
 # HTTP surface (LLM disabled -- exercises the endpoint without a network call)
 # ---------------------------------------------------------------------
-def test_intake_endpoint_with_llm_disabled(client, monkeypatch):
+def test_intake_endpoint_with_llm_disabled(client, nurse_headers, monkeypatch):
     import app.api.cases as cases_module
 
     disabled_profile = PROFILE.model_copy(deep=True)
     disabled_profile.llm.enabled = False
     monkeypatch.setattr(cases_module, "load_hospital_profile", lambda profile_id="default": disabled_profile)
 
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    resp = client.post(f"/cases/{case_id}/intake", json={"text": "chest pain"})
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    resp = client.post(f"/cases/{case_id}/intake", json={"text": "chest pain"}, headers=nurse_headers)
     assert resp.status_code == 200
     assert resp.json()["llm_available"] is False
+
+
+def test_successful_extraction_of_history_and_complaint(store: EventStore, monkeypatch):
+    payload = _valid_payload(
+        medical_history="COPD, Hypertension",
+        chief_complaint="Severe crushing chest pain"
+    )
+    client, _ = _client_with_responses(json.dumps(payload), monkeypatch=monkeypatch)
+    case = store.create_case(age_years=40)
+
+    outcome = extract_intake_fields(case, store, PROFILE, "Patient with COPD and Hypertension has severe crushing chest pain.", llm_client=client)
+
+    assert outcome.parse_succeeded is True
+    assert case.medical_history == "COPD, Hypertension"
+    
+    complaint_obs = store.get_latest_current_observation(case.case_id, concepts.SYMPTOM_TEXT)
+    assert complaint_obs is not None
+    assert complaint_obs.value_text == "Severe crushing chest pain"
+    assert complaint_obs.source_type == SourceType.AI_INFERRED
+
+
+def test_offline_regex_fallback(store: EventStore, monkeypatch):
+    # Disable LLM so it forces regex fallback
+    disabled_profile = PROFILE.model_copy(deep=True)
+    disabled_profile.llm.enabled = False
+    case = store.create_case(age_years=40)
+
+    # Note: LLM disabled usually returns immediately in old code, 
+    # but our regex fallback happens when parsed is None.
+    # Wait, in the new code, `llm_available = profile.llm.enabled`. 
+    # If not enabled, it still runs regex fallback!
+    raw_text = "Patient arrived. BP 160/95, pulse 112 bpm, SpO2 93%, RR 22, Temp 38.4C"
+    outcome = extract_intake_fields(case, store, disabled_profile, raw_text, llm_client=None)
+
+    assert outcome.llm_available is False
+    assert outcome.parse_succeeded is True
+    assert outcome.model_version == "regex-fallback"
+    assert len(outcome.observations_created) == 5
+
+    # Check extracted vitals
+    bp_obs = store.get_latest_current_observation(case.case_id, concepts.SYSTOLIC_BP)
+    assert bp_obs.value_numeric == 160.0
+
+    hr_obs = store.get_latest_current_observation(case.case_id, concepts.HEART_RATE)
+    assert hr_obs.value_numeric == 112.0
+
+    spo2_obs = store.get_latest_current_observation(case.case_id, concepts.SPO2)
+    assert spo2_obs.value_numeric == 93.0
+
+    rr_obs = store.get_latest_current_observation(case.case_id, concepts.RESP_RATE)
+    assert rr_obs.value_numeric == 22.0
+
+    temp_obs = store.get_latest_current_observation(case.case_id, concepts.TEMPERATURE)
+    assert temp_obs.value_numeric == 38.4
+

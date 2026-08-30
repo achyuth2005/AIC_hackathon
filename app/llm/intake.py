@@ -42,6 +42,7 @@ data it adds, the same as it would for a nurse-typed observation.
 from __future__ import annotations
 
 import json
+import re
 from typing import Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, ValidationError
@@ -61,13 +62,12 @@ from app.timeutil import utcnow
 # checks and unit normalisation"). Canonical unit per concept; TEMPERATURE
 # is the one vital where a lay caller might reasonably state Fahrenheit,
 # so it alone carries a unit field in the schema below.
-_VITAL_RANGES = {
-    concepts.RESP_RATE: (0.0, 100.0),
-    concepts.SPO2: (0.0, 100.0),
-    concepts.HEART_RATE: (0.0, 300.0),
-    concepts.SYSTOLIC_BP: (0.0, 300.0),
-    concepts.TEMPERATURE: (25.0, 45.0),  # Celsius
-}
+#
+# Single-sourced from app/scoring/concepts.py (audit fix, dimension 3) so
+# this LLM path and the direct nurse-entry path
+# (app/schemas/observation.py) can never drift apart on what counts as a
+# plausible vital.
+_VITAL_RANGES = concepts.VITAL_PLAUSIBLE_RANGES
 _VITAL_UNITS = {
     concepts.RESP_RATE: "breaths/min",
     concepts.SPO2: "%",
@@ -115,6 +115,8 @@ class IntakeExtractionSchema(BaseModel):
     history_flags: List[ExtractedHistoryFlag] = Field(default_factory=list)
     onset: Optional[ExtractedOnset] = None
     vitals: List[ExtractedVital] = Field(default_factory=list)
+    medical_history: Optional[str] = None
+    chief_complaint: Optional[str] = None
 
 
 class RejectedField(BaseModel):
@@ -142,7 +144,9 @@ and explicitly stated in the text -- never guess, never infer beyond what is lit
   "history_flags": [{{"concept_code": one of {list(_HISTORY_CODES)}, "present": true, "confidence": 0.0-1.0}}],
   "onset": {{"onset_minutes": number, "confidence": 0.0-1.0}} or omit entirely if no onset time is stated,
   "vitals": [{{"concept_code": one of {list(_VITAL_CODES)}, "value": number, \
-"temperature_unit": "C" or "F" (TEMPERATURE only, omit otherwise), "confidence": 0.0-1.0}}]
+"temperature_unit": "C" or "F" (TEMPERATURE only, omit otherwise), "confidence": 0.0-1.0}}],
+  "medical_history": "string summarizing comorbidities (e.g., 'COPD, Hypertension')" or null if none,
+  "chief_complaint": "string summarizing primary symptom" or null if none
 }}
 
 Rules:
@@ -170,6 +174,47 @@ def _validate_and_normalize_vital(vital: ExtractedVital) -> tuple:
     return value, _VITAL_UNITS[vital.concept_code], None
 
 
+def _regex_fallback_parse(raw_text: str) -> IntakeExtractionSchema:
+    """Regex-based fallback for standard vitals patterns when LLM is unavailable."""
+    vitals = []
+    
+    # Blood Pressure (e.g. BP 160/95)
+    bp_match = re.search(r"(?i)bp\s+(\d{2,3})[/\\](\d{2,3})", raw_text)
+    if bp_match:
+        sys_bp, _ = bp_match.groups()
+        vitals.append(ExtractedVital(concept_code=concepts.SYSTOLIC_BP, value=float(sys_bp), confidence=1.0))
+        
+    # Heart Rate (e.g. pulse 112, HR 112)
+    hr_match = re.search(r"(?i)(?:hr|pulse)\s+(\d{2,3})", raw_text)
+    if hr_match:
+        vitals.append(ExtractedVital(concept_code=concepts.HEART_RATE, value=float(hr_match.group(1)), confidence=1.0))
+        
+    # SpO2 (e.g. SpO2 93%)
+    spo2_match = re.search(r"(?i)spo2\s+(\d{2,3})(?:%)?", raw_text)
+    if spo2_match:
+        vitals.append(ExtractedVital(concept_code=concepts.SPO2, value=float(spo2_match.group(1)), confidence=1.0))
+        
+    # Respiration Rate (e.g. RR 22, resp 22)
+    rr_match = re.search(r"(?i)(?:rr|resp(?:irations?)?)\s+(\d{2})", raw_text)
+    if rr_match:
+        vitals.append(ExtractedVital(concept_code=concepts.RESP_RATE, value=float(rr_match.group(1)), confidence=1.0))
+        
+    # Temperature (e.g. Temp 38.4)
+    temp_match = re.search(r"(?i)temp(?:erature)?\s+(\d{2}(?:\.\d)?)", raw_text)
+    if temp_match:
+        # Assuming Celsius if not specified, since fallback is basic
+        vitals.append(ExtractedVital(concept_code=concepts.TEMPERATURE, value=float(temp_match.group(1)), temperature_unit="C", confidence=1.0))
+        
+    return IntakeExtractionSchema(
+        symptom_flags=[],
+        history_flags=[],
+        onset=None,
+        vitals=vitals,
+        medical_history=None,
+        chief_complaint=None
+    )
+
+
 def extract_intake_fields(
     case: Case, store: EventStore, profile: HospitalProfile, raw_text: str, *, llm_client: Optional[LLMClient] = None
 ) -> IntakeOutcome:
@@ -178,34 +223,41 @@ def extract_intake_fields(
     'structured entry forms replace conversational capture' means the
     caller's normal manual-observation endpoints remain the fallback path;
     this function does not itself provide one."""
-    if not profile.llm.enabled:
-        return IntakeOutcome(llm_available=False, parse_succeeded=False, reason="LLM_DISABLED")
+    parsed: Optional[IntakeExtractionSchema] = None
+    model_version: Optional[str] = None
+    reason: Optional[str] = None
+    llm_available = profile.llm.enabled
 
-    client = llm_client or LLMClient(
-        _config_from_profile(profile), timeout=profile.llm.request_timeout_seconds
-    )
-
-    redacted = redact_text(raw_text, known_identifiers={"NAME": case.display_name, "MRN": case.mrn})
-
-    try:
-        parsed, model_version = _call_and_parse(client, redacted.redacted_text)
-    except LLMUnavailableError as exc:
-        store.append_event(
-            case_id=case.case_id, event_type="AI_UNAVAILABLE",
-            payload={"engine": "INTAKE", "reason": str(exc)},
+    if llm_available:
+        client = llm_client or LLMClient(
+            _config_from_profile(profile), timeout=profile.llm.request_timeout_seconds
         )
-        store.db.commit()
-        return IntakeOutcome(llm_available=False, parse_succeeded=False, reason="LLM_UNAVAILABLE")
+        redacted = redact_text(raw_text, known_identifiers={"NAME": case.display_name, "MRN": case.mrn})
+
+        try:
+            parsed, model_version = _call_and_parse(client, redacted.redacted_text)
+        except LLMUnavailableError as exc:
+            store.append_event(
+                case_id=case.case_id, event_type="AI_UNAVAILABLE",
+                payload={"engine": "INTAKE", "reason": str(exc)},
+            )
+            store.db.commit()
+            llm_available = False
+            reason = str(exc)
+            
+        if parsed is None and llm_available:
+            store.append_event(
+                case_id=case.case_id, event_type="AI_UNAVAILABLE",
+                payload={"engine": "INTAKE", "reason": "Model output did not match the required schema after one retry."},
+            )
+            store.db.commit()
+            reason = "PARSE_FAILED_AFTER_RETRY"
+            # We still attempt regex fallback below if parsing failed completely.
 
     if parsed is None:
-        store.append_event(
-            case_id=case.case_id, event_type="AI_UNAVAILABLE",
-            payload={"engine": "INTAKE", "reason": "Model output did not match the required schema after one retry."},
-        )
-        store.db.commit()
-        return IntakeOutcome(
-            llm_available=True, parse_succeeded=False, reason="PARSE_FAILED_AFTER_RETRY", model_version=model_version
-        )
+        # Fall back to regex parser if LLM failed, was unavailable, or parsing failed
+        parsed = _regex_fallback_parse(raw_text)
+        model_version = "regex-fallback"
 
     observation_ids: List[str] = []
     rejected: List[RejectedField] = []
@@ -225,6 +277,20 @@ def extract_intake_fields(
             value_type=ValueType.NUMERIC, source_type=SourceType.AI_INFERRED,
             reliability_tier=ReliabilityTier.AI_INFERRED, measurement_status=MeasurementStatus.MEASURED,
             observed_at=now, extraction_confidence=parsed.onset.confidence,
+        )
+        observation_ids.append(obs.observation_id)
+
+    if parsed.medical_history:
+        case.medical_history = parsed.medical_history
+        store.db.add(case) # Ensuring it's updated in the session
+        # We don't append an observation for medical_history, it's a case field
+
+    if parsed.chief_complaint:
+        obs = store.add_observation(
+            case_id=case.case_id, concept_code=concepts.SYMPTOM_TEXT, value=parsed.chief_complaint,
+            value_type=ValueType.TEXT, source_type=SourceType.AI_INFERRED,
+            reliability_tier=ReliabilityTier.AI_INFERRED, measurement_status=MeasurementStatus.MEASURED,
+            observed_at=now, extraction_confidence=1.0,
         )
         observation_ids.append(obs.observation_id)
 
@@ -255,9 +321,12 @@ def extract_intake_fields(
         evaluate_and_activate(case, store, profile)
         assess_case(case, store, profile)
 
+    if not profile.llm.enabled:
+        reason = "LLM_DISABLED"
+
     return IntakeOutcome(
-        llm_available=True, parse_succeeded=True, observations_created=observation_ids,
-        rejected=rejected, model_version=model_version,
+        llm_available=llm_available, parse_succeeded=True, observations_created=observation_ids,
+        rejected=rejected, model_version=model_version, reason=reason,
     )
 
 

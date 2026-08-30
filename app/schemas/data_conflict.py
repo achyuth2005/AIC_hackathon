@@ -6,7 +6,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class DataConflictResponse(BaseModel):
@@ -29,4 +29,4 @@ class DataConflictResolveRequest(BaseModel):
     """Phase 9.3: 'until a human resolves it.' The human picks which of
     the conflicting observations is authoritative going forward."""
     kept_observation_id: str
-    resolution_note: Optional[str] = None
+    resolution_note: Optional[str] = Field(default=None, max_length=2000)

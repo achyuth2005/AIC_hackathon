@@ -35,14 +35,14 @@ export const AcuityHistoryChart: React.FC<AcuityHistoryChartProps> = ({ caseId }
   }));
 
   return (
-    <Card className="bg-slate-900 border-slate-800">
+    <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-sm flex items-center justify-between">
-          <span className="flex items-center gap-2 text-slate-200">
-            <TrendingUp className="w-4 h-4 text-cyan-400" />
+          <span className="flex items-center gap-2 text-slate-900">
+            <TrendingUp className="w-4 h-4 text-indigo-600" />
             Acuity Progression Over Time (Inverted Y: ESI 1 on Top)
           </span>
-          <span className="text-xs font-mono text-slate-400">
+          <span className="text-xs font-mono text-slate-500">
             {assessments.length} Rescore Events
           </span>
         </CardTitle>
@@ -52,27 +52,28 @@ export const AcuityHistoryChart: React.FC<AcuityHistoryChartProps> = ({ caseId }
         <div className="h-48 w-full pt-2">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 10, right: 20, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.8} />
               <XAxis
                 dataKey="time"
-                stroke="#64748b"
-                tick={{ fontSize: 11, fill: '#94a3b8' }}
+                stroke="#cbd5e1"
+                tick={{ fontSize: 11, fill: '#64748b' }}
               />
               <YAxis
                 reversed={true}
                 domain={[1, 5]}
                 ticks={[1, 2, 3, 4, 5]}
-                stroke="#64748b"
-                tick={{ fontSize: 11, fill: '#94a3b8', fontFamily: 'monospace' }}
+                stroke="#cbd5e1"
+                tick={{ fontSize: 11, fill: '#64748b', fontFamily: 'monospace' }}
                 tickFormatter={(val) => `ESI ${val}`}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#0f172a',
-                  borderColor: '#334155',
+                  backgroundColor: '#ffffff',
+                  borderColor: '#e2e8f0',
                   borderRadius: '0.75rem',
                   fontSize: '12px',
-                  color: '#f8fafc',
+                  color: '#0f172a',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.03)',
                 }}
                 formatter={(val, _name, item) => [
                   `ESI ${val} (${item.payload.layer})`,
@@ -83,10 +84,10 @@ export const AcuityHistoryChart: React.FC<AcuityHistoryChartProps> = ({ caseId }
               <Line
                 type="stepAfter"
                 dataKey="acuity"
-                stroke="#06b6d4"
+                stroke="#4f46e5"
                 strokeWidth={3}
-                dot={{ fill: '#06b6d4', r: 4 }}
-                activeDot={{ r: 6, fill: '#38bdf8' }}
+                dot={{ fill: '#4f46e5', r: 4 }}
+                activeDot={{ r: 6, fill: '#6366f1' }}
               />
             </LineChart>
           </ResponsiveContainer>

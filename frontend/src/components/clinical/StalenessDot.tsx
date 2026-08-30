@@ -24,8 +24,8 @@ export const StalenessDot: React.FC<StalenessDotProps> = ({
     <span
       title={isStale ? `Reading is stale (${diffMinutes}m old)` : `Recent reading (${diffMinutes}m old)`}
       className={cn(
-        'inline-block w-2 h-2 rounded-full',
-        isStale ? 'bg-amber-500 animate-pulse' : 'bg-emerald-400',
+        'inline-block w-2 h-2 rounded-full ring-2 ring-white',
+        isStale ? 'bg-amber-500 animate-pulse' : 'bg-emerald-500',
         className
       )}
     />

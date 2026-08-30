@@ -33,9 +33,10 @@ def _sync_critical_bypass_alerts(store: EventStore, profile: HospitalProfile, as
     second detector firing for an already-critical case (Phase 3.5's
     'any of which can fire, none of which can cancel another') is not a
     new interrupt, so it must not raise a second alert."""
-    for case in store.list_cases():
-        if case.hospital_profile_id != profile.profile_id:
-            continue
+    # Audit fix (Medium, efficiency): filters hospital_profile_id in SQL
+    # now (list_cases supports it) instead of fetching every case across
+    # every hospital and filtering in Python on every alert-feed read.
+    for case in store.list_cases(hospital_profile_id=profile.profile_id):
         if not case.emergency_bypass_active:
             continue
         if store.existing_alert_for_case(AlertType.CRITICAL_BYPASS_PATIENT, case.case_id) is not None:
@@ -59,8 +60,8 @@ def _sync_acuity_escalation_alerts(store: EventStore, profile: HospitalProfile, 
     worsening transition in a case's history is its own dedupe unit, so a
     case with several real escalations over its stay raises one alert per
     transition, not one per case."""
-    for case in store.list_cases():
-        if case.hospital_profile_id != profile.profile_id or case.status == CaseStatus.DISPOSED:
+    for case in store.list_cases(hospital_profile_id=profile.profile_id):
+        if case.status == CaseStatus.DISPOSED:
             continue
         history = store.get_risk_assessment_history(case.case_id)
         for previous, current in zip(history, history[1:]):
@@ -95,8 +96,8 @@ def _sync_reassessment_overdue_aggregate(store: EventStore, profile: HospitalPro
 
     overdue_case_ids = sorted(
         c.case_id
-        for c in store.list_cases(status=CaseStatus.ACTIVE)
-        if c.hospital_profile_id == profile.profile_id and c.reassessment_overdue
+        for c in store.list_cases(status=CaseStatus.ACTIVE, hospital_profile_id=profile.profile_id)
+        if c.reassessment_overdue
     )
     existing = store.get_open_aggregate_alert(profile.profile_id)
 

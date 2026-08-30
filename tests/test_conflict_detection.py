@@ -158,8 +158,8 @@ def test_bypass_and_ml_features_are_unaffected_by_conflict_resolution(store: Eve
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_conflicts_endpoint_and_resolve_flow(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+def test_conflicts_endpoint_and_resolve_flow(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
     client.post(
         f"/cases/{case_id}/observations",
         json={
@@ -167,6 +167,7 @@ def test_conflicts_endpoint_and_resolve_flow(client):
             "source_type": "PATIENT", "reliability_tier": 3, "measurement_status": "MEASURED",
             "observed_at": utcnow().isoformat(),
         },
+        headers=nurse_headers,
     )
     client.post(
         f"/cases/{case_id}/observations",
@@ -175,6 +176,7 @@ def test_conflicts_endpoint_and_resolve_flow(client):
             "source_type": "DEVICE", "reliability_tier": 1, "measurement_status": "MEASURED",
             "observed_at": utcnow().isoformat(),
         },
+        headers=nurse_headers,
     )
     for code, val in (("RESP_RATE", 17.0), ("SPO2", 97.0), ("SYSTOLIC_BP", 120.0), ("TEMPERATURE", 37.0)):
         client.post(
@@ -184,6 +186,7 @@ def test_conflicts_endpoint_and_resolve_flow(client):
                 "source_type": "DEVICE", "reliability_tier": 1, "measurement_status": "MEASURED",
                 "observed_at": utcnow().isoformat(),
             },
+            headers=nurse_headers,
         )
     client.post(
         f"/cases/{case_id}/observations",
@@ -192,6 +195,7 @@ def test_conflicts_endpoint_and_resolve_flow(client):
             "source_type": "DEVICE", "reliability_tier": 1, "measurement_status": "MEASURED",
             "observed_at": utcnow().isoformat(),
         },
+        headers=nurse_headers,
     )
     client.post(
         f"/cases/{case_id}/observations",
@@ -200,11 +204,12 @@ def test_conflicts_endpoint_and_resolve_flow(client):
             "source_type": "DEVICE", "reliability_tier": 1, "measurement_status": "MEASURED",
             "observed_at": utcnow().isoformat(),
         },
+        headers=nurse_headers,
     )
-    client.get(f"/cases/{case_id}")  # triggers no scoring by itself; force one via queue read
-    client.get("/queue")
+    client.get(f"/cases/{case_id}", headers=nurse_headers)  # triggers no scoring by itself; force one via queue read
+    client.get("/queue", headers=nurse_headers)
 
-    conflicts = client.get(f"/cases/{case_id}/conflicts").json()
+    conflicts = client.get(f"/cases/{case_id}/conflicts", headers=nurse_headers).json()
     assert len(conflicts) == 1
     conflict_id = conflicts[0]["conflict_id"]
     kept_id = conflicts[0]["observation_ids"][0]
@@ -218,4 +223,4 @@ def test_conflicts_endpoint_and_resolve_flow(client):
     assert resp.status_code == 200
     assert resp.json()["resolved"] is True
 
-    assert client.get(f"/cases/{case_id}/conflicts").json() == []
+    assert client.get(f"/cases/{case_id}/conflicts", headers=nurse_headers).json() == []

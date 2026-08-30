@@ -173,20 +173,23 @@ export const RecordVitalsForm: React.FC<RecordVitalsFormProps> = ({
   };
 
   return (
-    <Card className="bg-slate-900 border-slate-800">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between pb-3">
         <CardTitle className="text-base">
-          <Activity className="w-5 h-5 text-cyan-400" />
+          <Activity className="w-5 h-5 text-indigo-600" />
           Record Clinical Vitals (NEWS2 / PEWS)
         </CardTitle>
-        <button
-          type="button"
-          onClick={handleFillT6Scenario}
-          className="text-xs text-cyan-400 hover:text-cyan-300 font-mono flex items-center gap-1 cursor-pointer bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-800/60"
-        >
-          <Sparkles className="w-3.5 h-3.5" />
-          Autofill T6 Set (NEWS2 Rescore)
-        </button>
+        {import.meta.env.DEV && (
+          <button
+            type="button"
+            onClick={handleFillT6Scenario}
+            title="Development-only test fixture — fills fabricated values, not a clinical quick-entry preset"
+            className="text-xs text-amber-800 hover:text-amber-900 font-mono flex items-center gap-1 cursor-pointer bg-amber-50 px-2.5 py-1 rounded border border-amber-300"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            [DEV] Autofill T6 Test Fixture
+          </button>
+        )}
       </CardHeader>
 
       <CardContent>
@@ -271,7 +274,7 @@ export const RecordVitalsForm: React.FC<RecordVitalsFormProps> = ({
               variant="primary"
               size="md"
               isLoading={isPending}
-              className="font-bold px-6 shadow-md shadow-cyan-950/60"
+              className="font-bold px-6"
             >
               Save Vitals & Rescore
             </Button>

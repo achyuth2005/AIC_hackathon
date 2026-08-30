@@ -1,7 +1,8 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { opsApi } from '../../api/ops';
-import { Card, CardContent } from '../../components/ui/Card';
+import { MetricCard } from '../../components/ui/MetricCard';
+import { Skeleton } from '../../components/ui/Skeleton';
 import { Users, Bed, AlertOctagon, Truck, Clock } from 'lucide-react';
 
 export const FlowMetricsCards: React.FC = () => {
@@ -15,7 +16,7 @@ export const FlowMetricsCards: React.FC = () => {
     return (
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="h-24 bg-slate-900 rounded-xl animate-pulse border border-slate-800" />
+          <Skeleton key={i} className="h-24 w-full rounded-xl" />
         ))}
       </div>
     );
@@ -37,78 +38,53 @@ export const FlowMetricsCards: React.FC = () => {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 text-left">
       {/* Tile 1: Acuity & Overdue */}
-      <Card className="bg-slate-900 border-slate-800">
-        <CardContent className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Active ED Census</span>
-            <Users className="w-4 h-4 text-cyan-400" />
-          </div>
-          <div className="text-2xl font-black font-mono text-slate-100">{totalPatients}</div>
-          <div className="text-[11px] text-slate-400">
-            {totalOverdue > 0 ? (
-              <span className="text-rose-400 font-bold">{totalOverdue} Overdue Reassessment</span>
-            ) : (
-              '0 Overdue Reassessments'
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      <MetricCard
+        label="Active ED Census"
+        value={totalPatients}
+        icon={<Users className="w-4 h-4" />}
+        sublabel={totalOverdue > 0 ? `${totalOverdue} Overdue Reassessment` : '0 Overdue Reassessments'}
+        tone={totalOverdue > 0 ? 'rose' : 'neutral'}
+      />
 
       {/* Tile 2: Deteriorating */}
-      <Card className={`border ${deteriorating_patients.length > 0 ? 'bg-orange-950/20 border-orange-600/70' : 'bg-slate-900 border-slate-800'}`}>
-        <CardContent className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Deteriorating</span>
-            <Clock className="w-4 h-4 text-orange-400" />
-          </div>
-          <div className="text-2xl font-black font-mono text-slate-100">{deteriorating_patients.length}</div>
-          <div className="text-[11px] text-slate-400">
-            {deteriorating_patients.length > 0 ? 'Prioritized on Guardian Queue' : 'All trajectories stable'}
-          </div>
-        </CardContent>
-      </Card>
+      <MetricCard
+        label="Deteriorating"
+        value={deteriorating_patients.length}
+        icon={<Clock className="w-4 h-4" />}
+        sublabel={deteriorating_patients.length > 0 ? 'Prioritized on Guardian Queue' : 'All trajectories stable'}
+        tone="orange"
+        active={deteriorating_patients.length > 0}
+      />
 
       {/* Tile 3: Stuck Patients */}
-      <Card className={`border ${stuck_patients.length > 0 ? 'bg-rose-950/30 border-rose-600/80' : 'bg-slate-900 border-slate-800'}`}>
-        <CardContent className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Stuck Patients</span>
-            <AlertOctagon className="w-4 h-4 text-rose-400" />
-          </div>
-          <div className="text-2xl font-black font-mono text-rose-200">{stuck_patients.length}</div>
-          <div className="text-[11px] text-slate-400">
-            {stuck_patients.length > 0 ? 'Exceeded operational dwell window' : 'No flow bottlenecks'}
-          </div>
-        </CardContent>
-      </Card>
+      <MetricCard
+        label="Stuck Patients"
+        value={stuck_patients.length}
+        icon={<AlertOctagon className="w-4 h-4" />}
+        sublabel={stuck_patients.length > 0 ? 'Exceeded operational dwell window' : 'No flow bottlenecks'}
+        tone="rose"
+        active={stuck_patients.length > 0}
+      />
 
       {/* Tile 4: Free Beds */}
-      <Card className="bg-slate-900 border-slate-800">
-        <CardContent className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Available Capacity</span>
-            <Bed className="w-4 h-4 text-emerald-400" />
-          </div>
-          <div className="text-2xl font-black font-mono text-emerald-400">{freeBeds}</div>
-          <div className="text-[11px] text-slate-400 font-mono">
-            {freeBeds} of {totalBeds} total spaces free
-          </div>
-        </CardContent>
-      </Card>
+      <MetricCard
+        label="Available Capacity"
+        value={freeBeds}
+        icon={<Bed className="w-4 h-4" />}
+        sublabel={`${freeBeds} of ${totalBeds} total spaces free`}
+        tone="emerald"
+        active={freeBeds > 0}
+      />
 
       {/* Tile 5: Inbound Ambulances */}
-      <Card className="bg-slate-900 border-slate-800">
-        <CardContent className="p-4 space-y-1">
-          <div className="flex items-center justify-between text-slate-400">
-            <span className="text-[10px] font-bold uppercase tracking-wider">Inbound Transports</span>
-            <Truck className="w-4 h-4 text-cyan-400" />
-          </div>
-          <div className="text-2xl font-black font-mono text-cyan-300">{incoming_ambulances.length}</div>
-          <div className="text-[11px] text-slate-400">
-            {incoming_ambulances.length > 0 ? 'Pre-arrival board active' : '0 Inbound ambulances'}
-          </div>
-        </CardContent>
-      </Card>
+      <MetricCard
+        label="Inbound Transports"
+        value={incoming_ambulances.length}
+        icon={<Truck className="w-4 h-4" />}
+        sublabel={incoming_ambulances.length > 0 ? 'Pre-arrival board active' : '0 Inbound ambulances'}
+        tone="indigo"
+        active={incoming_ambulances.length > 0}
+      />
     </div>
   );
 };

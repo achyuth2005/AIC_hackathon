@@ -42,9 +42,9 @@ export const RoleSelector: React.FC<RoleSelectorProps> = ({ onSuccess }) => {
       name: 'Nurse Priya Nair',
       idString: 'demo-nurse-01',
       desc: 'Guardian Queue scanning, fast vitals intake, 1-tap escalation & clinical overrides.',
-      icon: <UserCheck className="w-6 h-6 text-cyan-400" />,
-      color: 'hover:border-cyan-500/60 focus:border-cyan-500 bg-cyan-950/20',
-      activeBorder: 'border-cyan-500 bg-cyan-950/40 ring-1 ring-cyan-500',
+      icon: <UserCheck className="w-6 h-6 text-indigo-600" />,
+      color: 'hover:bg-white/80 bg-white/50 border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_2px_8px_rgba(0,0,0,0.02)]',
+      activeBorder: 'border-indigo-300/60 bg-indigo-500/10 shadow-[inset_0_0_0_1px_rgba(99,102,241,0.3),0_4px_16px_rgba(99,102,241,0.08)]',
     },
     {
       id: 'DOCTOR' as Role,
@@ -52,9 +52,9 @@ export const RoleSelector: React.FC<RoleSelectorProps> = ({ onSuccess }) => {
       name: 'Dr. Arjun Rao',
       idString: 'demo-doctor-01',
       desc: 'Identity-relative case reviews, vital trends, diagnostic tracking & pending actions.',
-      icon: <Stethoscope className="w-6 h-6 text-emerald-400" />,
-      color: 'hover:border-emerald-500/60 focus:border-emerald-500 bg-emerald-950/20',
-      activeBorder: 'border-emerald-500 bg-emerald-950/40 ring-1 ring-emerald-500',
+      icon: <Stethoscope className="w-6 h-6 text-emerald-600" />,
+      color: 'hover:bg-white/80 bg-white/50 border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_2px_8px_rgba(0,0,0,0.02)]',
+      activeBorder: 'border-emerald-300/60 bg-emerald-500/10 shadow-[inset_0_0_0_1px_rgba(16,185,129,0.3),0_4px_16px_rgba(16,185,129,0.08)]',
     },
     {
       id: 'ADMIN' as Role,
@@ -62,17 +62,17 @@ export const RoleSelector: React.FC<RoleSelectorProps> = ({ onSuccess }) => {
       name: 'Admin Sana Sheikh',
       idString: 'demo-admin-01',
       desc: 'Retrospective de-escalation review, equity monitoring, surge simulation & demo control.',
-      icon: <Shield className="w-6 h-6 text-purple-400" />,
-      color: 'hover:border-purple-500/60 focus:border-purple-500 bg-purple-950/20',
-      activeBorder: 'border-purple-500 bg-purple-950/40 ring-1 ring-purple-500',
+      icon: <Shield className="w-6 h-6 text-violet-600" />,
+      color: 'hover:bg-white/80 bg-white/50 border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_2px_8px_rgba(0,0,0,0.02)]',
+      activeBorder: 'border-violet-300/60 bg-violet-500/10 shadow-[inset_0_0_0_1px_rgba(139,92,246,0.3),0_4px_16px_rgba(139,92,246,0.08)]',
     },
   ];
 
   return (
     <div className="w-full space-y-5">
-      <div className="bg-slate-800/60 border border-slate-700/60 rounded-lg p-3 text-xs text-slate-300 flex items-center justify-between">
-        <span className="font-medium text-amber-300">⚡ Demo shortcut — not a real login</span>
-        <span className="text-slate-400">Tokens valid for 12 hours</span>
+      <div className="bg-amber-500/15 border border-amber-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm rounded-xl p-3 text-xs text-amber-900 flex items-center justify-between">
+        <span className="font-medium">⚡ Demo shortcut — not a real login</span>
+        <span className="text-amber-800/80">Tokens valid for 12 hours</span>
       </div>
 
       <div className="grid grid-cols-1 gap-3">
@@ -84,23 +84,23 @@ export const RoleSelector: React.FC<RoleSelectorProps> = ({ onSuccess }) => {
               type="button"
               disabled={isLoading || isSubmitting}
               onClick={() => setSelectedRole(r.id)}
-              className={`text-left p-4 rounded-xl border transition-all duration-150 flex items-start gap-4 cursor-pointer outline-none ${
+              className={`text-left p-4 rounded-2xl border transition-all duration-150 flex items-start gap-4 cursor-pointer outline-none backdrop-blur-md ${
                 isSelected
                   ? r.activeBorder
-                  : `border-slate-800 bg-slate-900/60 ${r.color}`
+                  : `${r.color}`
               }`}
             >
-              <div className="p-2.5 rounded-lg bg-slate-800/80 border border-slate-700/50 shrink-0">
+              <div className="p-2.5 rounded-xl bg-white/70 border border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8)] shrink-0">
                 {r.icon}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                  <div className="font-semibold text-slate-100">{r.title}</div>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">
+                  <div className="font-semibold text-slate-900">{r.title}</div>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-slate-500/10 text-slate-700 font-mono shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
                     {r.name}
                   </span>
                 </div>
-                <p className="text-xs text-slate-400 mt-1 leading-relaxed">{r.desc}</p>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">{r.desc}</p>
               </div>
             </button>
           );
@@ -111,7 +111,7 @@ export const RoleSelector: React.FC<RoleSelectorProps> = ({ onSuccess }) => {
         onClick={() => handleLogin(selectedRole)}
         isLoading={isLoading || isSubmitting}
         size="lg"
-        className="w-full font-semibold shadow-lg shadow-cyan-950/50"
+        className="w-full font-semibold"
       >
         Continue as {roles.find((r) => r.id === selectedRole)?.title}
       </Button>

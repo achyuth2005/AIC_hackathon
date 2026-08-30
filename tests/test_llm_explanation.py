@@ -132,7 +132,7 @@ def test_deterministic_explanation_never_invents_content(store: EventStore):
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_explanation_endpoint(client, monkeypatch):
+def test_explanation_endpoint(client, nurse_headers, monkeypatch):
     # LLM disabled here so this HTTP-level test exercises the deterministic
     # fallback path only -- fast, offline, no real network call.
     import app.api.cases as cases_module
@@ -141,10 +141,10 @@ def test_explanation_endpoint(client, monkeypatch):
     disabled_profile.llm.enabled = False
     monkeypatch.setattr(cases_module, "load_hospital_profile", lambda profile_id="default": disabled_profile)
 
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    client.get("/queue")  # backfills an initial assessment
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    client.get("/queue", headers=nurse_headers)  # backfills an initial assessment
 
-    resp = client.get(f"/cases/{case_id}/explanation")
+    resp = client.get(f"/cases/{case_id}/explanation", headers=nurse_headers)
     assert resp.status_code == 200
     body = resp.json()
     assert "text" in body

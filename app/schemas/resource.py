@@ -3,15 +3,15 @@ from __future__ import annotations
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.enums import ResourceStatus, ResourceType
 
 
 class ResourceCreateRequest(BaseModel):
     resource_type: ResourceType
-    label: str
-    hospital_profile_id: str = "default"
+    label: str = Field(min_length=1, max_length=100)
+    hospital_profile_id: str = Field(default="default", max_length=100)
 
 
 class AssignResourceRequest(BaseModel):

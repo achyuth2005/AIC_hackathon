@@ -27,26 +27,26 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const sizeClasses = {
-      xs: 'px-2 py-1 text-xs gap-1 rounded',
-      sm: 'px-3 py-1.5 text-xs font-medium gap-1.5 rounded-md',
-      md: 'px-4 py-2 text-sm font-medium gap-2 rounded-lg',
-      lg: 'px-5 py-2.5 text-base font-semibold gap-2 rounded-lg',
-      xl: 'px-6 py-3.5 text-lg font-bold gap-3 rounded-xl',
+      xs: 'px-2.5 py-1 text-xs gap-1 rounded-lg',
+      sm: 'px-3 py-1.5 text-xs font-medium gap-1.5 rounded-xl',
+      md: 'px-4 py-2 text-sm font-medium gap-2 rounded-xl',
+      lg: 'px-5 py-2.5 text-base font-semibold gap-2 rounded-2xl',
+      xl: 'px-6 py-3.5 text-lg font-bold gap-3 rounded-2xl',
     };
 
     const variantClasses = {
       primary:
-        'bg-cyan-600 hover:bg-cyan-500 text-white shadow-sm hover:shadow active:bg-cyan-700 disabled:bg-slate-700 disabled:text-slate-400 focus-visible:ring-2 focus-visible:ring-cyan-400',
+        'bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 hover:from-slate-800 hover:to-indigo-900 text-white shadow-[0_2px_8px_rgba(15,23,42,0.15)] hover:shadow-[0_4px_12px_rgba(15,23,42,0.2)] active:from-slate-950 active:to-black disabled:bg-slate-100 disabled:text-slate-400 disabled:shadow-none focus-visible:ring-2 focus-visible:ring-indigo-500',
       secondary:
-        'bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 hover:border-slate-600 disabled:bg-slate-900 disabled:text-slate-500 focus-visible:ring-2 focus-visible:ring-slate-400',
+        'bg-white/70 hover:bg-white/95 text-slate-700 border border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_2px_6px_rgba(0,0,0,0.06)] active:bg-slate-50 disabled:bg-white/40 disabled:text-slate-400 disabled:shadow-none backdrop-blur-sm focus-visible:ring-2 focus-visible:ring-slate-400',
       danger:
-        'bg-red-600 hover:bg-red-500 text-white shadow-sm hover:shadow active:bg-red-700 disabled:bg-slate-700 disabled:text-slate-400 focus-visible:ring-2 focus-visible:ring-red-400',
+        'bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white shadow-[0_2px_8px_rgba(225,29,72,0.25)] hover:shadow-[0_4px_12px_rgba(225,29,72,0.35)] active:from-rose-700 active:to-rose-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:shadow-none focus-visible:ring-2 focus-visible:ring-rose-400',
       warning:
-        'bg-amber-600 hover:bg-amber-500 text-white shadow-sm active:bg-amber-700 disabled:bg-slate-700 disabled:text-slate-400 focus-visible:ring-2 focus-visible:ring-amber-400',
+        'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-[0_2px_8px_rgba(217,119,6,0.22)] hover:shadow-[0_4px_12px_rgba(217,119,6,0.3)] active:from-amber-700 active:to-amber-800 disabled:bg-slate-100 disabled:text-slate-400 disabled:shadow-none focus-visible:ring-2 focus-visible:ring-amber-400',
       outline:
-        'border border-slate-600 text-slate-200 hover:bg-slate-800/80 hover:border-slate-500 disabled:border-slate-800 disabled:text-slate-600 focus-visible:ring-2 focus-visible:ring-slate-400',
+        'bg-white/60 border border-white/80 text-slate-700 hover:bg-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7),0_1px_3px_rgba(0,0,0,0.03)] disabled:bg-white/30 disabled:text-slate-400 disabled:shadow-none backdrop-blur-sm focus-visible:ring-2 focus-visible:ring-slate-400',
       ghost:
-        'text-slate-300 hover:text-white hover:bg-slate-800/60 disabled:text-slate-600 focus-visible:ring-2 focus-visible:ring-slate-400',
+        'text-slate-600 hover:text-slate-900 hover:bg-white/50 backdrop-blur-sm disabled:text-slate-400 focus-visible:ring-2 focus-visible:ring-slate-400',
     };
 
     return (

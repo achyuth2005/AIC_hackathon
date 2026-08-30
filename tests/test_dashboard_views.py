@@ -236,16 +236,16 @@ def test_control_tower_five_tiles_reflect_real_state(store: EventStore):
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_patient_view_endpoint_requires_no_auth(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+def test_patient_view_endpoint_requires_no_auth(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
     resp = client.get(f"/cases/{case_id}/patient-view")
     assert resp.status_code == 200
     assert "stage" in resp.json()
     assert "final_acuity" not in resp.json()
 
 
-def test_doctor_view_endpoint_requires_auth(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+def test_doctor_view_endpoint_requires_auth(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
     unauth = client.get(f"/cases/{case_id}/doctor-view")
     assert unauth.status_code == 401
 
@@ -256,9 +256,9 @@ def test_doctor_view_endpoint_requires_auth(client):
 
 
 def test_mark_reviewed_endpoint(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
     token = client.post("/auth/login", json={"role": "DOCTOR"}).json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
+    case_id = client.post("/cases", json={"age_years": 40}, headers=headers).json()["case_id"]
 
     resp = client.post(f"/cases/{case_id}/mark-reviewed", headers=headers)
     assert resp.status_code == 200
@@ -267,8 +267,11 @@ def test_mark_reviewed_endpoint(client):
     assert view["is_first_review"] is False
 
 
-def test_control_tower_endpoint(client):
-    resp = client.get("/control-tower")
+def test_control_tower_endpoint(client, nurse_headers):
+    unauth = client.get("/control-tower")
+    assert unauth.status_code == 401
+
+    resp = client.get("/control-tower", headers=nurse_headers)
     assert resp.status_code == 200
     body = resp.json()
     for key in ("patients_by_acuity_band", "deteriorating_patients", "stuck_patients", "capacity", "incoming_ambulances"):

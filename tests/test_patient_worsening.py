@@ -112,24 +112,26 @@ def test_overdue_flag_survives_a_self_healing_backfill_assessment(store: EventSt
     assert entry.reassessment.is_due is True
 
 
-def test_api_endpoint(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+def test_api_endpoint(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
 
+    # Self-reported-worsening stays unauthenticated by design (Phase 8.1's
+    # zero-friction patient/caregiver affordance).
     resp = client.post(f"/cases/{case_id}/self-reported-worsening", json={"note": "chest feels tight now"})
     assert resp.status_code == 200
     body = resp.json()
     assert body["reassessment_overdue"] is True
 
-    timeline = client.get(f"/cases/{case_id}/timeline").json()
+    timeline = client.get(f"/cases/{case_id}/timeline", headers=nurse_headers).json()
     assert "PATIENT_SELF_REPORTED_WORSENING" in [e["event_type"] for e in timeline]
 
-    queue = client.get("/queue").json()
+    queue = client.get("/queue", headers=nurse_headers).json()
     entry = next(e for e in queue if e["case_id"] == case_id)
     assert entry["reassessment"]["is_due"] is True
 
 
-def test_api_endpoint_without_a_note(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
+def test_api_endpoint_without_a_note(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
     resp = client.post(f"/cases/{case_id}/self-reported-worsening", json={})
     assert resp.status_code == 200
 

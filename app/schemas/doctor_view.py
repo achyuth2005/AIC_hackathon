@@ -41,6 +41,10 @@ class DoctorCaseView(BaseModel):
     itself has no field that could carry one."""
     case_id: str
     display_name: Optional[str]
+    # Medical History feature: surfaced directly on the doctor's decision-
+    # support summary (Phase 8.3) -- a high-risk history is exactly the
+    # kind of context a reviewing physician needs alongside current vitals.
+    medical_history: Optional[str]
     current_observations: List[ObservationResponse]
     latest_risk_assessment: Optional[RiskAssessmentResponse]
     trends: List[VitalTrend]

@@ -37,10 +37,10 @@ export const DwellTimeDistribution: React.FC = () => {
   });
 
   return (
-    <Card className="bg-slate-900 border-slate-800 text-left">
+    <Card className="text-left">
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm flex items-center gap-2 text-slate-200">
-          <Clock className="w-4 h-4 text-cyan-400" />
+        <CardTitle className="text-sm flex items-center gap-2">
+          <Clock className="w-4 h-4 text-indigo-600" />
           Acuity-Stratified Dwell Times vs Clinical Benchmarks
         </CardTitle>
       </CardHeader>
@@ -53,24 +53,24 @@ export const DwellTimeDistribution: React.FC = () => {
             return (
               <div
                 key={level}
-                className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono"
+                className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono"
               >
                 <div className="flex items-center gap-2.5">
                   <AcuityBadge acuity={level} size="xs" />
-                  <span className="text-slate-300 font-bold">
+                  <span className="text-slate-700 font-bold">
                     {count} Patient{count === 1 ? '' : 's'} Active
                   </span>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <div className="text-slate-400">
-                    Target: <strong className="text-slate-200">{target}m</strong>
+                  <div className="text-slate-500">
+                    Target: <strong className="text-slate-700">{target}m</strong>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-slate-400">Mean Dwell:</span>
+                    <span className="text-slate-500">Mean Dwell:</span>
                     <span
-                      className={`font-black text-sm ${
-                        isExceeded ? 'text-rose-400' : 'text-emerald-400'
+                      className={`font-bold text-sm ${
+                        isExceeded ? 'text-rose-600' : 'text-emerald-600'
                       }`}
                     >
                       {count > 0 ? formatMinutes(avgWait) : '--'}

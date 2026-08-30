@@ -95,9 +95,9 @@ export const NavRail: React.FC = () => {
   });
 
   return (
-    <aside className="w-64 bg-slate-900/60 border-r border-slate-800/80 p-3 hidden md:flex flex-col justify-between shrink-0">
+    <aside className="w-64 bg-white/60 backdrop-blur-xl border-r border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7),0_8px_32px_rgba(31,38,135,0.03)] p-3 hidden md:flex flex-col justify-between shrink-0 print:hidden">
       <div className="space-y-1">
-        <div className="px-3 py-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+        <div className="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
           Navigation
         </div>
         {visibleItems.map((item) => (
@@ -105,10 +105,10 @@ export const NavRail: React.FC = () => {
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+              `flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all ${
                 isActive
-                  ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-sm font-semibold'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                  ? 'bg-white/75 text-indigo-700 font-semibold shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_4px_16px_rgba(79,70,229,0.06)] border-l-[3.5px] border-indigo-600 rounded-r-xl rounded-l-sm backdrop-blur-md'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/40 border-l-[3.5px] border-transparent rounded-r-xl rounded-l-sm'
               }`
             }
           >
@@ -118,9 +118,9 @@ export const NavRail: React.FC = () => {
         ))}
       </div>
 
-      <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800/60 text-xs text-slate-400">
-        <div className="font-semibold text-slate-300">Phase 13 MVP Engine</div>
-        <div className="text-[11px] mt-0.5 text-slate-500">
+      <div className="p-3 bg-white/40 backdrop-blur-md rounded-xl border border-white/60 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_2px_8px_rgba(31,38,135,0.02)] text-xs text-slate-500">
+        <div className="font-semibold text-slate-600">Phase 13 MVP Engine</div>
+        <div className="text-[11px] mt-0.5 text-slate-400">
           Deterministic NEWS2/PEWS + ML Challenger + 3× Surge Sim
         </div>
       </div>

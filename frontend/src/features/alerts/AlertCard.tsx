@@ -6,6 +6,7 @@ import { Button } from '../../components/ui/Button';
 import { Modal } from '../../components/ui/Modal';
 import { Select } from '../../components/ui/Select';
 import { Input } from '../../components/ui/Input';
+import { cn } from '../../lib/cn';
 import { formatRelative, formatClock } from '../../lib/datetime';
 import { ALERT_DISMISSAL_REASONS, ALERT_TYPE_LABELS } from '../../lib/enums';
 import { Link } from 'react-router-dom';
@@ -86,25 +87,27 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
   return (
     <div
       role="alert"
-      className={`p-4 rounded-xl border transition-all text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md ${
+      className={cn(
+        'p-4 rounded-xl border transition-all text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-card',
         dismissed
-          ? 'bg-slate-950/40 border-slate-800 opacity-60'
+          ? 'bg-slate-50 border-slate-200 opacity-70'
           : isBypass
-          ? 'bg-red-950/60 border-2 border-red-500 shadow-red-950/60 glow-red animate-pulse'
+          ? 'bg-rose-50 border-rose-200 border-l-4 border-l-rose-600'
           : isEscalation
-          ? 'bg-orange-950/40 border border-orange-600/80 shadow-orange-950/40'
-          : 'bg-slate-900 border-slate-800'
-      }`}
+          ? 'bg-orange-50 border-orange-200 border-l-4 border-l-orange-500'
+          : 'bg-white border-slate-200'
+      )}
     >
       <div className="flex items-start gap-3.5">
         <div
-          className={`p-2.5 rounded-xl shrink-0 mt-0.5 ${
+          className={cn(
+            'p-2.5 rounded-xl shrink-0 mt-0.5',
             isBypass
-              ? 'bg-red-600 text-white fill-white'
+              ? 'bg-rose-600 text-white'
               : isEscalation
-              ? 'bg-orange-500 text-slate-950'
-              : 'bg-amber-500 text-slate-950'
-          }`}
+              ? 'bg-orange-500 text-white'
+              : 'bg-amber-500 text-white'
+          )}
         >
           {isBypass ? (
             <Zap className="w-5 h-5 fill-white" />
@@ -117,28 +120,29 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
 
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-extrabold text-sm text-slate-100">{getTitle()}</h3>
+            <h3 className="font-bold text-sm text-slate-900">{getTitle()}</h3>
             <span
-              className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+              className={cn(
+                'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border',
                 isBypass
-                  ? 'bg-red-900 text-red-200 border-red-600'
+                  ? 'bg-white text-rose-700 border-rose-300'
                   : isEscalation
-                  ? 'bg-orange-950 text-orange-300 border-orange-700'
-                  : 'bg-amber-950 text-amber-300 border-amber-800'
-              }`}
+                  ? 'bg-white text-orange-700 border-orange-300'
+                  : 'bg-white text-amber-700 border-amber-300'
+              )}
             >
               {alert_type}
             </span>
           </div>
 
-          <p className="text-xs text-slate-300 leading-relaxed font-sans">{getMessage()}</p>
+          <p className="text-xs text-slate-600 leading-relaxed font-sans">{getMessage()}</p>
 
           <div className="flex items-center gap-3 text-[11px] font-mono text-slate-400 pt-0.5">
             <span>{formatRelative(created_at)} ({formatClock(created_at, true)})</span>
             {caseId && (
               <Link
                 to={`/cases/${caseId}`}
-                className="text-cyan-400 hover:underline flex items-center gap-1 font-semibold"
+                className="text-indigo-600 hover:underline flex items-center gap-1 font-semibold"
               >
                 Case {caseId.substring(0, 8)}
                 <ArrowRight className="w-3 h-3" />
@@ -167,7 +171,7 @@ export const AlertCard: React.FC<AlertCardProps> = ({ alert }) => {
             Dismiss Alert
           </Button>
         ) : (
-          <span className="text-[11px] font-mono text-slate-500 italic">
+          <span className="text-[11px] font-mono text-slate-400 italic">
             Dismissed
           </span>
         )}

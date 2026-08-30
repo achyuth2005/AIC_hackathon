@@ -48,3 +48,28 @@ def init_db() -> None:
     from app.models import case, observation, event, risk_assessment, resource, diagnostic_test, human_decision, alert, data_conflict, case_review, ambulance_transport  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
+    _ensure_medical_history_column()
+
+
+def _ensure_medical_history_column() -> None:
+    """Lightweight, SQLite-only schema patch for the Medical History
+    feature's new `cases.medical_history` column.
+
+    No Alembic exists in this project (see this module's own docstring --
+    SQLite is the sanctioned simpler alternative, not a full migration
+    stack), and `Base.metadata.create_all()` only creates tables that don't
+    exist yet -- it never alters an existing table's columns. Any
+    `patienttriage.db` created before this feature therefore already has a
+    `cases` table missing this column. This adds it in place (nullable, no
+    default needed) exactly once, so existing dev databases don't need to
+    be deleted and recreated. A no-op against a brand-new database (the
+    column is already present via create_all) and a no-op against a
+    non-SQLite DATABASE_URL (a real Postgres deployment would use a proper
+    migration tool, per this module's own architecture note above)."""
+    if not DATABASE_URL.startswith("sqlite"):
+        return
+    with engine.connect() as conn:
+        existing_columns = {row[1] for row in conn.exec_driver_sql("PRAGMA table_info(cases)").fetchall()}
+        if "medical_history" not in existing_columns:
+            conn.exec_driver_sql("ALTER TABLE cases ADD COLUMN medical_history VARCHAR")
+            conn.commit()

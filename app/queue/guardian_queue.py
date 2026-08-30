@@ -22,6 +22,7 @@ silently smuggled in as a side effect of a GET request.
 """
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 from typing import List, Optional
 
@@ -35,6 +36,8 @@ from app.scoring.presentation import one_line_presentation as _one_line_presenta
 from app.scoring.risk_orchestrator import assess_case
 from app.store.event_store import EventStore
 from app.timeutil import to_naive_utc, utcnow
+
+logger = logging.getLogger(__name__)
 
 # Phase 5.2's "descending" direction for deterioration_trend_direction,
 # expressed as an ordinal so it composes into a single sortable tuple
@@ -173,9 +176,11 @@ def build_queue(store: EventStore, profile: HospitalProfile, as_of: Optional[dat
     (matched by `hospital_profile_id`) -- never scores one hospital's
     cases against another's reassessment intervals/thresholds."""
     now = to_naive_utc(as_of) if as_of is not None else utcnow()
-    active_cases = [
-        c for c in store.list_cases(status=CaseStatus.ACTIVE) if c.hospital_profile_id == profile.profile_id
-    ]
+    # Audit fix (Medium, efficiency): both filters now pushed into SQL
+    # (list_cases supports hospital_profile_id directly) instead of
+    # fetching every ACTIVE case across every hospital and filtering the
+    # target hospital out in Python on every queue read.
+    active_cases = store.list_cases(status=CaseStatus.ACTIVE, hospital_profile_id=profile.profile_id)
     # Phase 6.4 wait-time inputs shared across every entry in this build:
     # computed once so a queue of n cases costs O(n) store queries rather
     # than O(n^2). Snapshot is taken up front, so a case that gets
@@ -186,6 +191,31 @@ def build_queue(store: EventStore, profile: HospitalProfile, as_of: Optional[dat
     # an exceptional fallback path, not the normal case.
     snapshots = build_case_snapshots(store, profile)
     available_capacity = count_available_capacity(store, profile)
-    entries = [_build_entry(case, store, profile, now, snapshots, available_capacity) for case in active_cases]
+
+    # Audit fix (Critical, fault isolation): this used to be a plain list
+    # comprehension -- one case with a data/config problem (e.g. a coded
+    # value with no configured score band) raised out of _build_entry and
+    # took down GET /queue for *every* patient in the hospital, including
+    # /queue/printable, the documented "total system failure" paper
+    # fallback (RUNBOOK.md Step 5) -- the one view that's supposed to keep
+    # working when everything else is down. One bad case can no longer
+    # cost every other patient their queue: it's logged and excluded from
+    # this read, not silently fixed or guessed at, and it will keep
+    # surfacing in the logs on every subsequent read until whatever is
+    # wrong with its data/config is actually fixed.
+    entries: List[QueueEntry] = []
+    for case in active_cases:
+        try:
+            entries.append(_build_entry(case, store, profile, now, snapshots, available_capacity))
+        except Exception:
+            logger.exception(
+                "Guardian Queue: case %s failed to score while building the queue -- "
+                "excluded from this read rather than failing the queue for every other "
+                "patient. This case will not appear on any queue/worklist view until "
+                "its underlying data or hospital-profile configuration is fixed.",
+                case.case_id,
+            )
+            continue
+
     entries.sort(key=_sort_key)
     return entries

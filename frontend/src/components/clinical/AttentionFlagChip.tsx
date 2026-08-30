@@ -26,38 +26,38 @@ export const AttentionFlagChip: React.FC<AttentionFlagChipProps> = ({
   > = {
     REASSESSMENT_OVERDUE: {
       label: 'REASSESSMENT OVERDUE',
-      bg: 'bg-rose-950/80',
-      text: 'text-rose-300',
-      border: 'border-rose-600/70 animate-pulse',
-      icon: <Clock className="w-3.5 h-3.5 text-rose-400 shrink-0" />,
+      bg: 'bg-rose-500/15',
+      text: 'text-rose-800 font-bold',
+      border: 'border-rose-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] animate-pulse',
+      icon: <Clock className="w-3.5 h-3.5 text-rose-600 shrink-0" />,
     },
     DETERIORATING: {
       label: 'DETERIORATING',
-      bg: 'bg-orange-950/80',
-      text: 'text-orange-300',
-      border: 'border-orange-600/70',
-      icon: <TrendingUp className="w-3.5 h-3.5 text-orange-400 shrink-0" />,
+      bg: 'bg-orange-500/15',
+      text: 'text-orange-800 font-bold',
+      border: 'border-orange-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]',
+      icon: <TrendingUp className="w-3.5 h-3.5 text-orange-600 shrink-0" />,
     },
     DATA_CONFLICT: {
       label: 'DATA CONFLICT',
-      bg: 'bg-purple-950/80',
-      text: 'text-purple-300',
-      border: 'border-purple-600/70',
-      icon: <GitCompare className="w-3.5 h-3.5 text-purple-400 shrink-0" />,
+      bg: 'bg-purple-500/15',
+      text: 'text-purple-800 font-bold',
+      border: 'border-purple-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]',
+      icon: <GitCompare className="w-3.5 h-3.5 text-purple-600 shrink-0" />,
     },
     UNKNOWN_VITALS: {
-      label: 'VITALS INCOMPLETE',
-      bg: 'bg-amber-950/80',
-      text: 'text-amber-300',
-      border: 'border-amber-600/70',
-      icon: <HelpCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />,
+      label: 'MISSING VITALS',
+      bg: 'bg-amber-500/15',
+      text: 'text-amber-900 font-bold',
+      border: 'border-amber-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]',
+      icon: <HelpCircle className="w-3.5 h-3.5 text-amber-600 shrink-0" />,
     },
     NONE: {
       label: 'STABLE / ROUTINE',
-      bg: 'bg-slate-900/60',
-      text: 'text-slate-400',
-      border: 'border-slate-800',
-      icon: <CheckCircle2 className="w-3.5 h-3.5 text-slate-500 shrink-0" />,
+      bg: 'bg-slate-500/10',
+      text: 'text-slate-700 font-medium',
+      border: 'border-slate-300/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]',
+      icon: <CheckCircle2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />,
     },
   };
 
@@ -68,7 +68,7 @@ export const AttentionFlagChip: React.FC<AttentionFlagChipProps> = ({
       role="status"
       aria-label={`Attention flag: ${current.label}`}
       className={cn(
-        'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border font-mono tracking-tight select-none',
+        'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold border backdrop-blur-sm font-mono tracking-tight select-none',
         current.bg,
         current.text,
         current.border,

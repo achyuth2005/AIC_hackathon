@@ -63,3 +63,31 @@ def client(db_session, monkeypatch):
     with TestClient(main_module.app) as test_client:
         yield test_client
     main_module.app.dependency_overrides.clear()
+
+
+def auth_headers(client, role: str = "NURSE") -> dict:
+    """Audit remediation support: nearly every mutating/PHI-reading
+    endpoint now requires an authenticated staff token (see
+    app/auth/deps.py's require_role/get_current_user). Logs in via the
+    real POST /auth/login flow (not a shortcut around it) and returns a
+    ready-to-use Authorization header for the given role ("NURSE",
+    "DOCTOR", or "ADMIN")."""
+    resp = client.post("/auth/login", json={"role": role})
+    assert resp.status_code == 200, resp.text
+    token = resp.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+
+@pytest.fixture()
+def nurse_headers(client):
+    return auth_headers(client, "NURSE")
+
+
+@pytest.fixture()
+def doctor_headers(client):
+    return auth_headers(client, "DOCTOR")
+
+
+@pytest.fixture()
+def admin_headers(client):
+    return auth_headers(client, "ADMIN")

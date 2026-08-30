@@ -27,9 +27,9 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   isLoading = false,
 }) => {
   const icon = {
-    danger: <AlertTriangle className="w-6 h-6 text-rose-500 shrink-0" />,
-    warning: <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0" />,
-    primary: <Info className="w-6 h-6 text-cyan-400 shrink-0" />,
+    danger: <AlertTriangle className="w-6 h-6 text-rose-600 shrink-0" />,
+    warning: <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0" />,
+    primary: <Info className="w-6 h-6 text-indigo-600 shrink-0" />,
   }[variant];
 
   return (
@@ -53,12 +53,12 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       }
     >
       <div className="flex items-start gap-4">
-        <div className="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 shrink-0">
+        <div className="p-2.5 rounded-xl bg-slate-100 border border-slate-200 shrink-0">
           {icon}
         </div>
         <div className="space-y-1.5">
-          <h4 className="font-semibold text-slate-100">{title}</h4>
-          <div className="text-xs text-slate-300 leading-relaxed">{message}</div>
+          <h4 className="font-semibold text-slate-900">{title}</h4>
+          <div className="text-xs text-slate-600 leading-relaxed">{message}</div>
         </div>
       </div>
     </Modal>

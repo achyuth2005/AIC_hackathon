@@ -11,17 +11,17 @@ export interface StuckPatientsTileProps {
 
 export const StuckPatientsTile: React.FC<StuckPatientsTileProps> = ({ data = [] }) => {
   return (
-    <Card className="bg-slate-900 border-rose-900/60 text-left shadow-lg">
+    <Card className="text-left border-rose-200/80">
       <CardHeader className="pb-3 flex flex-row items-center justify-between">
-        <CardTitle className="text-sm flex items-center gap-2 text-rose-300">
-          <AlertOctagon className="w-4 h-4 text-rose-400" />
-          <span>Tile 3: Stuck Patient Bottlenecks</span>
+        <CardTitle className="text-sm flex items-center gap-2 text-rose-800">
+          <AlertOctagon className="w-4 h-4 text-rose-600" />
+          <span>Stuck Patient Bottlenecks</span>
         </CardTitle>
         <span
-          className={`text-xs font-mono font-bold px-2 py-0.5 rounded border ${
+          className={`text-xs font-mono font-bold tabular-nums px-2 py-0.5 rounded border ${
             data.length > 0
-              ? 'bg-rose-950 text-rose-300 border-rose-700/80'
-              : 'bg-slate-800 text-slate-400 border-slate-700'
+              ? 'bg-rose-50 text-rose-700 border-rose-200'
+              : 'bg-slate-100 text-slate-500 border-slate-200'
           }`}
         >
           {data.length} Stuck
@@ -30,8 +30,8 @@ export const StuckPatientsTile: React.FC<StuckPatientsTileProps> = ({ data = [] 
 
       <CardContent className="space-y-3">
         {data.length === 0 ? (
-          <div className="py-8 text-center text-xs text-slate-500 font-mono space-y-1.5">
-            <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto" />
+          <div className="py-8 text-center text-xs text-slate-400 font-mono space-y-1.5">
+            <CheckCircle2 className="w-6 h-6 text-emerald-500 mx-auto" />
             <div>No active operational bottlenecks.</div>
           </div>
         ) : (
@@ -40,10 +40,10 @@ export const StuckPatientsTile: React.FC<StuckPatientsTileProps> = ({ data = [] 
               <Link
                 key={`${p.case_id}-${idx}`}
                 to={`/cases/${p.case_id}`}
-                className="p-3 rounded-xl bg-slate-950/80 border border-rose-900/60 hover:border-rose-500 flex items-center justify-between transition-colors block group"
+                className="p-3 rounded-xl bg-rose-50/60 border border-rose-200 hover:border-rose-400 hover:bg-rose-50 flex items-center justify-between transition-colors block group"
               >
                 <div className="space-y-0.5">
-                  <div className="font-bold text-xs text-slate-100 group-hover:text-cyan-300">
+                  <div className="font-bold text-xs text-slate-900 group-hover:text-rose-800">
                     {p.label}
                   </div>
                   <div className="text-[10px] font-mono text-slate-500">
@@ -51,7 +51,7 @@ export const StuckPatientsTile: React.FC<StuckPatientsTileProps> = ({ data = [] 
                   </div>
                 </div>
 
-                <div className="text-right text-xs font-mono text-rose-400 font-bold flex items-center gap-1">
+                <div className="text-right text-xs font-mono tabular-nums text-rose-700 font-bold flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   {formatMinutes(p.minutes_overdue)}
                 </div>
@@ -61,7 +61,7 @@ export const StuckPatientsTile: React.FC<StuckPatientsTileProps> = ({ data = [] 
         )}
 
         <div className="pt-1 flex justify-end">
-          <Link to="/ops" className="text-xs text-cyan-400 hover:underline font-mono inline-flex items-center gap-1">
+          <Link to="/ops" className="text-xs text-indigo-600 hover:underline font-medium inline-flex items-center gap-1">
             <span>Manage on Ops Board</span>
             <ArrowRight className="w-3 h-3" />
           </Link>

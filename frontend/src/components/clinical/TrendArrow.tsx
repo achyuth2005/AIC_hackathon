@@ -20,27 +20,27 @@ export const TrendArrow: React.FC<TrendArrowProps> = ({
   > = {
     WORSENING: {
       label: 'Worsening',
-      icon: <TrendingUp className="w-4 h-4 text-orange-400" />,
-      textClass: 'text-orange-400',
-      bgClass: 'bg-orange-950/50 border-orange-700/50',
+      icon: <TrendingUp className="w-3.5 h-3.5 text-orange-600" />,
+      textClass: 'text-orange-800 font-semibold',
+      bgClass: 'bg-orange-500/15 border-orange-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
     },
     STABLE: {
       label: 'Stable',
-      icon: <Minus className="w-4 h-4 text-slate-400" />,
-      textClass: 'text-slate-300',
-      bgClass: 'bg-slate-800/60 border-slate-700/50',
+      icon: <Minus className="w-3.5 h-3.5 text-slate-500" />,
+      textClass: 'text-slate-700 font-medium',
+      bgClass: 'bg-slate-500/10 border-slate-300/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
     },
     IMPROVING: {
       label: 'Improving',
-      icon: <TrendingDown className="w-4 h-4 text-emerald-400" />,
-      textClass: 'text-emerald-400',
-      bgClass: 'bg-emerald-950/50 border-emerald-700/50',
+      icon: <TrendingDown className="w-3.5 h-3.5 text-emerald-600" />,
+      textClass: 'text-emerald-800 font-semibold',
+      bgClass: 'bg-emerald-500/15 border-emerald-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
     },
     UNKNOWN: {
       label: 'Unknown',
-      icon: <HelpCircle className="w-3.5 h-3.5 text-slate-500" />,
+      icon: <HelpCircle className="w-3.5 h-3.5 text-slate-400" />,
       textClass: 'text-slate-500',
-      bgClass: 'bg-slate-900 border-slate-800',
+      bgClass: 'bg-slate-500/10 border-slate-300/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
     },
   };
 
@@ -51,7 +51,7 @@ export const TrendArrow: React.FC<TrendArrowProps> = ({
       role="status"
       aria-label={`Deterioration trend: ${current.label}`}
       className={cn(
-        'inline-flex items-center gap-1.5 px-2 py-1 rounded-md border text-xs font-mono select-none',
+        'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-xs font-mono select-none',
         current.bgClass,
         current.textClass,
         className

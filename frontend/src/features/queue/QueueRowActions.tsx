@@ -42,6 +42,20 @@ export const QueueRowActions: React.FC<QueueRowActionsProps> = ({ entry }) => {
 
   return (
     <div className="flex items-center gap-1.5 justify-end" onClick={(e) => e.stopPropagation()}>
+      {/* 1-Tap Reassess Now Action — highest visual priority when overdue */}
+      <Button
+        variant={reassessment.is_due ? 'danger' : 'secondary'}
+        size="sm"
+        disabled={isReassessPending}
+        isLoading={isReassessPending}
+        onClick={handleMarkReassessed}
+        leftIcon={<Clock className="w-3.5 h-3.5" />}
+        title="Reset Reassessment Clock"
+        className="font-semibold text-xs"
+      >
+        {reassessment.is_due ? 'Reassess Now' : 'Reassessed'}
+      </Button>
+
       {/* 1-Tap Escalate Action */}
       <Button
         variant="warning"
@@ -51,31 +65,17 @@ export const QueueRowActions: React.FC<QueueRowActionsProps> = ({ entry }) => {
         onClick={handleEscalate}
         leftIcon={<ArrowUpCircle className="w-3.5 h-3.5" />}
         title={final_acuity === 1 ? 'Patient already at ESI 1 (Highest Urgency)' : '1-Tap Escalate Urgency (No friction)'}
-        className="font-bold text-xs shadow-sm bg-orange-600 hover:bg-orange-500 active:bg-orange-700 disabled:opacity-40"
+        className="font-semibold text-xs"
       >
         Escalate
-      </Button>
-
-      {/* Mark Reassessed Action */}
-      <Button
-        variant={reassessment.is_due ? 'danger' : 'secondary'}
-        size="sm"
-        disabled={isReassessPending}
-        isLoading={isReassessPending}
-        onClick={handleMarkReassessed}
-        leftIcon={<Clock className="w-3.5 h-3.5" />}
-        title="Reset Reassessment Clock"
-        className={reassessment.is_due ? 'animate-pulse' : ''}
-      >
-        {reassessment.is_due ? 'Reassess Now' : 'Reassessed'}
       </Button>
 
       {/* Record Vitals Quick Link */}
       <Link to={`/cases/${case_id}`}>
         <Button
-          variant="secondary"
+          variant="outline"
           size="sm"
-          leftIcon={<Activity className="w-3.5 h-3.5 text-cyan-400" />}
+          leftIcon={<Activity className="w-3.5 h-3.5 text-slate-500" />}
           className="hidden sm:inline-flex"
         >
           Vitals
@@ -86,7 +86,7 @@ export const QueueRowActions: React.FC<QueueRowActionsProps> = ({ entry }) => {
       <div className="relative">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-white/60 transition-colors"
           aria-label="More actions"
         >
           <MoreVertical className="w-4 h-4" />
@@ -95,13 +95,13 @@ export const QueueRowActions: React.FC<QueueRowActionsProps> = ({ entry }) => {
         {isMenuOpen && (
           <>
             <div className="fixed inset-0 z-20" onClick={() => setIsMenuOpen(false)} />
-            <div className="absolute right-0 mt-1 w-48 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl p-1 z-30 animate-fade-in text-left">
+            <div className="absolute right-0 mt-1 w-52 rounded-2xl bg-white/85 backdrop-blur-2xl border border-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_16px_40px_rgba(31,38,135,0.08)] p-1.5 z-30 animate-fade-in text-left">
               <button
                 onClick={() => {
                   setIsMenuOpen(false);
                   navigate(`/cases/${case_id}`);
                 }}
-                className="w-full text-left px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 hover:text-white rounded-lg flex items-center gap-2"
+                className="w-full text-left px-3 py-2 text-xs text-slate-700 hover:bg-white/70 hover:text-slate-900 rounded-xl flex items-center gap-2 transition-colors cursor-pointer"
               >
                 <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
                 Open Full Case
@@ -113,9 +113,9 @@ export const QueueRowActions: React.FC<QueueRowActionsProps> = ({ entry }) => {
                   setIsDeEscalateOpen(true);
                 }}
                 disabled={final_acuity >= 5}
-                className="w-full text-left px-3 py-2 text-xs text-rose-300 hover:bg-rose-950/60 hover:text-rose-100 rounded-lg flex items-center gap-2 disabled:opacity-40"
+                className="w-full text-left px-3 py-2 text-xs text-rose-800 hover:bg-rose-500/15 hover:text-rose-900 rounded-xl flex items-center gap-2 disabled:opacity-40 transition-colors cursor-pointer"
               >
-                <ArrowDownCircle className="w-3.5 h-3.5 text-rose-400" />
+                <ArrowDownCircle className="w-3.5 h-3.5 text-rose-500" />
                 De-escalate (Reason Required)
               </button>
             </div>

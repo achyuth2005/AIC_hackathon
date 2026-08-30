@@ -87,7 +87,10 @@ def _subgroup_stats(
 
 
 def compute_override_monitoring(store: EventStore, profile: HospitalProfile) -> OverrideMonitoringReport:
-    cases = [c for c in store.list_cases() if c.hospital_profile_id == profile.profile_id]
+    # Audit fix (Medium, efficiency): filters hospital_profile_id in SQL
+    # now instead of fetching every case across every hospital profile in
+    # the database and filtering in Python.
+    cases = store.list_cases(hospital_profile_id=profile.profile_id)
 
     decisions_by_case: Dict[str, List[HumanDecision]] = {}
     all_decisions: List[HumanDecision] = []

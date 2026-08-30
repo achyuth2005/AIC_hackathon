@@ -61,9 +61,16 @@ def test_snapshot_is_plain_text_no_markup(store: EventStore):
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_printable_endpoint_returns_plain_text(client):
-    client.post("/cases", json={"age_years": 40, "display_name": "Jane Doe"})
-    resp = client.get("/queue/printable")
+def test_printable_endpoint_returns_plain_text(client, nurse_headers):
+    client.post("/cases", json={"age_years": 40, "display_name": "Jane Doe"}, headers=nurse_headers)
+
+    # Audit fix: this "total system failure" fallback view now requires a
+    # staff token too, same as every other PHI-reading endpoint -- see
+    # app/api/queue.py's audit-fix docstring for the reasoning/tradeoff.
+    unauth = client.get("/queue/printable")
+    assert unauth.status_code == 401
+
+    resp = client.get("/queue/printable", headers=nurse_headers)
     assert resp.status_code == 200
     assert resp.headers["content-type"].startswith("text/plain")
     assert "Jane Doe" in resp.text

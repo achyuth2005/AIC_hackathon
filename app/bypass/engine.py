@@ -39,13 +39,20 @@ from app.scoring.trigger_conditions import evaluate_condition
 from app.store.event_store import EventStore
 
 
-def evaluate_and_activate(case: Case, store: EventStore, profile: HospitalProfile) -> Optional[Case]:
+def evaluate_and_activate(
+    case: Case, store: EventStore, profile: HospitalProfile, commit: bool = True
+) -> Optional[Case]:
     """Runs both automatic detectors (#2 physiological, #3 text) against
     the case's current observations. Returns the updated Case if bypass was
     (newly or again) activated, else None. Never raises on missing data --
     like the hard triggers, an absent/stale reading simply does not fire
     (Phase 3.3's 'missing is not normal' cuts both ways: absence is not
-    evidence of crisis either)."""
+    evidence of crisis either).
+
+    `commit=False`: threaded straight through to
+    EventStore.activate_emergency_bypass so a caller composing this with
+    other writes in the same request (POST /cases/{id}/observations) can
+    keep the whole thing in one transaction."""
     physiological_hit = _evaluate_physiological(case, store, profile)
     if physiological_hit is not None:
         trigger_id, label, raw_value = physiological_hit
@@ -54,6 +61,7 @@ def evaluate_and_activate(case: Case, store: EventStore, profile: HospitalProfil
             source=BypassSource.PHYSIOLOGICAL,
             reason=f"{label} (value={raw_value})",
             trigger_id=trigger_id,
+            commit=commit,
         )
 
     text_hit = _evaluate_text(case, store, profile)
@@ -63,6 +71,7 @@ def evaluate_and_activate(case: Case, store: EventStore, profile: HospitalProfil
             source=BypassSource.TEXT_PATTERN,
             reason=f"Critical phrase matched: '{text_hit}'",
             trigger_id=None,
+            commit=commit,
         )
 
     return None

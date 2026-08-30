@@ -40,11 +40,11 @@ export const AssignResourcePanel: React.FC<AssignResourcePanelProps> = ({ caseId
 
   return (
     <div className="space-y-4">
-      <Card className="bg-slate-900 border-slate-800 text-left">
+      <Card className="text-left">
         <CardHeader className="pb-3">
           <CardTitle className="text-sm flex items-center justify-between">
-            <span className="flex items-center gap-2 text-slate-200">
-              <Layers className="w-4 h-4 text-emerald-400" />
+            <span className="flex items-center gap-2 text-slate-900">
+              <Layers className="w-4 h-4 text-indigo-600" />
               Assign Department Resource / Bed
             </span>
           </CardTitle>
@@ -69,7 +69,7 @@ export const AssignResourcePanel: React.FC<AssignResourcePanelProps> = ({ caseId
               variant="primary"
               size="md"
               isLoading={isPending}
-              className="w-full sm:w-auto font-bold bg-emerald-600 hover:bg-emerald-500 shadow-md shadow-emerald-950/40"
+              className="w-full sm:w-auto font-bold"
             >
               Assign Resource
             </Button>

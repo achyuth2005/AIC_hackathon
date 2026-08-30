@@ -14,7 +14,7 @@ export const PatientPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 p-6 flex flex-col items-center justify-center max-w-4xl mx-auto space-y-6">
+      <div className="min-h-screen bg-slate-50 p-6 flex flex-col items-center justify-center max-w-4xl mx-auto space-y-6">
         <Skeleton className="h-24 w-full rounded-2xl" />
         <Skeleton className="h-48 w-full rounded-2xl" />
         <Skeleton className="h-40 w-full rounded-2xl" />
@@ -24,7 +24,7 @@ export const PatientPage: React.FC = () => {
 
   if (isError || !patientView || !caseId) {
     return (
-      <div className="min-h-screen bg-slate-950 text-slate-100 p-6 flex flex-col items-center justify-center max-w-md mx-auto text-left">
+      <div className="min-h-screen bg-slate-50 p-6 flex flex-col items-center justify-center max-w-md mx-auto text-left">
         <ErrorState
           title="Patient Waiting Room Portal"
           error={error || new Error('Invalid or missing case link.')}
@@ -42,19 +42,19 @@ export const PatientPage: React.FC = () => {
   const { display_name, stage, next_step_message, wait_time_estimate } = patientView;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 py-8 px-4 sm:px-6 flex flex-col justify-between">
+    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 flex flex-col justify-between">
       <div className="max-w-4xl w-full mx-auto space-y-6 text-left animate-fade-in pb-12">
-        {/* Transparent Header */}
-        <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+        {/* Header */}
+        <div className="p-6 rounded-3xl bg-white border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-card">
           <div className="flex items-center gap-3.5">
-            <div className="p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <div className="p-3 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200">
               <HeartPulse className="w-8 h-8" />
             </div>
             <div>
-              <div className="text-xs font-bold font-mono text-cyan-400 uppercase tracking-wider">
+              <div className="text-xs font-bold font-mono text-emerald-700 uppercase tracking-wider">
                 Emergency Department Care Portal
               </div>
-              <h1 className="text-2xl font-black text-white">
+              <h1 className="text-2xl font-black text-slate-900">
                 Welcome, {display_name || 'Patient'}
               </h1>
             </div>
@@ -64,13 +64,13 @@ export const PatientPage: React.FC = () => {
             <button
               onClick={() => refetch()}
               disabled={isFetching}
-              className="p-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-400 hover:text-white cursor-pointer"
+              className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 cursor-pointer transition-colors"
               title="Refresh status"
             >
-              <RefreshCw className={`w-4 h-4 ${isFetching ? 'animate-spin text-cyan-400' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${isFetching ? 'animate-spin text-emerald-600' : ''}`} />
             </button>
-            <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-xs font-mono text-slate-300">
-              <PhoneCall className="w-3.5 h-3.5 text-cyan-400" />
+            <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600">
+              <PhoneCall className="w-3.5 h-3.5 text-emerald-600" />
               <span>Desk Ext: 4100</span>
             </div>
           </div>
@@ -83,15 +83,15 @@ export const PatientPage: React.FC = () => {
         <WaitTimeDisplay estimate={wait_time_estimate} />
 
         {/* 3. Next Step & Clinical Instructions Message */}
-        <Card className="bg-slate-900 border-slate-800 shadow-xl text-left">
+        <Card className="text-left">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm flex items-center gap-2 text-slate-300">
-              <MessageSquare className="w-4 h-4 text-cyan-400" />
+            <CardTitle className="text-sm flex items-center gap-2 text-slate-600">
+              <MessageSquare className="w-4 h-4 text-emerald-600" />
               <span>What to Expect Next</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-sm font-medium text-slate-200 leading-relaxed">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm font-medium text-slate-700 leading-relaxed">
               {next_step_message || 'Please remain seated in the waiting area. A clinical team member will call your name for physician examination.'}
             </div>
           </CardContent>
@@ -102,7 +102,7 @@ export const PatientPage: React.FC = () => {
       </div>
 
       {/* Footer Disclaimer */}
-      <footer className="text-center py-4 text-xs font-mono text-slate-600 border-t border-slate-900 max-w-4xl mx-auto w-full">
+      <footer className="text-center py-4 text-xs font-mono text-slate-400 border-t border-slate-200 max-w-4xl mx-auto w-full">
         PatientTriage.ai Waiting Room System • Patient Data Strictly Isolated
       </footer>
     </div>

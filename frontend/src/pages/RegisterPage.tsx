@@ -9,7 +9,7 @@ export const RegisterPage: React.FC = () => {
       <div className="flex items-center justify-between max-w-2xl mx-auto">
         <Link
           to="/queue"
-          className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 font-medium transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-indigo-600 font-medium transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Guardian Queue

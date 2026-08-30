@@ -18,6 +18,7 @@ from app.models.enums import (
 from app.store.event_store import (
     EventStore,
     InvalidArrivalError,
+    InvalidDispositionError,
     NotFoundError,
     ObservationAlreadySupersededError,
     UnknownEventTypeError,
@@ -74,6 +75,42 @@ def test_record_arrival_rejects_a_case_not_awaiting_arrival(store: EventStore):
 def test_record_arrival_on_missing_case_raises_not_found(store: EventStore):
     with pytest.raises(NotFoundError):
         store.record_arrival("does-not-exist")
+
+
+def test_dispose_case_transitions_active_to_disposed(store: EventStore):
+    """Bug fix: CaseStatus.DISPOSED and PATIENT_DISPOSED were declared
+    throughout the type system but no method anywhere ever actually set a
+    case to DISPOSED."""
+    case = store.create_case(age_years=60, arrival_mode=ArrivalMode.WALK_IN)
+    updated = store.dispose_case(case.case_id, disposition="DISCHARGED")
+
+    assert updated.case_id == case.case_id  # same record, disposition is an event, not a new case
+    assert updated.status == CaseStatus.DISPOSED
+
+    event_types = [e.event_type for e in store.get_timeline(case.case_id)]
+    assert event_types == ["CASE_CREATED", "PATIENT_DISPOSED"]
+
+    disposal_event = next(e for e in store.get_timeline(case.case_id) if e.event_type == "PATIENT_DISPOSED")
+    assert disposal_event.payload["disposition"] == "DISCHARGED"
+
+    # Disposed cases stay fully readable -- never deleted.
+    assert store.get_case(case.case_id) is not None
+
+
+def test_dispose_case_rejects_a_case_not_currently_active(store: EventStore):
+    pre_arrival = store.create_case(age_years=40, arrival_mode=ArrivalMode.AMBULANCE)
+    with pytest.raises(InvalidDispositionError):
+        store.dispose_case(pre_arrival.case_id)
+
+    active = store.create_case(age_years=40, arrival_mode=ArrivalMode.WALK_IN)
+    store.dispose_case(active.case_id)
+    with pytest.raises(InvalidDispositionError):  # already disposed
+        store.dispose_case(active.case_id)
+
+
+def test_dispose_case_on_missing_case_raises_not_found(store: EventStore):
+    with pytest.raises(NotFoundError):
+        store.dispose_case("does-not-exist")
 
 
 def test_add_observation_on_missing_case_raises_not_found(store: EventStore):
@@ -293,3 +330,188 @@ def test_timeline_is_ordered_by_recorded_at(store: EventStore):
     timeline = store.get_timeline(case.case_id)
     recorded_ats = [e.recorded_at for e in timeline]
     assert recorded_ats == sorted(recorded_ats)
+
+
+# ---------------------------------------------------------------------
+# Audit fixes (dimension 3, Validation): controlled vocabulary + vital
+# plausibility bounds, enforced at the store layer so every entry path
+# (direct API, supersede, LLM intake, demo seeding) gets the same check.
+# ---------------------------------------------------------------------
+def test_add_observation_rejects_an_unknown_concept_code(store: EventStore):
+    case = store.create_case(age_years=30)
+    with pytest.raises(ValueError, match="controlled vocabulary"):
+        store.add_observation(
+            case_id=case.case_id,
+            concept_code="HEART_RATEE",  # typo -- not a real concept
+            value=72.0,
+            value_type=ValueType.NUMERIC,
+            source_type=SourceType.DEVICE,
+            reliability_tier=ReliabilityTier.MACHINE_MEASURED,
+            measurement_status=MeasurementStatus.MEASURED,
+            observed_at=_now(),
+        )
+
+
+def test_add_observation_rejects_an_implausible_numeric_vital(store: EventStore):
+    case = store.create_case(age_years=30)
+    with pytest.raises(ValueError, match="plausible range"):
+        store.add_observation(
+            case_id=case.case_id,
+            concept_code="SPO2",
+            value=980.0,  # SpO2 is a percentage -- can never exceed 100
+            value_type=ValueType.NUMERIC,
+            source_type=SourceType.DEVICE,
+            reliability_tier=ReliabilityTier.MACHINE_MEASURED,
+            measurement_status=MeasurementStatus.MEASURED,
+            observed_at=_now(),
+        )
+
+
+def test_add_observation_rejects_a_negative_vital(store: EventStore):
+    case = store.create_case(age_years=30)
+    with pytest.raises(ValueError, match="plausible range"):
+        store.add_observation(
+            case_id=case.case_id,
+            concept_code="HEART_RATE",
+            value=-40.0,
+            value_type=ValueType.NUMERIC,
+            source_type=SourceType.DEVICE,
+            reliability_tier=ReliabilityTier.MACHINE_MEASURED,
+            measurement_status=MeasurementStatus.MEASURED,
+            observed_at=_now(),
+        )
+
+
+def test_supersede_also_enforces_the_vital_range_check(store: EventStore):
+    """The range check lives in add_observation (not only the
+    ObservationCreateRequest schema) precisely so supersede_observation --
+    which never exposes concept_code on its own request shape, carrying it
+    forward from the original row instead -- gets the same protection."""
+    case = store.create_case(age_years=30)
+    original = store.add_observation(
+        case_id=case.case_id,
+        concept_code="HEART_RATE",
+        value=72.0,
+        value_type=ValueType.NUMERIC,
+        source_type=SourceType.NURSE,
+        reliability_tier=ReliabilityTier.CLINICIAN_OBSERVED,
+        measurement_status=MeasurementStatus.MEASURED,
+        observed_at=_now(),
+    )
+    with pytest.raises(ValueError, match="plausible range"):
+        store.supersede_observation(
+            observation_id=original.observation_id,
+            value=9999.0,
+            value_type=ValueType.NUMERIC,
+            source_type=SourceType.NURSE,
+            reliability_tier=ReliabilityTier.CLINICIAN_OBSERVED,
+            measurement_status=MeasurementStatus.MEASURED,
+            observed_at=_now(),
+        )
+
+
+def test_add_observation_accepts_a_plausible_vital_in_bounds(store: EventStore):
+    """Sanity check alongside the rejection tests above: the bound is
+    generous, not clinically restrictive -- a real abnormal-but-plausible
+    reading must still be accepted."""
+    case = store.create_case(age_years=30)
+    obs = store.add_observation(
+        case_id=case.case_id,
+        concept_code="HEART_RATE",
+        value=220.0,  # abnormal, but physiologically possible
+        value_type=ValueType.NUMERIC,
+        source_type=SourceType.DEVICE,
+        reliability_tier=ReliabilityTier.MACHINE_MEASURED,
+        measurement_status=MeasurementStatus.MEASURED,
+        observed_at=_now(),
+    )
+    assert obs.value == 220.0
+
+
+def test_add_observation_rejects_a_null_value_when_measured(store: EventStore):
+    """Audit fix (Critical, data integrity): measurement_status=MEASURED
+    with no value used to sail straight through -- accepted, persisted --
+    then crashed every future scoring pass over this concept for this case
+    (evaluate_range_bands/evaluate_coded_points have no band for "no
+    value"). Enforced at the store layer (not only the
+    ObservationCreateRequest schema) so this can never happen via any entry
+    path, including the ones that never go through that schema at all:
+    demo seeding, the surge simulator, and the LLM intake engine."""
+    case = store.create_case(age_years=30)
+    with pytest.raises(ValueError, match="value is required when measurement_status is MEASURED"):
+        store.add_observation(
+            case_id=case.case_id,
+            concept_code="TEMPERATURE",
+            value=None,
+            value_type=ValueType.NUMERIC,
+            source_type=SourceType.NURSE,
+            reliability_tier=ReliabilityTier.CLINICIAN_OBSERVED,
+            measurement_status=MeasurementStatus.MEASURED,
+            observed_at=_now(),
+        )
+    # Nothing should have been written at all -- not a half-persisted row.
+    assert store.get_current_observations(case.case_id) == []
+
+
+def test_add_observation_permits_a_null_value_when_not_measured(store: EventStore):
+    """The null-value rejection above is specific to MEASURED -- a genuine
+    "we tried and couldn't get a reading" (UNOBTAINABLE) or "not attempted"
+    (NOT_MEASURED) observation legitimately carries no value, and Phase
+    3.3's 'missing is not normal' handling depends on exactly this shape
+    still being writable."""
+    case = store.create_case(age_years=30)
+    obs = store.add_observation(
+        case_id=case.case_id,
+        concept_code="TEMPERATURE",
+        value=None,
+        value_type=ValueType.NUMERIC,
+        source_type=SourceType.NURSE,
+        reliability_tier=ReliabilityTier.CLINICIAN_OBSERVED,
+        measurement_status=MeasurementStatus.UNOBTAINABLE,
+        observed_at=_now(),
+    )
+    assert obs.value is None
+
+
+# ---------------------------------------------------------------------
+# Audit fix (High, dimension 2): flag_reassessment_overdue is now
+# idempotent via an atomic conditional UPDATE, not merely "the caller is
+# expected to check first" -- calling it twice in a row (simulating two
+# concurrent callers racing) must log REASSESSMENT_DUE only once.
+# ---------------------------------------------------------------------
+def test_flag_reassessment_overdue_is_idempotent_under_a_simulated_race(store: EventStore):
+    case = store.create_case(age_years=30)
+    store.flag_reassessment_overdue(case.case_id)
+    store.flag_reassessment_overdue(case.case_id)  # simulates a second racing caller
+
+    due_events = [e for e in store.get_timeline(case.case_id) if e.event_type == "REASSESSMENT_DUE"]
+    assert len(due_events) == 1
+
+
+# ---------------------------------------------------------------------
+# Audit fix (Critical, dimension 2): assign_resource claims each candidate
+# via an atomic conditional UPDATE and falls through to the next candidate
+# on a lost race, rather than a read-then-write gap that could double-book
+# one resource to two cases.
+# ---------------------------------------------------------------------
+def test_assign_resource_still_finds_a_free_bed_after_the_first_candidate_is_taken(store: EventStore):
+    from app.config.hospital_profile import load_hospital_profile
+    from app.models.enums import ResourceStatus, ResourceType
+
+    profile = load_hospital_profile("default")
+    store.create_resource(resource_type=ResourceType.TREATMENT_SPACE, label="Bay 1")
+    store.create_resource(resource_type=ResourceType.TREATMENT_SPACE, label="Bay 2")
+
+    case_a = store.create_case(age_years=30)
+    case_b = store.create_case(age_years=40)
+
+    resource_a = store.assign_resource(case_a.case_id, ResourceType.TREATMENT_SPACE, profile)
+    resource_b = store.assign_resource(case_b.case_id, ResourceType.TREATMENT_SPACE, profile)
+
+    # Two different beds, each assigned to exactly the case that requested
+    # it -- never the same bed double-booked to both.
+    assert resource_a.resource_id != resource_b.resource_id
+    assert resource_a.assigned_case_id == case_a.case_id
+    assert resource_b.assigned_case_id == case_b.case_id
+    assert resource_a.status == ResourceStatus.OCCUPIED
+    assert resource_b.status == ResourceStatus.OCCUPIED

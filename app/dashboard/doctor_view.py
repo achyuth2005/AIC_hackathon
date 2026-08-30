@@ -90,6 +90,7 @@ def build_doctor_view(case: Case, store: EventStore, profile: HospitalProfile, r
     return DoctorCaseView(
         case_id=case.case_id,
         display_name=case.display_name,
+        medical_history=case.medical_history,
         current_observations=[ObservationResponse.model_validate(o) for o in current_observations],
         latest_risk_assessment=(
             RiskAssessmentResponse.model_validate(latest_assessment) if latest_assessment else None

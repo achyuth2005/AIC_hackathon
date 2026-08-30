@@ -1,6 +1,7 @@
 import React from 'react';
 import { SurgeSimulationResult } from '../../types/api';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/Card';
+import { MetricCard } from '../../components/ui/MetricCard';
 import { ShieldCheck, Flame } from 'lucide-react';
 
 export interface SurgeBurstPanelProps {
@@ -48,46 +49,47 @@ export const SurgeBurstPanel: React.FC<SurgeBurstPanelProps> = ({ result }) => {
   ];
 
   return (
-    <Card className="bg-slate-900 border-amber-900/80 text-left shadow-2xl animate-fade-in">
-      <CardHeader className="pb-3 flex flex-row items-center justify-between border-b border-slate-800">
-        <CardTitle className="text-base flex items-center gap-2.5 text-amber-300">
-          <Flame className="w-5 h-5 text-amber-400" />
+    <Card className="text-left shadow-card-lg animate-fade-in">
+      <CardHeader className="pb-3 flex flex-row items-center justify-between border-b border-slate-100">
+        <CardTitle className="text-base flex items-center gap-2.5 text-slate-900">
+          <Flame className="w-5 h-5 text-amber-500" />
           <span>Phase 14.2 Surge Simulation Results ({multiplier}x Scale)</span>
         </CardTitle>
-        <span className="text-[10px] font-mono font-bold bg-amber-950 text-amber-300 px-3 py-1 rounded-full border border-amber-700">
+        <span className="text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-200">
           Surge Proof Verified
         </span>
       </CardHeader>
 
       <CardContent className="space-y-6 pt-4">
         {/* Metrics Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
-          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
-            <span className="text-[10px] text-slate-500 uppercase block">Baseline Census</span>
-            <span className="text-xl font-black text-white">{baseline_count} Cases</span>
-          </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <MetricCard label="Baseline Census" value={`${baseline_count} Cases`} />
 
-          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
-            <span className="text-[10px] text-slate-500 uppercase block">Surge Arrival Burst</span>
-            <span className="text-xl font-black text-amber-300">+{surge_count} Cases</span>
-          </div>
+          <MetricCard
+            label="Surge Arrival Burst"
+            value={`+${surge_count} Cases`}
+            tone="amber"
+            active
+          />
 
-          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
-            <span className="text-[10px] text-slate-500 uppercase block">Queue Scaling</span>
-            <span className="text-xl font-black text-white">
-              {queue_length_before} → {queue_length_after}
-            </span>
-          </div>
+          <MetricCard
+            label="Queue Scaling"
+            value={`${queue_length_before} → ${queue_length_after}`}
+            tone="indigo"
+            active
+          />
 
-          <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
-            <span className="text-[10px] text-slate-500 uppercase block">Overdue Cases</span>
-            <span className="text-xl font-black text-rose-400">{reassessment_overdue_count} Overdue</span>
-          </div>
+          <MetricCard
+            label="Overdue Cases"
+            value={`${reassessment_overdue_count} Overdue`}
+            tone="rose"
+            active={reassessment_overdue_count > 0}
+          />
         </div>
 
         {/* 6 Proof Cards */}
         <div className="space-y-2">
-          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
             Verified Surge System Invariants
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -96,14 +98,14 @@ export const SurgeBurstPanel: React.FC<SurgeBurstPanelProps> = ({ result }) => {
                 key={idx}
                 className={`p-3 rounded-xl border flex items-start gap-2.5 ${
                   p.passed
-                    ? 'bg-slate-950/80 border-emerald-800/60 text-emerald-300'
-                    : 'bg-slate-950/80 border-slate-800 text-slate-400'
+                    ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                    : 'bg-slate-50 border-slate-200 text-slate-500'
                 }`}
               >
-                <ShieldCheck className={`w-4 h-4 shrink-0 mt-0.5 ${p.passed ? 'text-emerald-400' : 'text-slate-500'}`} />
+                <ShieldCheck className={`w-4 h-4 shrink-0 mt-0.5 ${p.passed ? 'text-emerald-600' : 'text-slate-400'}`} />
                 <div className="space-y-0.5 text-xs">
-                  <div className="font-bold text-slate-200">{p.title}</div>
-                  <div className="text-[11px] text-slate-400 font-sans">{p.description}</div>
+                  <div className={`font-bold ${p.passed ? 'text-emerald-800' : 'text-slate-700'}`}>{p.title}</div>
+                  <div className={`text-[11px] font-sans ${p.passed ? 'text-emerald-700' : 'text-slate-500'}`}>{p.description}</div>
                 </div>
               </div>
             ))}

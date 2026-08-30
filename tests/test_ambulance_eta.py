@@ -108,24 +108,28 @@ def test_pre_alert_handles_no_transport_and_no_assessment_gracefully(store: Even
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_ambulance_endpoints(client):
+def test_ambulance_endpoints(client, nurse_headers):
     case_id = client.post(
-        "/cases", json={"age_years": 50, "arrival_mode": "AMBULANCE", "estimated_transport_minutes": 18.0}
+        "/cases",
+        json={"age_years": 50, "arrival_mode": "AMBULANCE", "estimated_transport_minutes": 18.0},
+        headers=nurse_headers,
     ).json()["case_id"]
 
-    eta = client.get(f"/cases/{case_id}/eta").json()
+    eta = client.get(f"/cases/{case_id}/eta", headers=nurse_headers).json()
     assert eta["lower_minutes"] < eta["upper_minutes"]
 
+    # Ambulance delay stays unauthenticated by design (no paramedic role
+    # exists in this Auth/RBAC mock -- see TransportDelayRequest's docstring).
     delayed = client.post(f"/cases/{case_id}/ambulance/delay", json={"additional_minutes": 10.0, "reason": "traffic"})
     assert delayed.status_code == 200
     assert delayed.json()["delayed_additional_minutes"] == 10.0
 
-    prealert = client.get(f"/cases/{case_id}/pre-alert")
+    prealert = client.get(f"/cases/{case_id}/pre-alert", headers=nurse_headers)
     assert prealert.status_code == 200
     assert prealert.json()["eta_range"] is not None
 
 
-def test_eta_endpoint_404s_for_a_walk_in(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    resp = client.get(f"/cases/{case_id}/eta")
+def test_eta_endpoint_404s_for_a_walk_in(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
+    resp = client.get(f"/cases/{case_id}/eta", headers=nurse_headers)
     assert resp.status_code == 404

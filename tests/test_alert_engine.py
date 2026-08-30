@@ -209,16 +209,19 @@ def test_alert_budget_flags_over_target(store: EventStore):
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_alerts_endpoint_and_dismiss_flow(client):
-    case_id = client.post("/cases", json={"age_years": 40}).json()["case_id"]
-    token = client.post("/auth/login", json={"role": "NURSE"}).json()["access_token"]
+def test_alerts_endpoint_and_dismiss_flow(client, nurse_headers):
+    case_id = client.post("/cases", json={"age_years": 40}, headers=nurse_headers).json()["case_id"]
     client.post(
         f"/cases/{case_id}/emergency-bypass",
         json={"reason": "test"},
-        headers={"Authorization": f"Bearer {token}"},
+        headers=nurse_headers,
     )
 
-    alerts = client.get("/alerts").json()
+    # Audit fix: GET /alerts now requires authentication too.
+    unauthenticated = client.get("/alerts")
+    assert unauthenticated.status_code == 401
+
+    alerts = client.get("/alerts", headers=nurse_headers).json()
     assert len(alerts) == 1
     alert_id = alerts[0]["alert_id"]
 
@@ -228,16 +231,16 @@ def test_alerts_endpoint_and_dismiss_flow(client):
     ok = client.post(
         f"/alerts/{alert_id}/dismiss",
         json={"reason_code": "ALREADY_ACTIONED"},
-        headers={"Authorization": f"Bearer {token}"},
+        headers=nurse_headers,
     )
     assert ok.status_code == 200
     assert ok.json()["dismissed"] is True
 
-    assert client.get("/alerts").json() == []
+    assert client.get("/alerts", headers=nurse_headers).json() == []
 
 
-def test_alert_budget_endpoint(client):
-    resp = client.get("/alerts/budget", params={"nurses_on_shift": 2})
+def test_alert_budget_endpoint(client, nurse_headers):
+    resp = client.get("/alerts/budget", params={"nurses_on_shift": 2}, headers=nurse_headers)
     assert resp.status_code == 200
     body = resp.json()
     assert body["nurses_on_shift"] == 2

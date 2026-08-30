@@ -138,3 +138,44 @@ def test_reassessment_overdue_is_flagged_once_and_clears_after_mark_reassessed(s
     assert cleared.reassessment_overdue is False
     event_types_final = [e.event_type for e in store.get_timeline(case.case_id)]
     assert "REASSESSMENT_COMPLETED" in event_types_final
+
+
+def test_one_malformed_case_does_not_take_down_the_whole_queue(store: EventStore):
+    """Audit fix (Critical, fault isolation): build_queue used to be a
+    plain list comprehension over every active case -- one case with a
+    data/config problem (the real-world trigger: CONSCIOUSNESS_LEVEL=
+    NEW_CONFUSION on a paediatric case, unbanded because PEWS's
+    consciousness_points table had no entry for it) raised straight out of
+    _build_entry and took down GET /queue -- and therefore
+    GET /queue/printable, the documented total-system-failure paper
+    fallback -- for every *other* patient in the hospital too. A single
+    malformed case must now be logged and excluded from the read instead
+    of failing it for everyone else."""
+    now = utcnow()
+    good_case = _make_case_at_acuity(store, 40, spo2_value=98.0, at=now)
+
+    bad_case = store.create_case(age_years=40)
+    for concept, value, vtype in [
+        (concepts.RESP_RATE, 16.0, ValueType.NUMERIC),
+        (concepts.SPO2, 98.0, ValueType.NUMERIC),
+        (concepts.SUPPLEMENTAL_OXYGEN, False, ValueType.BOOLEAN),
+        (concepts.SYSTOLIC_BP, 120.0, ValueType.NUMERIC),
+        (concepts.HEART_RATE, 75.0, ValueType.NUMERIC),
+        # Not a real AVPU/ACVPU code -- CONSCIOUSNESS_CODES membership is
+        # documented (app/scoring/concepts.py) but not enforced at write
+        # time, so this reaches scoring with no configured band anywhere,
+        # standing in for any future config/data gap of this same shape.
+        (concepts.CONSCIOUSNESS_LEVEL, "SOMNOLENT", ValueType.CODED),
+        (concepts.TEMPERATURE, 37.0, ValueType.NUMERIC),
+    ]:
+        _add(store, bad_case.case_id, concept, value, vtype, now)
+    # Deliberately no assess_case() call here: build_queue's self-healing
+    # backfill (_build_entry, for a case with zero RiskAssessment history)
+    # is what performs the first scoring attempt, which is where the
+    # crash must be caught.
+
+    entries = build_queue(store, PROFILE, as_of=now)  # must not raise
+
+    entry_case_ids = {e.case_id for e in entries}
+    assert good_case.case_id in entry_case_ids
+    assert bad_case.case_id not in entry_case_ids

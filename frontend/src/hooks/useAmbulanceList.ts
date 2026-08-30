@@ -2,6 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { ambulanceApi } from '../api/ambulance';
 import { CONFIG } from '../config';
 
+// Bug fix: getAmbulanceQueue now returns CaseResponse[] (GET
+// /cases?arrival_mode=AMBULANCE), not QueueEntry[] -- see api/ambulance.ts.
+
 export function useAmbulanceList(hospitalProfileId = 'default') {
   return useQuery({
     queryKey: ['ambulance-list', hospitalProfileId],

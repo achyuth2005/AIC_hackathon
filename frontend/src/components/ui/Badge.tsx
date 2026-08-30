@@ -16,29 +16,29 @@ export const Badge: React.FC<BadgeProps> = ({
   ...props
 }) => {
   const sizeClasses = {
-    xs: 'px-1.5 py-0.2 text-[10px] gap-1 rounded',
+    xs: 'px-2 py-0.5 text-[10px] gap-1 rounded-full',
     sm: 'px-2.5 py-0.5 text-xs font-medium gap-1.5 rounded-full',
     md: 'px-3 py-1 text-xs font-semibold gap-1.5 rounded-full',
     lg: 'px-3.5 py-1.5 text-sm font-semibold gap-2 rounded-full',
   };
 
   const variantClasses = {
-    default: 'bg-slate-800 text-slate-300 border border-slate-700/80',
-    primary: 'bg-cyan-950/70 text-cyan-300 border border-cyan-700/60',
-    success: 'bg-emerald-950/70 text-emerald-300 border border-emerald-700/60',
-    warning: 'bg-amber-950/70 text-amber-300 border border-amber-700/60',
-    danger: 'bg-rose-950/70 text-rose-300 border border-rose-700/60',
-    info: 'bg-indigo-950/70 text-indigo-300 border border-indigo-700/60',
-    outline: 'bg-transparent text-slate-300 border border-slate-700',
+    default: 'bg-slate-500/10 text-slate-700 border border-slate-300/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
+    primary: 'bg-indigo-500/15 text-indigo-800 border border-indigo-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
+    success: 'bg-emerald-500/15 text-emerald-800 border border-emerald-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
+    warning: 'bg-amber-500/15 text-amber-900 border border-amber-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
+    danger: 'bg-rose-500/15 text-rose-800 border border-rose-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
+    info: 'bg-blue-500/15 text-blue-800 border border-blue-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
+    outline: 'bg-white/60 text-slate-700 border border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] backdrop-blur-sm',
   };
 
   const dotClasses = {
     default: 'bg-slate-400',
-    primary: 'bg-cyan-400',
-    success: 'bg-emerald-400',
-    warning: 'bg-amber-400',
-    danger: 'bg-rose-400',
-    info: 'bg-indigo-400',
+    primary: 'bg-indigo-500',
+    success: 'bg-emerald-500',
+    warning: 'bg-amber-500',
+    danger: 'bg-rose-500',
+    info: 'bg-blue-500',
     outline: 'bg-slate-400',
   };
 

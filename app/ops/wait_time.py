@@ -73,9 +73,7 @@ class CaseSnapshot:
 
 def build_case_snapshots(store: EventStore, profile: HospitalProfile) -> List[CaseSnapshot]:
     snapshots: List[CaseSnapshot] = []
-    for case in store.list_cases(status=CaseStatus.ACTIVE):
-        if case.hospital_profile_id != profile.profile_id:
-            continue
+    for case in store.list_cases(status=CaseStatus.ACTIVE, hospital_profile_id=profile.profile_id):
         latest = store.get_latest_risk_assessment(case.case_id)
         in_service = bool(store.get_assigned_resources_for_case(case.case_id))
         snapshots.append(

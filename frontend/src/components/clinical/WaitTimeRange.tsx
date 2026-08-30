@@ -17,7 +17,7 @@ export const WaitTimeRange: React.FC<WaitTimeRangeProps> = ({
 }) => {
   if (!estimate) {
     return (
-      <div className={cn('text-xs text-slate-500 font-mono italic', className)}>
+      <div className={cn('text-xs text-slate-400 font-mono italic', className)}>
         Wait estimate calculating...
       </div>
     );
@@ -29,12 +29,12 @@ export const WaitTimeRange: React.FC<WaitTimeRangeProps> = ({
   if (compact) {
     return (
       <div className={cn('flex items-center gap-2', className)}>
-        <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-slate-200 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">
-          <Clock className="w-3 h-3 text-cyan-400" />
+        <span className="inline-flex items-center gap-1 text-xs font-mono font-bold tabular-nums text-indigo-900 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-200/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
+          <Clock className="w-3 h-3 text-indigo-600" />
           {rangeStr}
         </span>
         {patients_ahead != null && (
-          <span className="text-[11px] text-slate-400 font-mono">
+          <span className="text-[11px] text-slate-500 font-mono tabular-nums">
             ({patients_ahead} ahead)
           </span>
         )}
@@ -45,28 +45,28 @@ export const WaitTimeRange: React.FC<WaitTimeRangeProps> = ({
   return (
     <div
       className={cn(
-        'p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2 text-left',
+        'p-3.5 rounded-2xl bg-white/60 backdrop-blur-xl border border-white/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.85),0_8px_32px_rgba(31,38,135,0.04)] space-y-2 text-left',
         className
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider">
-          <Clock className="w-3.5 h-3.5 text-cyan-400" />
+        <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase tracking-wider">
+          <Clock className="w-3.5 h-3.5 text-indigo-600" />
           <span>Estimated Wait Range</span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-slate-300 font-mono">
+        <div className="flex items-center gap-1.5 text-xs text-slate-600 font-mono tabular-nums">
           <Users className="w-3.5 h-3.5 text-slate-400" />
           <span>{patients_ahead} ahead</span>
         </div>
       </div>
 
-      <div className="text-xl font-bold font-mono text-cyan-300 tracking-tight">
+      <div className="text-xl font-bold font-mono tabular-nums text-indigo-700 tracking-tight">
         {rangeStr}
       </div>
 
       {caveat && (
-        <div className="flex items-start gap-1.5 text-[11px] text-amber-300/80 bg-amber-950/30 p-2 rounded-lg border border-amber-800/30 leading-normal">
-          <Info className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-1.5 text-[11px] text-amber-900 bg-amber-500/15 p-2 rounded-xl border border-amber-300/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)] leading-normal">
+          <Info className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
           <span>{caveat}</span>
         </div>
       )}

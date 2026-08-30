@@ -12,6 +12,7 @@ import { AssignResourcePanel } from '../features/case/AssignResourcePanel';
 import { ConflictList } from '../features/case/ConflictList';
 import { DiagnosticTestsPanel } from '../features/case/DiagnosticTestsPanel';
 import { DecisionHistoryList } from '../features/case/DecisionHistoryList';
+import { MedicalHistoryPanel } from '../features/case/MedicalHistoryPanel';
 import { Skeleton } from '../components/ui/Skeleton';
 import { ErrorState } from '../components/ui/ErrorState';
 
@@ -48,6 +49,9 @@ export const CaseDetailPage: React.FC = () => {
 
       {/* 2. Open Data Conflicts (if any exist) */}
       <ConflictList caseId={caseData.case_id} />
+
+      {/* 2.5 Medical History Summary */}
+      <MedicalHistoryPanel medicalHistory={caseData.medical_history} />
 
       {/* 3. Primary Clinical Risk Assessment & NEWS2/PEWS Breakdown */}
       <RiskAssessmentPanel

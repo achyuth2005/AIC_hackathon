@@ -20,19 +20,33 @@ export interface TimelineListProps {
   caseId: string;
 }
 
+// Event type -> semantic tint for the icon chip. Light-mode palette.
+const eventTint = (type: string): { bg: string; border: string; icon: string } => {
+  if (type.includes('BYPASS')) return { bg: 'bg-rose-50', border: 'border-rose-200', icon: 'text-rose-600' };
+  if (type.includes('ESCALATE') || type.includes('UPWARD')) return { bg: 'bg-amber-50', border: 'border-amber-200', icon: 'text-amber-600' };
+  if (type.includes('DE_ESCALATE')) return { bg: 'bg-indigo-50', border: 'border-indigo-200', icon: 'text-indigo-600' };
+  if (type.includes('OBSERVATION')) return { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'text-blue-600' };
+  if (type.includes('TEST')) return { bg: 'bg-indigo-50', border: 'border-indigo-200', icon: 'text-indigo-600' };
+  if (type.includes('RESOURCE')) return { bg: 'bg-emerald-50', border: 'border-emerald-200', icon: 'text-emerald-600' };
+  if (type.includes('CONFLICT')) return { bg: 'bg-purple-50', border: 'border-purple-200', icon: 'text-purple-600' };
+  if (type.includes('REASSESS')) return { bg: 'bg-amber-50', border: 'border-amber-200', icon: 'text-amber-600' };
+  if (type.includes('IDENTITY')) return { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'text-blue-600' };
+  return { bg: 'bg-slate-100', border: 'border-slate-200', icon: 'text-slate-500' };
+};
+
 export const TimelineList: React.FC<TimelineListProps> = ({ caseId }) => {
   const { data: timeline, isLoading, isError } = useCaseTimeline(caseId);
 
   if (isLoading) {
     return (
-      <Card className="bg-slate-900 border-slate-800">
+      <Card>
         <CardHeader>
           <CardTitle className="text-sm">Audit Timeline</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <div className="h-4 bg-slate-800 rounded animate-pulse w-3/4" />
-            <div className="h-4 bg-slate-800 rounded animate-pulse w-1/2" />
+            <div className="h-4 bg-slate-100 rounded animate-pulse w-3/4" />
+            <div className="h-4 bg-slate-100 rounded animate-pulse w-1/2" />
           </div>
         </CardContent>
       </Card>
@@ -44,16 +58,17 @@ export const TimelineList: React.FC<TimelineListProps> = ({ caseId }) => {
   }
 
   const getEventIcon = (type: string) => {
-    if (type.includes('BYPASS')) return <Zap className="w-4 h-4 text-red-400" />;
-    if (type.includes('ESCALATE') || type.includes('UPWARD')) return <ArrowUpCircle className="w-4 h-4 text-orange-400" />;
-    if (type.includes('DE_ESCALATE')) return <ArrowDownCircle className="w-4 h-4 text-cyan-400" />;
-    if (type.includes('OBSERVATION')) return <Activity className="w-4 h-4 text-cyan-400" />;
-    if (type.includes('TEST')) return <TestTube className="w-4 h-4 text-indigo-400" />;
-    if (type.includes('RESOURCE')) return <Layers className="w-4 h-4 text-emerald-400" />;
-    if (type.includes('CONFLICT')) return <AlertTriangle className="w-4 h-4 text-purple-400" />;
-    if (type.includes('REASSESS')) return <Clock className="w-4 h-4 text-amber-400" />;
-    if (type.includes('IDENTITY')) return <UserCheck className="w-4 h-4 text-blue-400" />;
-    return <FileCheck className="w-4 h-4 text-slate-400" />;
+    const { icon } = eventTint(type);
+    if (type.includes('BYPASS')) return <Zap className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('ESCALATE') || type.includes('UPWARD')) return <ArrowUpCircle className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('DE_ESCALATE')) return <ArrowDownCircle className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('OBSERVATION')) return <Activity className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('TEST')) return <TestTube className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('RESOURCE')) return <Layers className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('CONFLICT')) return <AlertTriangle className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('REASSESS')) return <Clock className={`w-4 h-4 ${icon}`} />;
+    if (type.includes('IDENTITY')) return <UserCheck className={`w-4 h-4 ${icon}`} />;
+    return <FileCheck className={`w-4 h-4 ${icon}`} />;
   };
 
   const formatEventType = (type: string) => {
@@ -64,42 +79,45 @@ export const TimelineList: React.FC<TimelineListProps> = ({ caseId }) => {
   };
 
   return (
-    <Card className="bg-slate-900 border-slate-800 text-left">
+    <Card className="text-left">
       <CardHeader className="pb-3">
         <CardTitle className="text-sm flex items-center justify-between">
-          <span className="flex items-center gap-2 text-slate-200">
-            <History className="w-4 h-4 text-cyan-400" />
+          <span className="flex items-center gap-2 text-slate-900">
+            <History className="w-4 h-4 text-indigo-600" />
             Event Sourced Case Audit Trail ({timeline.length} Events)
           </span>
         </CardTitle>
       </CardHeader>
 
       <CardContent>
-        <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-px before:bg-slate-800">
-          {timeline.map((ev) => (
-            <div key={ev.event_id} className="relative flex items-start gap-3 group">
-              <div className="absolute -left-6 p-1 rounded-full bg-slate-950 border border-slate-800 shrink-0">
-                {getEventIcon(ev.event_type)}
-              </div>
-
-              <div className="flex-1 min-w-0 bg-slate-950/40 p-3 rounded-xl border border-slate-800/80">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-semibold text-slate-200">
-                    {formatEventType(ev.event_type)}
-                  </span>
-                  <span className="text-[10px] font-mono text-slate-500 shrink-0">
-                    {formatRelative(ev.occurred_at)} ({formatClock(ev.occurred_at, true)})
-                  </span>
+        <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-px before:bg-slate-200">
+          {timeline.map((ev) => {
+            const tint = eventTint(ev.event_type);
+            return (
+              <div key={ev.event_id} className="relative flex items-start gap-3 group">
+                <div className={`absolute -left-6 p-1 rounded-full border shrink-0 ${tint.bg} ${tint.border}`}>
+                  {getEventIcon(ev.event_type)}
                 </div>
 
-                {ev.payload && Object.keys(ev.payload).length > 0 && (
-                  <div className="mt-1 text-[11px] font-mono text-slate-400 line-clamp-2">
-                    {JSON.stringify(ev.payload).replace(/[{}]/g, '')}
+                <div className="flex-1 min-w-0 bg-slate-50 p-3 rounded-xl border border-slate-200/70">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-semibold text-slate-900">
+                      {formatEventType(ev.event_type)}
+                    </span>
+                    <span className="text-[10px] font-mono tabular-nums text-slate-400 shrink-0">
+                      {formatRelative(ev.occurred_at)} ({formatClock(ev.occurred_at, true)})
+                    </span>
                   </div>
-                )}
+
+                  {ev.payload && Object.keys(ev.payload).length > 0 && (
+                    <div className="mt-1 text-[11px] font-mono text-slate-500 line-clamp-2">
+                      {JSON.stringify(ev.payload).replace(/[{}]/g, '')}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </CardContent>
     </Card>

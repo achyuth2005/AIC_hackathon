@@ -26,12 +26,12 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
 
   if (!assessment) {
     return (
-      <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center space-y-2">
-        <Activity className="w-8 h-8 text-slate-600 mx-auto animate-pulse" />
-        <h3 className="text-sm font-semibold text-slate-200">
+      <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-card text-center space-y-2">
+        <Activity className="w-8 h-8 text-slate-300 mx-auto animate-pulse" />
+        <h3 className="text-sm font-semibold text-slate-700">
           No Risk Assessment Computed Yet
         </h3>
-        <p className="text-xs text-slate-400 max-w-sm mx-auto">
+        <p className="text-xs text-slate-500 max-w-sm mx-auto">
           Enter physiological vitals to trigger the deterministic NEWS2/PEWS scoring pipeline.
         </p>
       </div>
@@ -64,7 +64,7 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
   return (
     <div className="space-y-6">
       {/* Hero Acuity & Deciding Layer Header */}
-      <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+      <div className="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-card-lg space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
@@ -79,15 +79,15 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
             </div>
           </div>
 
-          <div className="sm:text-right space-y-1 font-mono text-xs text-slate-400">
+          <div className="sm:text-right space-y-1 font-mono text-xs text-slate-500">
             <div className="flex sm:justify-end items-center gap-1.5">
               <span className="text-slate-500">Deciding Layer:</span>
-              <span className="font-bold text-cyan-300 px-2 py-0.5 rounded bg-slate-800 border border-slate-700">
+              <span className="font-bold text-indigo-700 px-2 py-0.5 rounded bg-indigo-50 border border-indigo-200">
                 {DECIDING_LAYER_LABELS[deciding_layer] || deciding_layer}
               </span>
             </div>
             <div>Scored: {formatRelative(computed_at)} ({formatClock(computed_at, true)})</div>
-            <div className="text-[10px] text-slate-500">{rule_engine_version}</div>
+            <div className="text-[10px] text-slate-400">{rule_engine_version}</div>
           </div>
         </div>
 
@@ -95,15 +95,15 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
         {isMlRefused && (
           <div
             role="alert"
-            className="p-4 rounded-xl bg-cyan-950/60 border-2 border-cyan-500 text-cyan-100 flex items-start gap-3 shadow-lg animate-fade-in"
+            className="p-4 rounded-xl bg-indigo-50 border-2 border-indigo-300 text-indigo-900 flex items-start gap-3 shadow-card animate-fade-in"
           >
-            <Cpu className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+            <Cpu className="w-5 h-5 text-indigo-600 shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <div className="font-extrabold text-sm text-cyan-200">
+              <div className="font-extrabold text-sm text-indigo-900">
                 ML Challenger De-escalation Blocked (Phase 13 Invariant)
               </div>
-              <p className="text-xs text-cyan-300 leading-relaxed">
-                The ML model suggested a lower urgency level (<strong className="text-white">ESI {ml_suggested_acuity}</strong>), but the governing <code className="bg-slate-900 px-1 py-0.5 rounded">min(rules, ml)</code> invariant refused the de-escalation and held the patient at <strong className="text-white">ESI {final_acuity}</strong>.
+              <p className="text-xs text-indigo-800 leading-relaxed">
+                The ML model suggested a lower urgency level (<strong className="text-slate-900">ESI {ml_suggested_acuity}</strong>), but the governing <code className="bg-white/80 border border-indigo-200 px-1 py-0.5 rounded">min(rules, ml)</code> invariant refused the de-escalation and held the patient at <strong className="text-slate-900">ESI {final_acuity}</strong>.
               </p>
             </div>
           </div>
@@ -111,19 +111,19 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
 
         {/* Hard Triggers Fired Banner */}
         {hard_triggers_fired && hard_triggers_fired.length > 0 && (
-          <div className="p-3.5 rounded-xl bg-red-950/60 border border-red-600/80 text-red-200 space-y-2">
-            <div className="flex items-center gap-2 font-bold text-xs text-red-300 uppercase tracking-wider">
-              <Zap className="w-4 h-4 text-red-400" />
+          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-300 text-rose-900 space-y-2">
+            <div className="flex items-center gap-2 font-bold text-xs text-rose-700 uppercase tracking-wider">
+              <Zap className="w-4 h-4 text-rose-600" />
               Layer 4 Hard Triggers Engaged
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {hard_triggers_fired.map((trig) => (
                 <div
                   key={trig.trigger_id}
-                  className="p-2 rounded-lg bg-red-900/40 border border-red-800/60 text-xs font-mono flex items-center justify-between"
+                  className="p-2 rounded-lg bg-rose-100/60 border border-rose-200 text-xs font-mono flex items-center justify-between"
                 >
                   <span>{trig.label}</span>
-                  <span className="font-bold text-white">Target ESI {trig.target_esi_level}</span>
+                  <span className="font-bold text-rose-900">Target ESI {trig.target_esi_level}</span>
                 </div>
               ))}
             </div>
@@ -131,11 +131,11 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
         )}
 
         {/* Technical Detail Collapsible Disclosure */}
-        <div className="pt-2 border-t border-slate-800/80">
+        <div className="pt-2 border-t border-slate-200">
           <button
             type="button"
             onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 transition-colors font-mono cursor-pointer"
+            className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-900 transition-colors font-mono cursor-pointer"
           >
             {showTechnicalDetails ? (
               <ChevronUp className="w-4 h-4 text-slate-400" />
@@ -150,26 +150,26 @@ export const RiskAssessmentPanel: React.FC<RiskAssessmentPanelProps> = ({
           </button>
 
           {showTechnicalDetails && (
-            <div className="mt-3 p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono grid grid-cols-2 sm:grid-cols-4 gap-3 text-left animate-fade-in">
+            <div className="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-mono grid grid-cols-2 sm:grid-cols-4 gap-3 text-left animate-fade-in">
               <div>
                 <span className="text-slate-500 block text-[10px]">Rule Acuity:</span>
-                <span className="font-bold text-slate-200">ESI {rule_acuity}</span>
+                <span className="font-bold text-slate-900">ESI {rule_acuity}</span>
               </div>
               <div>
                 <span className="text-slate-500 block text-[10px]">ML Suggested:</span>
-                <span className="font-bold text-slate-200">
+                <span className="font-bold text-slate-900">
                   {ml_suggested_acuity != null ? `ESI ${ml_suggested_acuity}` : 'N/A'}
                 </span>
               </div>
               <div>
                 <span className="text-slate-500 block text-[10px]">ML Prob (Raw):</span>
-                <span className="font-bold text-slate-200">
+                <span className="font-bold text-slate-900">
                   {ml_probability != null ? (ml_probability * 100).toFixed(1) + '%' : 'N/A'}
                 </span>
               </div>
               <div>
                 <span className="text-slate-500 block text-[10px]">Confidence Score:</span>
-                <span className="font-bold text-slate-200">{confidence_score}/100</span>
+                <span className="font-bold text-slate-900">{confidence_score}/100</span>
               </div>
             </div>
           )}

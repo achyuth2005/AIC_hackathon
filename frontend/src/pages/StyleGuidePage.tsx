@@ -30,13 +30,13 @@ export const StyleGuidePage: React.FC = () => {
   return (
     <div className="space-y-8 max-w-6xl mx-auto pb-12">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-5">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-5">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100 flex items-center gap-2.5">
-            <Palette className="w-6 h-6 text-cyan-400" />
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2.5">
+            <Palette className="w-6 h-6 text-indigo-600" />
             Design System & Clinical Primitives Styleguide
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             Authoritative visual tokens, clinical badges, color-blind accessible ramps, and components.
           </p>
         </div>
@@ -49,7 +49,7 @@ export const StyleGuidePage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <ShieldAlert className="w-5 h-5 text-rose-400" />
+            <ShieldAlert className="w-5 h-5 text-rose-600" />
             ESI 1–5 Clinical Acuity Scale & Emergency Bypass
           </CardTitle>
         </CardHeader>
@@ -64,29 +64,29 @@ export const StyleGuidePage: React.FC = () => {
                   <AcuityBadge acuity={cfg.level} size="md" />
                   <span className="font-mono text-xs text-slate-400">{cfg.hex}</span>
                 </div>
-                <div className="font-semibold text-slate-200 text-sm">{cfg.name}</div>
-                <div className="text-xs text-slate-400">{cfg.description}</div>
+                <div className={`font-semibold text-sm ${cfg.textClass}`}>{cfg.name}</div>
+                <div className={`text-xs ${cfg.textClass} opacity-80`}>{cfg.description}</div>
               </div>
             ))}
 
             {/* Emergency Bypass Mode */}
-            <div className="p-4 rounded-xl border border-red-600 bg-red-950/60 space-y-2 text-left animate-pulse">
+            <div className="p-4 rounded-xl border border-rose-500 bg-rose-50 space-y-2 text-left animate-pulse-subtle">
               <div className="flex items-center justify-between">
                 <AcuityBadge acuity={1} size="md" isBypass={true} />
-                <span className="font-mono text-xs text-red-400 font-bold">PANIC OVERRIDE</span>
+                <span className="font-mono text-xs text-rose-700 font-bold">PANIC OVERRIDE</span>
               </div>
-              <div className="font-semibold text-white text-sm flex items-center gap-1.5">
-                <Zap className="w-4 h-4 text-red-400" />
+              <div className="font-semibold text-rose-900 text-sm flex items-center gap-1.5">
+                <Zap className="w-4 h-4 text-rose-600" />
                 Emergency Bypass Active
               </div>
-              <div className="text-xs text-red-200">
+              <div className="text-xs text-rose-700">
                 Escalation-only panic path triggered via staff tap, critical physiology, or NLP.
               </div>
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center gap-3">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+          <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center gap-3">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Badge Size Scale:
             </span>
             <AcuityBadge acuity={1} size="xs" />
@@ -103,26 +103,26 @@ export const StyleGuidePage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <Sparkles className="w-5 h-5 text-cyan-400" />
+              <Sparkles className="w-5 h-5 text-indigo-600" />
               Confidence & Abstention Bands
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <span className="text-xs text-slate-300">High Confidence (Score &gt;= 75)</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <span className="text-xs text-slate-600">High Confidence (Score &gt;= 75)</span>
                 <ConfidenceBadge band="HIGH" />
               </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <span className="text-xs text-slate-300">Medium Confidence (Score 40–74)</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <span className="text-xs text-slate-600">Medium Confidence (Score 40–74)</span>
                 <ConfidenceBadge band="MEDIUM" />
               </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <span className="text-xs text-slate-300">Low Confidence (Score &lt; 40)</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <span className="text-xs text-slate-600">Low Confidence (Score &lt; 40)</span>
                 <ConfidenceBadge band="LOW" />
               </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900 border border-slate-800">
-                <span className="text-xs text-slate-300">Confidence Engine Abstaining</span>
+              <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+                <span className="text-xs text-slate-600">Confidence Engine Abstaining</span>
                 <ConfidenceBadge band={null} shouldAbstain={true} />
               </div>
             </div>
@@ -132,29 +132,29 @@ export const StyleGuidePage: React.FC = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              <Activity className="w-5 h-5 text-amber-400" />
+              <Activity className="w-5 h-5 text-amber-600" />
               Primary Attention Flags
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-300">Reassessment Overdue</span>
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+              <span className="text-xs text-slate-600">Reassessment Overdue</span>
               <AttentionFlagChip flag="REASSESSMENT_OVERDUE" />
             </div>
-            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-300">Deteriorating Trend</span>
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+              <span className="text-xs text-slate-600">Deteriorating Trend</span>
               <AttentionFlagChip flag="DETERIORATING" />
             </div>
-            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-300">Data Conflict Detected</span>
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+              <span className="text-xs text-slate-600">Data Conflict Detected</span>
               <AttentionFlagChip flag="DATA_CONFLICT" />
             </div>
-            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-300">Vitals Incomplete</span>
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+              <span className="text-xs text-slate-600">Vitals Incomplete</span>
               <AttentionFlagChip flag="UNKNOWN_VITALS" />
             </div>
-            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 border border-slate-800">
-              <span className="text-xs text-slate-300">Routine / Stable</span>
+            <div className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+              <span className="text-xs text-slate-600">Routine / Stable</span>
               <AttentionFlagChip flag="NONE" />
             </div>
           </CardContent>
@@ -165,7 +165,7 @@ export const StyleGuidePage: React.FC = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <Layers className="w-5 h-5 text-emerald-400" />
+            <Layers className="w-5 h-5 text-emerald-600" />
             Vitals, Trends & Wait Range Primitives
           </CardTitle>
         </CardHeader>
@@ -204,9 +204,9 @@ export const StyleGuidePage: React.FC = () => {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-800">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-slate-100">
             <div>
-              <div className="text-xs font-semibold text-slate-400 mb-2">Trend Arrows</div>
+              <div className="text-xs font-semibold text-slate-500 mb-2">Trend Arrows</div>
               <div className="flex flex-wrap gap-2">
                 <TrendArrow trend="WORSENING" showLabel={true} />
                 <TrendArrow trend="STABLE" showLabel={true} />
@@ -215,7 +215,7 @@ export const StyleGuidePage: React.FC = () => {
             </div>
 
             <div className="md:col-span-2">
-              <div className="text-xs font-semibold text-slate-400 mb-2">Wait Time Range with Caveat</div>
+              <div className="text-xs font-semibold text-slate-500 mb-2">Wait Time Range with Caveat</div>
               <WaitTimeRange
                 estimate={{
                   lower_minutes: 20,
@@ -239,18 +239,18 @@ export const StyleGuidePage: React.FC = () => {
           <CardTitle>Standardized Query Boundary States</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 rounded-xl border border-slate-800 bg-slate-950/40">
-            <span className="text-xs font-semibold text-slate-400 block mb-2">Success with Data State:</span>
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <span className="text-xs font-semibold text-slate-500 block mb-2">Success with Data State:</span>
             <QueryBoundary isLoading={false} isError={false} data={{ name: 'Active Patient', mrn: 'MRN-1092' }}>
               {(d) => (
-                <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200">
-                  Patient: <span className="font-bold text-cyan-300">{d.name}</span> ({d.mrn})
+                <div className="p-3 rounded-lg bg-white border border-slate-200 text-xs text-slate-700">
+                  Patient: <span className="font-bold text-indigo-700">{d.name}</span> ({d.mrn})
                 </div>
               )}
             </QueryBoundary>
           </div>
-          <div className="p-4 rounded-xl border border-slate-800 bg-slate-950/40">
-            <span className="text-xs font-semibold text-slate-400 block mb-2">Empty State:</span>
+          <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <span className="text-xs font-semibold text-slate-500 block mb-2">Empty State:</span>
             <QueryBoundary
               isLoading={false}
               isError={false}
@@ -319,7 +319,7 @@ export const StyleGuidePage: React.FC = () => {
           </>
         }
       >
-        <p className="text-sm text-slate-300">
+        <p className="text-sm text-slate-600">
           This modal traps keyboard focus, closes on Escape, and displays accessible backdrop blur.
         </p>
       </Modal>

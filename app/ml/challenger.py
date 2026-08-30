@@ -16,6 +16,7 @@ as "ML suggests no escalation" (those are different facts).
 from __future__ import annotations
 
 import json
+import logging
 import os
 from functools import lru_cache
 from typing import Optional
@@ -26,6 +27,8 @@ from app.config.hospital_profile import HospitalProfile
 from app.ml.features import MLFeatures
 from app.ml.train import METADATA_PATH, MODEL_PATH
 from app.scoring.banding import evaluate_acuity_bands
+
+logger = logging.getLogger(__name__)
 
 
 class MLPrediction(BaseModel):
@@ -48,10 +51,27 @@ def _load_artifact() -> Optional[_LoadedArtifact]:
         return None
     from joblib import load  # deferred: keeps a missing artifact cheap to detect without importing joblib eagerly
 
-    model = load(MODEL_PATH)
-    with open(METADATA_PATH) as f:
-        metadata = json.load(f)
-    return _LoadedArtifact(model=model, model_version=metadata["model_version"])
+    # Audit finding (Medium, dimension 4): this module's own docstring
+    # promises "if no artifact exists ... predict() returns None", i.e.
+    # degrade to rules-only, never crash the request. That promise was only
+    # kept for a *missing* file -- a present-but-corrupt/incompatible one
+    # (partial disk write, a joblib/sklearn version mismatch after an
+    # upgrade, truncated metadata JSON) raised straight out of every
+    # scoring call with no fallback. Any failure to load now degrades to
+    # "ML unavailable" exactly like a missing artifact, logged loudly so
+    # it's operationally visible without taking scoring down with it.
+    try:
+        model = load(MODEL_PATH)
+        with open(METADATA_PATH) as f:
+            metadata = json.load(f)
+        return _LoadedArtifact(model=model, model_version=metadata["model_version"])
+    except Exception:
+        logger.exception(
+            "ML challenger artifact at %s/%s exists but failed to load; "
+            "degrading to rules-only scoring for this process.",
+            MODEL_PATH, METADATA_PATH,
+        )
+        return None
 
 
 def reset_artifact_cache() -> None:

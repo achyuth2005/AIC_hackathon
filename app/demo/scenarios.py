@@ -48,6 +48,7 @@ from app.models.enums import (
     HumanDecisionAction,
     MeasurementStatus,
     ReliabilityTier,
+    ResourceType,
     SourceType,
     ValueType,
 )
@@ -499,11 +500,45 @@ _SCENARIO_BUILDERS = [
 ]
 
 
+def _seed_baseline_resources(store: EventStore, profile: HospitalProfile) -> None:
+    """Bug fix: RUNBOOK.md's Step 3 ("assign a Resuscitation Bay -> 409
+    Capacity Conflict") only ever worked out of the box via the *surge*
+    endpoint (app/demo/surge.py provisions its own 3 resources and
+    deliberately exhausts them as part of that simulation). /demo/seed had
+    no equivalent -- GET /resources returned an empty list until an admin
+    separately went to Ops & Resources and provisioned beds by hand, so
+    Step 3 of the demo script and any exploration of the Ops & Resources
+    page were both dead ends immediately after a fresh seed. A small,
+    named baseline department -- same ResourceType/label convention as
+    surge.py, deliberately scarce on RESUSCITATION_BAY so a real capacity
+    conflict is still one or two assignments away, not impossible to
+    reach -- is provisioned here every time /demo/seed runs, same
+    additive-not-deduplicated convention as the twenty scenario
+    patients."""
+    for label in ["Resus 1", "Resus 2"]:
+        store.create_resource(
+            resource_type=ResourceType.RESUSCITATION_BAY, label=label, hospital_profile_id=profile.profile_id
+        )
+    for label in ["Bay 1", "Bay 2", "Bay 3", "Bay 4", "Bay 5", "Bay 6"]:
+        store.create_resource(
+            resource_type=ResourceType.TREATMENT_SPACE, label=label, hospital_profile_id=profile.profile_id
+        )
+    for label in ["Dr. On-Call 1", "Dr. On-Call 2", "Dr. On-Call 3", "Dr. On-Call 4"]:
+        store.create_resource(
+            resource_type=ResourceType.CLINICIAN, label=label, hospital_profile_id=profile.profile_id
+        )
+
+
 def seed_demo_patients(store: EventStore, profile: HospitalProfile) -> List[DemoScenario]:
     """Phase 14.1: creates all twenty scripted demo patients against
-    `profile`. Intended for a fresh database; calling this twice creates a
-    second batch of twenty rather than detecting/skipping duplicates --
-    there is no tagging scheme here beyond the scenario `key`, which is
-    deliberately not enforced unique (a demo re-seed is expected to be run
-    against a clean DB, not de-duplicated against a dirty one)."""
+    `profile`, plus a baseline department of resources (bug fix, see
+    _seed_baseline_resources) so Ops & Resources and the capacity-conflict
+    demo moment both have something to work with immediately. Intended for
+    a fresh database; calling this twice creates a second batch of twenty
+    patients (and a second baseline of resources) rather than detecting/
+    skipping duplicates -- there is no tagging scheme here beyond the
+    scenario `key`, which is deliberately not enforced unique (a demo
+    re-seed is expected to be run against a clean DB, not de-duplicated
+    against a dirty one)."""
+    _seed_baseline_resources(store, profile)
     return [builder(store, profile) for builder in _SCENARIO_BUILDERS]

@@ -1,9 +1,11 @@
 """
 Clinical Scoring Engine orchestration (Phase 3.3 Layers 1-2 and, as of CP4,
 Layer 4): Age Router -> concept fetch -> framework dispatch -> hard-trigger
-override. This is the only module in app/scoring/ that touches the database
-(via EventStore); news2.py/pews.py/hard_triggers.py remain pure functions
-over VitalReading dicts so their arithmetic is directly unit-testable.
+override -> Medical History escalation (app/scoring/medical_history.py).
+This is the only module in app/scoring/ that touches the database
+(via EventStore); news2.py/pews.py/hard_triggers.py/medical_history.py
+remain pure functions over VitalReading dicts (or, for medical_history.py,
+a ClinicalScoreResult) so their logic is directly unit-testable.
 
 Explicitly NOT yet in scope here (later checkpoints):
   - The ML challenger and the final min(rules, ml, override) invariant
@@ -44,6 +46,7 @@ from app.scoring import age_router, concepts
 from app.scoring.banding import deviation_points, evaluate_coded_points, evaluate_range_bands
 from app.scoring.conflict_detection import resolve_conflicts_for_scoring
 from app.scoring.hard_triggers import evaluate_hard_triggers
+from app.scoring.medical_history import apply_medical_history_escalation
 from app.scoring.models import ClinicalScoreResult
 from app.scoring.news2 import score_news2
 from app.scoring.pews import score_pews
@@ -175,7 +178,8 @@ def score_case(
         )
         readings = fetch_readings(store, case.case_id, list(required), profile, as_of, preferred)
         result = score_pews(readings, profile.pews, sub_band)
-        return _apply_hard_triggers(result, readings, profile, routing.age_band)
+        result = _apply_hard_triggers(result, readings, profile, routing.age_band)
+        return apply_medical_history_escalation(result, case.medical_history)
 
     if routing.age_band == "ADULT":
         required = set(concepts.ADULT_REQUIRED_CONCEPTS) | _hard_trigger_concepts(profile)
@@ -184,7 +188,8 @@ def score_case(
         )
         readings = fetch_readings(store, case.case_id, list(required), profile, as_of, preferred)
         result = score_news2(readings, profile.news2, profile.news2, "ADULT")
-        return _apply_hard_triggers(result, readings, profile, routing.age_band)
+        result = _apply_hard_triggers(result, readings, profile, routing.age_band)
+        return apply_medical_history_escalation(result, case.medical_history)
 
     if routing.age_band == "GERIATRIC":
         required = set(concepts.ADULT_REQUIRED_CONCEPTS) | _hard_trigger_concepts(profile)
@@ -193,7 +198,8 @@ def score_case(
         )
         readings = fetch_readings(store, case.case_id, list(required), profile, as_of, preferred)
         result = score_news2(readings, profile.news2, profile.geriatric_adjustment, "GERIATRIC")
-        return _apply_hard_triggers(result, readings, profile, routing.age_band)
+        result = _apply_hard_triggers(result, readings, profile, routing.age_band)
+        return apply_medical_history_escalation(result, case.medical_history)
 
     # Defensive only: reachable if a hospital profile defines an age band
     # name the engine doesn't know how to score -- a configuration bug.

@@ -7,9 +7,12 @@ allowed to see", assembled once so every future caller gets the same
 minimisation applied the same way rather than each hand-rolling it.
 
 What's INCLUDED: age (not date of birth -- Phase 10.2's own example is
-"a 67-year-old patient"), arrival mode, every current clinical
-observation (structured vitals/history/symptom-flags are not patient-
-identifying; a free-text SYMPTOM_TEXT value is redacted via
+"a 67-year-old patient"), arrival mode, the free-text medical_history
+field (Medical History feature -- redacted via app/privacy/redaction.py
+before inclusion, exactly like SYMPTOM_TEXT below, since a nurse-entered
+history field carries the same risk of an incidentally-typed name), every
+current clinical observation (structured vitals/history/symptom-flags are
+not patient- identifying; a free-text SYMPTOM_TEXT value is redacted via
 app/privacy/redaction.py before inclusion), and the latest RiskAssessment
 summary (acuity/confidence/component breakdown -- system output, not PII,
 and exactly what an Explanation engine exists to narrate).
@@ -61,6 +64,7 @@ class RedactedCaseSnapshot(BaseModel):
     for why each was excluded."""
     age_years: Optional[int]
     arrival_mode: ArrivalMode
+    medical_history: Optional[str]
     observations: List[RedactedObservation]
     latest_risk_summary: Optional[RedactedRiskSummary]
 
@@ -83,6 +87,12 @@ def build_redacted_snapshot(
     anywhere."""
     known_identifiers = {"NAME": case.display_name, "MRN": case.mrn}
     combined_token_map: Dict[str, str] = {}
+
+    redacted_medical_history = case.medical_history
+    if redacted_medical_history:
+        history_result: RedactionResult = redact_text(redacted_medical_history, known_identifiers=known_identifiers)
+        redacted_medical_history = history_result.redacted_text
+        combined_token_map.update(history_result.token_map)
 
     observations: List[RedactedObservation] = []
     for obs in store.get_current_observations(case.case_id):
@@ -111,6 +121,7 @@ def build_redacted_snapshot(
     snapshot = RedactedCaseSnapshot(
         age_years=case.age_years,
         arrival_mode=case.arrival_mode,
+        medical_history=redacted_medical_history,
         observations=observations,
         latest_risk_summary=risk_summary,
     )

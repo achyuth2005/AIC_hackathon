@@ -3,13 +3,17 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.models.enums import DiagnosticTestStatus
 
 
 class OrderTestRequest(BaseModel):
-    test_type: str
+    # No controlled vocabulary exists anywhere in this codebase for test
+    # types (unlike concept_code -- see app/scoring/concepts.py), so this
+    # stays free text rather than inventing an enum with no source of
+    # truth; bounded so it can't be used to store arbitrarily large blobs.
+    test_type: str = Field(min_length=1, max_length=100)
 
 
 class DiagnosticTestResponse(BaseModel):

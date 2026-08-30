@@ -15,32 +15,32 @@ export const ControlTowerPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-16 animate-fade-in text-left">
       {/* Header & 5-Tile Philosophy Subtitle */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/50 pb-5">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-extrabold tracking-tight text-slate-100 flex items-center gap-2.5">
-              <Radio className="w-7 h-7 text-cyan-400" />
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
+              <Radio className="w-7 h-7 text-indigo-600" />
               Executive Control Tower
             </h1>
-            <span className="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-700/60">
+            <span className="text-xs px-2.5 py-0.5 rounded-full font-mono font-bold bg-indigo-500/10 text-indigo-700 border border-indigo-200/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
               5 Actionable Tiles
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Anticipatory hospital operations overview — 5 tiles maximum, every tile actionable.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-400">
-          <span className={`w-2 h-2 rounded-full ${isFetching ? 'bg-cyan-400 animate-ping' : 'bg-emerald-400'}`} />
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/80 text-xs font-mono text-slate-500 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.8),0_2px_8px_rgba(31,38,135,0.03)]">
+          <span className={`w-2 h-2 rounded-full ${isFetching ? 'bg-indigo-500 animate-ping' : 'bg-emerald-500'}`} />
           <span>Live 5s sweep</span>
           <button
             onClick={() => refetch()}
             disabled={isFetching}
-            className="text-slate-400 hover:text-slate-200 cursor-pointer p-0.5"
+            className="text-slate-400 hover:text-slate-700 cursor-pointer p-0.5"
             title="Refresh Control Tower"
           >
-            <RefreshCw className={`w-3 h-3 ${isFetching ? 'animate-spin text-cyan-400' : ''}`} />
+            <RefreshCw className={`w-3 h-3 ${isFetching ? 'animate-spin text-indigo-500' : ''}`} />
           </button>
         </div>
       </div>

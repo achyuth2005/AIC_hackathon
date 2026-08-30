@@ -5,7 +5,7 @@ actually holds -- not just that seeding doesn't crash.
 """
 from app.config.hospital_profile import load_hospital_profile
 from app.demo.scenarios import seed_demo_patients
-from app.models.enums import BypassSource, CaseStatus, DeteriorationTrend, IdentityLinkStatus
+from app.models.enums import BypassSource, CaseStatus, DeteriorationTrend, IdentityLinkStatus, ResourceType
 from app.store.event_store import EventStore
 
 PROFILE = load_hospital_profile("default")
@@ -16,6 +16,25 @@ def test_seeds_exactly_twenty_scenarios_with_unique_numbers_and_cases(store: Eve
     assert len(scenarios) == 20
     assert sorted(s.number for s in scenarios) == list(range(1, 21))
     assert len({s.case_id for s in scenarios}) == 20  # every case is distinct
+
+
+def test_seed_also_provisions_a_baseline_department_of_resources(store: EventStore):
+    """Bug fix: RUNBOOK.md's Step 3 capacity-conflict demo, and the Ops &
+    Resources page generally, were dead ends immediately after a fresh
+    /demo/seed -- GET /resources returned nothing because nothing ever
+    seeded a resource. A baseline department must exist right after
+    seeding, scarce enough on RESUSCITATION_BAY that a real 409 is only an
+    assignment or two away."""
+    seed_demo_patients(store, PROFILE)
+    resources = store.list_resources(hospital_profile_id=PROFILE.profile_id)
+    assert len(resources) > 0
+
+    by_type = {}
+    for r in resources:
+        by_type.setdefault(r.resource_type, []).append(r)
+    assert len(by_type[ResourceType.RESUSCITATION_BAY]) == 2
+    assert len(by_type[ResourceType.TREATMENT_SPACE]) >= 1
+    assert len(by_type[ResourceType.CLINICIAN]) >= 1
 
 
 def test_only_the_known_gap_scenarios_are_marked_partial_and_say_why(store: EventStore):
@@ -194,8 +213,11 @@ def test_scenario_20_min_invariant_refuses_ml_downgrade(store: EventStore):
 # ---------------------------------------------------------------------
 # HTTP surface
 # ---------------------------------------------------------------------
-def test_seed_endpoint_returns_all_twenty(client):
-    resp = client.post("/demo/seed")
+def test_seed_endpoint_returns_all_twenty(client, admin_headers):
+    unauth = client.post("/demo/seed")
+    assert unauth.status_code == 401
+
+    resp = client.post("/demo/seed", headers=admin_headers)
     assert resp.status_code == 200
     body = resp.json()
     assert len(body) == 20
